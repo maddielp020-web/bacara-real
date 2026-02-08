@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacara Real - Juego de Cartas</title>
+    <meta name="description" content="Juego de Bacará multijugador para Telegram. 6 jugadores, fichas virtuales, apuestas en tiempo real.">
+    <style>
+        /* RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* FONDO Y TIPOGRAFÍA */
+        body {
+            background: linear-gradient(135deg, #0a2910 0%, #062011 100%);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        /* CONTENEDOR PRINCIPAL */
+        .contenedor {
+            background: linear-gradient(145deg, #123f2a 0%, #0a291a 100%);
+            padding: 40px 30px;
+            border-radius: 24px;
+            border: 12px solid #8B4513;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 60px rgba(212, 175, 55, 0.1);
+            max-width: 420px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* EFECTO DE BRILLO */
+        .contenedor::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        /* TÍTULO */
+        h1 {
+            color: #d4af37;
+            font-size: 32px;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+        
+        /* ICONOS DEL TÍTULO */
+        h1::before, h1::after {
+            content: ' ♠ ♣ ';
+            color: #ffffff;
+            opacity: 0.7;
+            font-size: 28px;
+        }
+        
+        /* TEXTO PRINCIPAL */
+        p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 17px;
+            color: #e0e0e0;
+        }
+        
+        /* INFORMACIÓN DESTACADA */
+        .info-destacada {
+            background: rgba(212, 175, 55, 0.15);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .fichas {
+            color: #ffd700;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+        
+        /* DETALLES */
+        .detalles {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #d4af37;
+        }
+        
+        .detalles h3 {
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        /* ESTADO */
+        .estado {
+            color: #4ade80;
+            font-weight: bold;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 16px;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .contenedor {
+                padding: 30px 20px;
+                border-width: 8px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .fichas {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>BACARA REAL</h1>
+        
+        <p>Bienvenido al juego de Bacará profesional para Telegram.</p>
+        
+        <div class="info-destacada">
+            <p>✅ <strong>Juego multijugador</strong> - 6 jugadores por mesa</p>
+            <p>✅ <strong>Sistema transparente</strong> - Comisión del 5% visible</p>
+            <p>✅ <strong>Historial completo</strong> - Todas las jugadas guardadas</p>
+        </div>
+        
+        <div class="detalles">
+            <h3>🏦 REQUISITOS DE ENTRADA</h3>
+            <p>Depósito mínimo requerido:</p>
+            <div class="fichas">200 FICHAS</div>
+            <p><em>(1 ficha = 1 rublo • Conversión automática)</em></p>
+        </div>
+        
+        <div class="detalles">
+            <h3>🎯 PRÓXIMAS ACTUALIZACIONES</h3>
+            <p>1. Interfaz completa de mesa</p>
+            <p>2. Sistema de apuestas en tiempo real</p>
+            <p>3. Conexión multijugador vía Telegram</p>
+            <p>4. Panel de administración y estadísticas</p>
+        </div>
+        
+        <p class="estado">🟢 CONEXIÓN ACTIVA - PREPARADO PARA JUGAR</p>
+    </div>
+    
+    <script>
+        // Animación sutil del título
+        document.addEventListener('DOMContentLoaded', function() {
+            const titulo = document.querySelector('h1');
+            setInterval(() => {
+                titulo.style.textShadow = '0 0 15px rgba(212, 175, 55, ' + (0.3 + Math.random() * 0.3) + ')';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
