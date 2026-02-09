@@ -191,6 +191,79 @@
                 font-size: 24px;
             }
         }
+      /* ==================== ESTILOS PARA PANTALLA TÉRMINOS ==================== */
+.pantalla-terminos .contenedor {
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+.texto-reglas {
+    text-align: left;
+    padding: 10px;
+}
+
+.texto-reglas h3 {
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 10px;
+}
+
+.texto-reglas h4 {
+    color: #ffd700;
+    margin: 20px 0 10px 0;
+    font-size: 18px;
+}
+
+.texto-reglas ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.texto-reglas li {
+    margin-bottom: 8px;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+.texto-reglas strong {
+    color: #ffd700;
+}
+
+.aceptacion-terminos {
+    background: rgba(212, 175, 55, 0.1);
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+/* Botón activo/inactivo */
+.btn-opcion.activo {
+    opacity: 1 !important;
+    cursor: pointer !important;
+    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%) !important;
+}
+
+.btn-opcion.inactivo {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+/* Scrollbar personalizado */
+.info-destacada::-webkit-scrollbar {
+    width: 8px;
+}
+
+.info-destacada::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.info-destacada::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 4px;
+}
     </style>
 </head>
 <body>
@@ -223,8 +296,78 @@
         
         <p class="estado" id="estado-conexion">🟢 CONEXIÓN ACTIVA - PREPARADO PARA JUGAR</p>
     </div>
-
+<!-- ==================== PANTALLA TÉRMINOS Y CONDICIONES ==================== -->
+<div id="pantalla-reglas" class="pantalla-terminos" style="display: none;">
+    <div class="contenedor">
+        <h1 class="titulo-con-simbolos">📜 TÉRMINOS Y CONDICIONES</h1>
+        
+        <div class="info-destacada" style="max-height: 300px; overflow-y: auto;">
+            <div class="texto-reglas">
+                <h3>✨ BACARA REAL - REGLAS DEL CLUB ✨</h3>
+                
+                <h4>🎯 1. REQUISITOS BÁSICOS</h4>
+                <ul>
+                    <li>✅ Solo mayores de 18 años</li>
+                    <li>✅ Depósito mínimo: 200 fichas</li>
+                    <li>✅ 1 ficha = 1 unidad de juego virtual</li>
+                    <li>✅ Sistema de comisión transparente (5%)</li>
+                </ul>
+                
+                <h4>⚖️ 2. REGLAS DEL JUEGO</h4>
+                <ul>
+                    <li>🎲 Juego de Bacará estándar internacional</li>
+                    <li>👥 Máximo 6 jugadores por mesa</li>
+                    <li>⏱️ Tiempo límite por turno: 30 segundos</li>
+                    <li>📊 Todas las jugadas quedan registradas</li>
+                </ul>
+                
+                <h4>💰 3. SISTEMA DE FICHAS</h4>
+                <ul>
+                    <li>🔴 <strong>Fichas rojas:</strong> Valor real, retirables</li>
+                    <li>🔵 <strong>Fichas azules:</strong> Cortesía, expiran en 12h</li>
+                    <li>📈 Comisión se aplica solo sobre ganancias</li>
+                    <li>🔄 Primera ganancia del día sin comisión</li>
+                </ul>
+                
+                <h4>🔐 4. SEGURIDAD Y RESPONSABILIDAD</h4>
+                <ul>
+                    <li>🛡️ Sistema cifrado de extremo a extremo</li>
+                    <li>👁️ Transparencia total en operaciones</li>
+                    <li>⚠️ Juego responsable - Establece tus límites</li>
+                    <li>📞 Soporte activo dentro de Telegram</li>
+                </ul>
+                
+                <h4>📝 5. ACEPTACIÓN DE TÉRMINOS</h4>
+                <p>Al continuar, aceptas:</p>
+                <ul>
+                    <li>✅ Jugar de forma responsable</li>
+                    <li>✅ Respetar a otros jugadores</li>
+                    <li>✅ No usar software externo o trampas</li>
+                    <li>✅ Aceptar decisiones del administrador</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="aceptacion-terminos" style="margin: 25px 0;">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <input type="checkbox" id="acepto-checkbox" style="margin-right: 10px; transform: scale(1.3);">
+                <label for="acepto-checkbox" style="color: #d4af37; font-size: 16px; font-weight: bold;">
+                    ✅ HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES
+                </label>
+            </div>
+        </div>
+        
+        <button id="btn-continuar" class="btn-opcion" disabled style="opacity: 0.5; cursor: not-allowed;">
+            🎮 CONTINUAR AL JUEGO
+        </button>
+        
+        <div class="estado" style="margin-top: 20px;">
+            📅 Última actualización: Hoy, 200 fichas mínimo
+        </div>
+    </div>
+</div>
     <script>
+ <script>
         // ==================== FUNCIONES GLOBALES ====================
         window.irAJugar = function() { 
             alert("🎮 Juego en desarrollo - Próximamente!"); 
@@ -245,8 +388,6 @@
         // ==================== DETECCIÓN TELEGRAM ====================
         function verificarTelegram() {
             console.log("🔍 Verificando Telegram Web App...");
-            console.log("window.Telegram:", typeof window.Telegram);
-            console.log("Telegram.WebApp:", typeof Telegram !== 'undefined' ? typeof Telegram.WebApp : 'Telegram no definido');
             
             if (typeof window.Telegram !== 'undefined' && 
                 typeof Telegram.WebApp !== 'undefined') {
@@ -298,12 +439,64 @@
             }
         }
 
-        // ==================== SALÓN PRINCIPAL ====================
-        function mostrarSalonPrincipal(user) {
-            console.log("Mostrando salón principal para:", user.first_name);
+        // ==================== SISTEMA DE TÉRMINOS Y CONDICIONES ====================
+        function verificarTerminosAceptados() {
+            const aceptado = localStorage.getItem('bacara_terms_accepted');
+            return aceptado === 'true';
+        }
+
+        function guardarAceptacionTerminos() {
+            localStorage.setItem('bacara_terms_accepted', 'true');
+            localStorage.setItem('bacara_terms_fecha', new Date().toISOString());
+        }
+
+        function mostrarPantallaReglas(usuario) {
+            console.log("Mostrando pantalla de términos y condiciones");
             
-            document.getElementById('app-container').innerHTML = `
-                <h1 class="titulo-con-simbolos">✨ BIENVENIDO, ${user.first_name} ✨</h1>
+            // Ocultar todas las pantallas
+            document.getElementById('app-container').style.display = 'none';
+            document.getElementById('pantalla-reglas').style.display = 'block';
+            
+            // Configurar eventos del checkbox y botón
+            const checkbox = document.getElementById('acepto-checkbox');
+            const botonContinuar = document.getElementById('btn-continuar');
+            
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    botonContinuar.disabled = false;
+                    botonContinuar.classList.remove('inactivo');
+                    botonContinuar.classList.add('activo');
+                    botonContinuar.style.opacity = '1';
+                    botonContinuar.style.cursor = 'pointer';
+                } else {
+                    botonContinuar.disabled = true;
+                    botonContinuar.classList.remove('activo');
+                    botonContinuar.classList.add('inactivo');
+                    botonContinuar.style.opacity = '0.5';
+                    botonContinuar.style.cursor = 'not-allowed';
+                }
+            });
+            
+            botonContinuar.addEventListener('click', function() {
+                guardarAceptacionTerminos();
+                mostrarSalonPrincipal(usuario);
+            });
+        }
+
+        // ==================== MOSTRAR SALÓN PRINCIPAL ====================
+        function mostrarSalonPrincipal(usuario) {
+            console.log("Mostrando salón principal para:", usuario.first_name);
+            
+            // Ocultar pantalla de términos
+            document.getElementById('pantalla-reglas').style.display = 'none';
+            
+            // Mostrar contenedor principal
+            const appContainer = document.getElementById('app-container');
+            appContainer.style.display = 'block';
+            
+            // Mostrar el salón con el usuario
+            appContainer.innerHTML = `
+                <h1 class="titulo-con-simbolos">✨ BIENVENIDO, ${usuario.first_name} ✨</h1>
                 
                 <div class="info-destacada">
                     <h3>🎪 SALÓN PRINCIPAL</h3>
@@ -335,7 +528,7 @@
                 </div>
                 
                 <div class="estado">
-                    ID de usuario: ${user.id}<br>
+                    ID de usuario: ${usuario.id}<br>
                     Sesión activa: ${new Date().toLocaleTimeString()}
                 </div>
             `;
@@ -377,7 +570,7 @@
             document.getElementById('estado-conexion').textContent = "🔴 ESPERANDO CONEXIÓN CON TELEGRAM";
         }
 
-        // ==================== FLUJO PRINCIPAL ====================
+        // ==================== FLUJO PRINCIPAL CORREGIDO ====================
         function iniciarAplicacion() {
             console.log("=== INICIANDO APLICACIÓN BACARÁ REAL ===");
             
@@ -398,13 +591,19 @@
             // 3. Obtener usuario de Telegram
             const usuario = obtenerUsuarioTelegram();
             
-            // 4. Mostrar pantalla correspondiente
-            if (usuario) {
-                console.log("Usuario autenticado, mostrando salón principal");
-                mostrarSalonPrincipal(usuario);
-            } else {
+            if (!usuario) {
                 console.log("Usuario no autenticado, mostrando advertencia");
                 mostrarAdvertencia();
+                return;
+            }
+            
+            // 4. Verificar si ya aceptó términos
+            if (!verificarTerminosAceptados()) {
+                console.log("Primera vez del usuario, mostrando términos");
+                mostrarPantallaReglas(usuario);
+            } else {
+                console.log("Usuario ya aceptó términos, mostrando salón principal");
+                mostrarSalonPrincipal(usuario);
             }
         }
 
