@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bacara Real - Juego de Cartas</title>
     <meta name="description" content="Juego de Bacará multijugador para Telegram. 6 jugadores, fichas virtuales, apuestas en tiempo real.">
+    
+    <!-- ✅ SDK DE TELEGRAM - FALTABA ESTO -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
     <style>
         /* RESET */
         * {
@@ -62,9 +66,15 @@
             letter-spacing: 1px;
         }
         
-        /* ICONOS DEL TÍTULO */
-        h1::before, h1::after {
+        /* TÍTULO CON SÍMBOLOS */
+        .titulo-con-simbolos::before {
             content: ' ♠ ♣ ';
+            color: #ffffff;
+            opacity: 0.7;
+            font-size: 28px;
+        }
+        .titulo-con-simbolos::after {
+            content: ' ♥ ♦ ';
             color: #ffffff;
             opacity: 0.7;
             font-size: 28px;
@@ -120,6 +130,52 @@
             font-size: 16px;
         }
         
+        /* LISTAS ESTILIZADAS */
+        .contenedor ol {
+            text-align: left;
+            margin: 15px 0 15px 30px;
+            color: #e0e0e0;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        
+        .contenedor li {
+            margin-bottom: 8px;
+        }
+        
+        /* BOTONES */
+        .btn-opcion {
+            background: linear-gradient(135deg, #123f2a 0%, #0a291a 100%);
+            border: 2px solid #d4af37;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin: 8px 0;
+            transition: all 0.3s;
+        }
+        
+        .btn-opcion:hover {
+            background: rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* CÓDIGO DE ENLACE */
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            color: gold;
+            display: inline-block;
+            margin: 10px 0;
+            word-break: break-all;
+            max-width: 100%;
+        }
+        
         /* RESPONSIVE */
         @media (max-width: 480px) {
             .contenedor {
@@ -138,8 +194,9 @@
     </style>
 </head>
 <body>
-    <div class="contenedor">
-        <h1>BACARA REAL</h1>
+    <!-- Contenido inicial - será reemplazado por JavaScript -->
+    <div class="contenedor" id="app-container">
+        <h1 class="titulo-con-simbolos">BACARA REAL</h1>
         
         <p>Bienvenido al juego de Bacará profesional para Telegram.</p>
         
@@ -164,162 +221,216 @@
             <p>4. Panel de administración y estadísticas</p>
         </div>
         
-        <p class="estado">🟢 CONEXIÓN ACTIVA - PREPARADO PARA JUGAR</p>
+        <p class="estado" id="estado-conexion">🟢 CONEXIÓN ACTIVA - PREPARADO PARA JUGAR</p>
     </div>
-    
+
     <script>
-        // Animación sutil del título
+        // ==================== FUNCIONES GLOBALES ====================
+        window.irAJugar = function() { 
+            alert("🎮 Juego en desarrollo - Próximamente!"); 
+        };
+        
+        window.verMisFichas = function() { 
+            alert("💎 Sistema de fichas en desarrollo"); 
+        };
+        
+        window.verHistorial = function() { 
+            alert("📜 Historial en desarrollo"); 
+        };
+        
+        window.verAjustes = function() { 
+            alert("⚙️ Ajustes en desarrollo"); 
+        };
+
+        // ==================== DETECCIÓN TELEGRAM ====================
+        function verificarTelegram() {
+            console.log("🔍 Verificando Telegram Web App...");
+            console.log("window.Telegram:", typeof window.Telegram);
+            console.log("Telegram.WebApp:", typeof Telegram !== 'undefined' ? typeof Telegram.WebApp : 'Telegram no definido');
+            
+            if (typeof window.Telegram !== 'undefined' && 
+                typeof Telegram.WebApp !== 'undefined') {
+                
+                console.log("✅ SDK de Telegram detectado");
+                return true;
+            } else {
+                console.log("❌ SDK de Telegram NO detectado");
+                return false;
+            }
+        }
+
+        // ==================== INICIALIZAR TELEGRAM ====================
+        function inicializarTelegram() {
+            try {
+                Telegram.WebApp.ready();
+                Telegram.WebApp.expand();
+                console.log("✅ Telegram Web App inicializado");
+                return true;
+            } catch (error) {
+                console.error("❌ Error inicializando Telegram:", error);
+                return false;
+            }
+        }
+
+        // ==================== OBTENER USUARIO ====================
+        function obtenerUsuarioTelegram() {
+            try {
+                const userData = Telegram.WebApp.initDataUnsafe;
+                console.log("Datos de Telegram:", userData);
+                
+                if (userData && userData.user) {
+                    const user = userData.user;
+                    console.log("✅ Usuario autenticado:", user);
+                    
+                    // Guardar en localStorage
+                    localStorage.setItem('bacara_user_id', user.id);
+                    localStorage.setItem('bacara_username', user.username || user.first_name);
+                    localStorage.setItem('bacara_first_name', user.first_name);
+                    
+                    return user;
+                } else {
+                    console.log("⚠️ Usuario no autenticado en Telegram");
+                    return null;
+                }
+            } catch (error) {
+                console.error("❌ Error obteniendo usuario:", error);
+                return null;
+            }
+        }
+
+        // ==================== SALÓN PRINCIPAL ====================
+        function mostrarSalonPrincipal(user) {
+            console.log("Mostrando salón principal para:", user.first_name);
+            
+            document.getElementById('app-container').innerHTML = `
+                <h1 class="titulo-con-simbolos">✨ BIENVENIDO, ${user.first_name} ✨</h1>
+                
+                <div class="info-destacada">
+                    <h3>🎪 SALÓN PRINCIPAL</h3>
+                    
+                    <div class="detalles">
+                        <h4>🎰 TUS FICHAS</h4>
+                        <div style="color: #ff4444; font-size: 28px; font-weight: bold; margin: 10px 0;">
+                            200 🔴 <small style="font-size: 16px;">(retirables)</small>
+                        </div>
+                        <div style="color: #4444ff; font-size: 20px; margin: 5px 0;">
+                            20 🔵 <small>(cortesía - expiran en 12h)</small>
+                        </div>
+                    </div>
+                    
+                    <div style="margin: 25px 0;">
+                        <button class="btn-opcion" onclick="irAJugar()">
+                            🎮 JUGAR AHORA
+                        </button>
+                        <button class="btn-opcion" onclick="verMisFichas()">
+                            💎 MIS FICHAS
+                        </button>
+                        <button class="btn-opcion" onclick="verHistorial()">
+                            📜 HISTORIAL
+                        </button>
+                        <button class="btn-opcion" onclick="verAjustes()">
+                            ⚙️ AJUSTES
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="estado">
+                    ID de usuario: ${user.id}<br>
+                    Sesión activa: ${new Date().toLocaleTimeString()}
+                </div>
+            `;
+            
+            document.getElementById('estado-conexion').textContent = "🟢 SESIÓN ACTIVA - LISTO PARA JUGAR";
+        }
+
+        // ==================== ADVERTENCIA SI NO ES TELEGRAM ====================
+        function mostrarAdvertencia() {
+            console.log("Mostrando advertencia - No está en Telegram");
+            
+            document.getElementById('app-container').innerHTML = `
+                <h1 class="titulo-con-simbolos">♠️♣️ ACCESO RESTRINGIDO ♥️♦️</h1>
+                
+                <div class="info-destacada">
+                    <h3>ESTE JUEGO SOLO FUNCIONA EN TELEGRAM</h3>
+                    <p>Para jugar correctamente:</p>
+                    <ol>
+                        <li>Abre <strong>Telegram</strong> en tu teléfono</li>
+                        <li>Busca: <strong>@BacaraRealBot</strong></li>
+                        <li>Toca el enlace del juego</li>
+                        <li>¡Disfruta de Bacará Club!</li>
+                    </ol>
+                    
+                    <div style="margin-top: 20px; text-align: center;">
+                        <p style="color: #d4af37; margin-bottom: 10px;">
+                            📱 Enlace directo:
+                        </p>
+                        <code>t.me/BacaraRealBot/mesabacara</code>
+                    </div>
+                </div>
+                
+                <div class="estado" style="color: #ffcc00;">
+                    ⚠️ Si ya estás en Telegram y ves este mensaje,<br>
+                    cierra y vuelve a abrir el juego desde Telegram.
+                </div>
+            `;
+            
+            document.getElementById('estado-conexion').textContent = "🔴 ESPERANDO CONEXIÓN CON TELEGRAM";
+        }
+
+        // ==================== FLUJO PRINCIPAL ====================
+        function iniciarAplicacion() {
+            console.log("=== INICIANDO APLICACIÓN BACARÁ REAL ===");
+            
+            // 1. Verificar si estamos en Telegram
+            if (!verificarTelegram()) {
+                console.log("No estamos en Telegram, mostrando advertencia");
+                mostrarAdvertencia();
+                return;
+            }
+            
+            // 2. Inicializar Telegram Web App
+            if (!inicializarTelegram()) {
+                console.log("Error inicializando Telegram");
+                mostrarAdvertencia();
+                return;
+            }
+            
+            // 3. Obtener usuario de Telegram
+            const usuario = obtenerUsuarioTelegram();
+            
+            // 4. Mostrar pantalla correspondiente
+            if (usuario) {
+                console.log("Usuario autenticado, mostrando salón principal");
+                mostrarSalonPrincipal(usuario);
+            } else {
+                console.log("Usuario no autenticado, mostrando advertencia");
+                mostrarAdvertencia();
+            }
+        }
+
+        // ==================== INICIALIZACIÓN ====================
         document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM cargado, iniciando aplicación...");
+            
+            // Pequeña animación para el título
             const titulo = document.querySelector('h1');
-            setInterval(() => {
-                titulo.style.textShadow = '0 0 15px rgba(212, 175, 55, ' + (0.3 + Math.random() * 0.3) + ')';
-            }, 1000);
+            if (titulo) {
+                let brillo = 0.3;
+                setInterval(() => {
+                    brillo = 0.3 + Math.random() * 0.4;
+                    titulo.style.textShadow = `0 0 15px rgba(212, 175, 55, ${brillo})`;
+                }, 1000);
+            }
+            
+            // Iniciar aplicación después de que cargue todo
+            setTimeout(iniciarAplicacion, 500);
+        });
+
+        // Manejar errores globales
+        window.addEventListener('error', function(e) {
+            console.error("Error global:", e.error);
+            document.getElementById('estado-conexion').textContent = "🔴 ERROR - RECARGAR LA PÁGINA";
         });
     </script>
-    <script>
-// ==================== DETECCIÓN TELEGRAM ====================
-function verificarTelegram() {
-    // Verificar si estamos dentro de Telegram Mini App
-    if (typeof window.Telegram !== 'undefined' && 
-        typeof Telegram.WebApp !== 'undefined') {
-        
-        console.log("✅ Estamos en Telegram Mini App");
-        Telegram.WebApp.ready();
-        Telegram.WebApp.expand(); // Expande pantalla completa
-        
-        return true;
-    } else {
-        console.log("❌ NO estamos en Telegram");
-        return false;
-    }
-}
-
-// ==================== LOGIN AUTOMÁTICO ====================
-function hacerLogin() {
-    if (verificarTelegram()) {
-        const userData = Telegram.WebApp.initDataUnsafe;
-        
-        if (userData && userData.user) {
-            // Usuario AUTENTICADO por Telegram
-            const user = userData.user;
-            console.log("Usuario autenticado:", user);
-            
-            // Guardar datos en localStorage
-            localStorage.setItem('bacara_user_id', user.id);
-            localStorage.setItem('bacara_username', user.username || user.first_name);
-            
-            // Mostrar salón principal
-            mostrarSalonPrincipal(user);
-            return;
-        }
-    }
-    
-    // Si no está en Telegram o no autenticado, mostrar advertencia
-    mostrarAdvertencia();
-}
-
-// ==================== SALÓN PRINCIPAL ====================
-function mostrarSalonPrincipal(user) {
-    document.body.innerHTML = `
-    <div class="contenedor">
-        <h1>✨ BIENVENIDO, ${user.first_name} ✨</h1>
-        
-        <div class="info-destacada">
-            <h3>🎪 SALÓN PRINCIPAL</h3>
-            
-            <div class="saldo">
-                <h4>TUS FICHAS</h4>
-                <div class="fichas-rojas">200 🔴</div>
-                <div class="fichas-azules">20 🔵 (cortesía)</div>
-            </div>
-            
-            <div class="menu-opciones">
-                <button class="btn-opcion" onclick="irAJugar()">
-                    🎮 JUGAR AHORA
-                </button>
-                <button class="btn-opcion" onclick="verMisFichas()">
-                    💎 MIS FICHAS
-                </button>
-                <button class="btn-opcion" onclick="verHistorial()">
-                    📜 HISTORIAL
-                </button>
-                <button class="btn-opcion" onclick="verAjustes()">
-                    ⚙️ AJUSTES
-                </button>
-            </div>
-        </div>
-        
-        <div class="advertencia">
-            ID de usuario: ${user.id}<br>
-            Sesión activa: ${new Date().toLocaleTimeString()}
-        </div>
-    </div>
-    `;
-    
-    // Añadir estilos dinámicamente
-    const style = document.createElement('style');
-    style.textContent = `
-        .saldo { background: rgba(212,175,55,0.1); padding: 15px; border-radius: 10px; margin: 15px 0; }
-        .fichas-rojas { color: #ff4444; font-size: 28px; font-weight: bold; }
-        .fichas-azules { color: #4444ff; font-size: 20px; }
-        .menu-opciones { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
-        .btn-opcion { 
-            background: linear-gradient(135deg, #123f2a 0%, #0a291a 100%);
-            border: 2px solid #d4af37;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .btn-opcion:hover { background: rgba(212,175,55,0.2); }
-    `;
-    document.head.appendChild(style);
-}
-
-// ==================== ADVERTENCIA SI NO ES TELEGRAM ====================
-function mostrarAdvertencia() {
-    const contenedor = document.querySelector('.contenedor');
-    if (contenedor) {
-        contenedor.innerHTML = `
-        <h1>⚠️ ACCESO RESTRINGIDO</h1>
-        
-        <div class="info-destacada">
-            <h3>ESTE JUEGO SOLO FUNCIONA EN TELEGRAM</h3>
-            <p>Para jugar:</p>
-            <ol>
-                <li>Abre Telegram en tu teléfono</li>
-                <li>Ve a: <strong>@BacaraRealBot</strong></li>
-                <li>Toca el enlace del juego</li>
-                <li>¡Disfruta de Bacará Club!</li>
-            </ol>
-            
-            <p style="margin-top: 20px; color: gold;">
-                Enlace directo:<br>
-                <code>t.me/BacaraRealBot/mesabacara</code>
-            </p>
-        </div>
-        
-        <div class="advertencia">
-            Si ya estás en Telegram y ves este mensaje,<br>
-            cierra y vuelve a abrir el juego.
-        </div>
-        `;
-    }
-}
-
-// ==================== FUNCIONES TEMPORALES ====================
-function irAJugar() { alert("🎮 Juego en desarrollo - Próximamente!"); }
-function verMisFichas() { alert("💎 Sistema de fichas en desarrollo"); }
-function verHistorial() { alert("📜 Historial en desarrollo"); }
-function verAjustes() { alert("⚙️ Ajustes en desarrollo"); }
-
-// ==================== INICIALIZACIÓN ====================
-document.addEventListener('DOMContentLoaded', function() {
-    // Esperar 1 segundo para cargar Telegram WebApp
-    setTimeout(hacerLogin, 1000);
-});
-</script>
 </body>
 </html>
