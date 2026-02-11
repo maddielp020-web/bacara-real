@@ -3,633 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bacara Real - Juego de Cartas</title>
-    <meta name="description" content="Juego de Bacará multijugador para Telegram. 6 jugadores, fichas virtuales, apuestas en tiempo real.">
-    
-    <!-- ✅ SDK DE TELEGRAM - FALTABA ESTO -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
-    <style>
-        /* RESET */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* FONDO Y TIPOGRAFÍA */
-        body {
-            background: linear-gradient(135deg, #0a2910 0%, #062011 100%);
-            color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        /* CONTENEDOR PRINCIPAL */
-        .contenedor {
-            background: linear-gradient(145deg, #123f2a 0%, #0a291a 100%);
-            padding: 40px 30px;
-            border-radius: 24px;
-            border: 12px solid #8B4513;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.5),
-                inset 0 0 60px rgba(212, 175, 55, 0.1);
-            max-width: 420px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        /* EFECTO DE BRILLO */
-        .contenedor::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        
-        /* TÍTULO */
-        h1 {
-            color: #d4af37;
-            font-size: 32px;
-            margin-bottom: 25px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            letter-spacing: 1px;
-        }
-        
-        /* TÍTULO CON SÍMBOLOS */
-        .titulo-con-simbolos::before {
-            content: ' ♠ ♣ ';
-            color: #ffffff;
-            opacity: 0.7;
-            font-size: 28px;
-        }
-        .titulo-con-simbolos::after {
-            content: ' ♥ ♦ ';
-            color: #ffffff;
-            opacity: 0.7;
-            font-size: 28px;
-        }
-        
-        /* TEXTO PRINCIPAL */
-        p {
-            line-height: 1.6;
-            margin-bottom: 20px;
-            font-size: 17px;
-            color: #e0e0e0;
-        }
-        
-        /* INFORMACIÓN DESTACADA */
-        .info-destacada {
-            background: rgba(212, 175, 55, 0.15);
-            border: 2px solid #d4af37;
-            border-radius: 12px;
-            padding: 20px;
-            margin: 25px 0;
-        }
-        
-        .fichas {
-            color: #ffd700;
-            font-size: 28px;
-            font-weight: bold;
-            margin: 10px 0;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-        }
-        
-        /* DETALLES */
-        .detalles {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            border-left: 4px solid #d4af37;
-        }
-        
-        .detalles h3 {
-            color: #d4af37;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        /* ESTADO */
-        .estado {
-            color: #4ade80;
-            font-weight: bold;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 16px;
-        }
-        
-        /* LISTAS ESTILIZADAS */
-        .contenedor ol {
-            text-align: left;
-            margin: 15px 0 15px 30px;
-            color: #e0e0e0;
-            font-size: 16px;
-            line-height: 1.8;
-        }
-        
-        .contenedor li {
-            margin-bottom: 8px;
-        }
-        
-        /* BOTONES */
-        .btn-opcion {
-            background: linear-gradient(135deg, #123f2a 0%, #0a291a 100%);
-            border: 2px solid #d4af37;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin: 8px 0;
-            transition: all 0.3s;
-        }
-        
-        .btn-opcion:hover {
-            background: rgba(212, 175, 55, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        /* CÓDIGO DE ENLACE */
-        code {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-family: monospace;
-            color: gold;
-            display: inline-block;
-            margin: 10px 0;
-            word-break: break-all;
-            max-width: 100%;
-        }
-        
-        /* RESPONSIVE */
-        @media (max-width: 480px) {
-            .contenedor {
-                padding: 30px 20px;
-                border-width: 8px;
-            }
-            
-            h1 {
-                font-size: 28px;
-            }
-            
-            .fichas {
-                font-size: 24px;
-            }
-        }
-      /* ==================== ESTILOS PARA PANTALLA TÉRMINOS ==================== */
-.pantalla-terminos .contenedor {
-    max-height: 90vh;
-    overflow: hidden;
-}
-
-.texto-reglas {
-    text-align: left;
-    padding: 10px;
-}
-
-.texto-reglas h3 {
-    color: #d4af37;
-    text-align: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #d4af37;
-    padding-bottom: 10px;
-}
-
-.texto-reglas h4 {
-    color: #ffd700;
-    margin: 20px 0 10px 0;
-    font-size: 18px;
-}
-
-.texto-reglas ul {
-    margin-left: 20px;
-    margin-bottom: 15px;
-}
-
-.texto-reglas li {
-    margin-bottom: 8px;
-    color: #e0e0e0;
-    line-height: 1.5;
-}
-
-.texto-reglas strong {
-    color: #ffd700;
-}
-
-.aceptacion-terminos {
-    background: rgba(212, 175, 55, 0.1);
-    border: 2px solid #d4af37;
-    border-radius: 10px;
-    padding: 15px;
-}
-
-/* Botón activo/inactivo */
-.btn-opcion.activo {
-    opacity: 1 !important;
-    cursor: pointer !important;
-    background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%) !important;
-}
-
-.btn-opcion.inactivo {
-    opacity: 0.5 !important;
-    cursor: not-allowed !important;
-}
-
-/* Scrollbar personalizado */
-.info-destacada::-webkit-scrollbar {
-    width: 8px;
-}
-
-.info-destacada::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-}
-
-.info-destacada::-webkit-scrollbar-thumb {
-    background: #d4af37;
-    border-radius: 4px;
-}
-    </style>
+    <title>Términos y Condiciones - Bacará Real</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Contenido inicial - será reemplazado por JavaScript -->
-    <div class="contenedor" id="app-container">
-        <h1 class="titulo-con-simbolos">BACARA REAL</h1>
-        
-        <p>Bienvenido al juego de Bacará profesional para Telegram.</p>
-        
-        <div class="info-destacada">
-            <p>✅ <strong>Juego multijugador</strong> - 6 jugadores por mesa</p>
-            <p>✅ <strong>Sistema transparente</strong> - Comisión del 5% visible</p>
-            <p>✅ <strong>Historial completo</strong> - Todas las jugadas guardadas</p>
-        </div>
-        
-        <div class="detalles">
-            <h3>🏦 REQUISITOS DE ENTRADA</h3>
-            <p>Depósito mínimo requerido:</p>
-            <div class="fichas">200 FICHAS</div>
-            <p><em>(1 ficha = 1 rublo • Conversión automática)</em></p>
-        </div>
-        
-        <div class="detalles">
-            <h3>🎯 PRÓXIMAS ACTUALIZACIONES</h3>
-            <p>1. Interfaz completa de mesa</p>
-            <p>2. Sistema de apuestas en tiempo real</p>
-            <p>3. Conexión multijugador vía Telegram</p>
-            <p>4. Panel de administración y estadísticas</p>
-        </div>
-        
-        <p class="estado" id="estado-conexion">🟢 CONEXIÓN ACTIVA - PREPARADO PARA JUGAR</p>
-    </div>
-<!-- ==================== PANTALLA TÉRMINOS Y CONDICIONES ==================== -->
-<div id="pantalla-reglas" class="pantalla-terminos" style="display: none;">
     <div class="contenedor">
-        <h1 class="titulo-con-simbolos">📜 TÉRMINOS Y CONDICIONES</h1>
-        
-        <div class="info-destacada" style="max-height: 300px; overflow-y: auto;">
-            <div class="texto-reglas">
-                <h3>✨ BACARA REAL - REGLAS DEL CLUB ✨</h3>
-                
-                <h4>🎯 1. REQUISITOS BÁSICOS</h4>
-                <ul>
-                    <li>✅ Solo mayores de 18 años</li>
-                    <li>✅ Depósito mínimo: 200 fichas</li>
-                    <li>✅ 1 ficha = 1 unidad de juego virtual</li>
-                    <li>✅ Sistema de comisión transparente (5%)</li>
-                </ul>
-                
-                <h4>⚖️ 2. REGLAS DEL JUEGO</h4>
-                <ul>
-                    <li>🎲 Juego de Bacará estándar internacional</li>
-                    <li>👥 Máximo 6 jugadores por mesa</li>
-                    <li>⏱️ Tiempo límite por turno: 30 segundos</li>
-                    <li>📊 Todas las jugadas quedan registradas</li>
-                </ul>
-                
-                <h4>💰 3. SISTEMA DE FICHAS</h4>
-                <ul>
-                    <li>🔴 <strong>Fichas rojas:</strong> Valor real, retirables</li>
-                    <li>🔵 <strong>Fichas azules:</strong> Cortesía, expiran en 12h</li>
-                    <li>📈 Comisión se aplica solo sobre ganancias</li>
-                    <li>🔄 Primera ganancia del día sin comisión</li>
-                </ul>
-                
-                <h4>🔐 4. SEGURIDAD Y RESPONSABILIDAD</h4>
-                <ul>
-                    <li>🛡️ Sistema cifrado de extremo a extremo</li>
-                    <li>👁️ Transparencia total en operaciones</li>
-                    <li>⚠️ Juego responsable - Establece tus límites</li>
-                    <li>📞 Soporte activo dentro de Telegram</li>
-                </ul>
-                
-                <h4>📝 5. ACEPTACIÓN DE TÉRMINOS</h4>
-                <p>Al continuar, aceptas:</p>
-                <ul>
-                    <li>✅ Jugar de forma responsable</li>
-                    <li>✅ Respetar a otros jugadores</li>
-                    <li>✅ No usar software externo o trampas</li>
-                    <li>✅ Aceptar decisiones del administrador</li>
-                </ul>
+        <!-- HEADER -->
+        <header class="header">
+            <h1>♠️♣️ BACARÁ REAL ♥️♦️</h1>
+            <p class="subtitulo">Términos y Condiciones</p>
+        </header>
+
+        <!-- CONTENIDO DE TÉRMINOS -->
+        <div class="contenido-terminos" id="contenido-scroll">
+            
+            <div class="advertencia-importante">
+                <h2>⚠️ ADVERTENCIA IMPORTANTE</h2>
+                <p>Este es un juego de apuestas con dinero real. Solo para mayores de 18 años. Puede ser adictivo y puedes perder TODO tu dinero. Juega responsablemente.</p>
             </div>
-        </div>
-        
-        <div class="aceptacion-terminos" style="margin: 25px 0;">
-            <div style="display: flex; align-items: center; justify-content: center;">
-                <input type="checkbox" id="acepto-checkbox" style="margin-right: 10px; transform: scale(1.3);">
-                <label for="acepto-checkbox" style="color: #d4af37; font-size: 16px; font-weight: bold;">
-                    ✅ HE LEÍDO Y ACEPTO LOS TÉRMINOS Y CONDICIONES
-                </label>
-            </div>
-        </div>
-        
-        <button id="btn-continuar" class="btn-opcion" disabled style="opacity: 0.5; cursor: not-allowed;">
-            🎮 CONTINUAR AL JUEGO
-        </button>
-        
-        <div class="estado" style="margin-top: 20px;">
-            📅 Última actualización: Hoy, 200 fichas mínimo
-        </div>
-    </div>
-</div>
-    <script>
- <script>
-        // ==================== FUNCIONES GLOBALES ====================
-        window.irAJugar = function() { 
-            alert("🎮 Juego en desarrollo - Próximamente!"); 
-        };
-        
-        window.verMisFichas = function() { 
-            alert("💎 Sistema de fichas en desarrollo"); 
-        };
-        
-        window.verHistorial = function() { 
-            alert("📜 Historial en desarrollo"); 
-        };
-        
-        window.verAjustes = function() { 
-            alert("⚙️ Ajustes en desarrollo"); 
-        };
 
-        // ==================== DETECCIÓN TELEGRAM ====================
-        function verificarTelegram() {
-            console.log("🔍 Verificando Telegram Web App...");
-            
-            if (typeof window.Telegram !== 'undefined' && 
-                typeof Telegram.WebApp !== 'undefined') {
+            <section class="seccion">
+                <h2>1. REQUISITOS DE ENTRADA</h2>
                 
-                console.log("✅ SDK de Telegram detectado");
-                return true;
-            } else {
-                console.log("❌ SDK de Telegram NO detectado");
-                return false;
-            }
-        }
+                <h3>1.1 Edad y Capacidad Legal</h3>
+                <ul>
+                    <li>Debes tener <strong>18 años o más</strong> para jugar</li>
+                    <li>Debes tener capacidad legal para realizar transacciones financieras</li>
+                    <li>Al aceptar estos términos, confirmas cumplir con estos requisitos</li>
+                </ul>
 
-        // ==================== INICIALIZAR TELEGRAM ====================
-        function inicializarTelegram() {
-            try {
-                Telegram.WebApp.ready();
-                Telegram.WebApp.expand();
-                console.log("✅ Telegram Web App inicializado");
-                return true;
-            } catch (error) {
-                console.error("❌ Error inicializando Telegram:", error);
-                return false;
-            }
-        }
-
-        // ==================== OBTENER USUARIO ====================
-        function obtenerUsuarioTelegram() {
-            try {
-                const userData = Telegram.WebApp.initDataUnsafe;
-                console.log("Datos de Telegram:", userData);
-                
-                if (userData && userData.user) {
-                    const user = userData.user;
-                    console.log("✅ Usuario autenticado:", user);
-                    
-                    // Guardar en localStorage
-                    localStorage.setItem('bacara_user_id', user.id);
-                    localStorage.setItem('bacara_username', user.username || user.first_name);
-                    localStorage.setItem('bacara_first_name', user.first_name);
-                    
-                    return user;
-                } else {
-                    console.log("⚠️ Usuario no autenticado en Telegram");
-                    return null;
-                }
-            } catch (error) {
-                console.error("❌ Error obteniendo usuario:", error);
-                return null;
-            }
-        }
-
-        // ==================== SISTEMA DE TÉRMINOS Y CONDICIONES ====================
-        function verificarTerminosAceptados() {
-            const aceptado = localStorage.getItem('bacara_terms_accepted');
-            return aceptado === 'true';
-        }
-
-        function guardarAceptacionTerminos() {
-            localStorage.setItem('bacara_terms_accepted', 'true');
-            localStorage.setItem('bacara_terms_fecha', new Date().toISOString());
-        }
-
-        function mostrarPantallaReglas(usuario) {
-            console.log("Mostrando pantalla de términos y condiciones");
-            
-            // Ocultar todas las pantallas
-            document.getElementById('app-container').style.display = 'none';
-            document.getElementById('pantalla-reglas').style.display = 'block';
-            
-            // Configurar eventos del checkbox y botón
-            const checkbox = document.getElementById('acepto-checkbox');
-            const botonContinuar = document.getElementById('btn-continuar');
-            
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    botonContinuar.disabled = false;
-                    botonContinuar.classList.remove('inactivo');
-                    botonContinuar.classList.add('activo');
-                    botonContinuar.style.opacity = '1';
-                    botonContinuar.style.cursor = 'pointer';
-                } else {
-                    botonContinuar.disabled = true;
-                    botonContinuar.classList.remove('activo');
-                    botonContinuar.classList.add('inactivo');
-                    botonContinuar.style.opacity = '0.5';
-                    botonContinuar.style.cursor = 'not-allowed';
-                }
-            });
-            
-            botonContinuar.addEventListener('click', function() {
-                guardarAceptacionTerminos();
-                mostrarSalonPrincipal(usuario);
-            });
-        }
-
-        // ==================== MOSTRAR SALÓN PRINCIPAL ====================
-        function mostrarSalonPrincipal(usuario) {
-            console.log("Mostrando salón principal para:", usuario.first_name);
-            
-            // Ocultar pantalla de términos
-            document.getElementById('pantalla-reglas').style.display = 'none';
-            
-            // Mostrar contenedor principal
-            const appContainer = document.getElementById('app-container');
-            appContainer.style.display = 'block';
-            
-            // Mostrar el salón con el usuario
-            appContainer.innerHTML = `
-                <h1 class="titulo-con-simbolos">✨ BIENVENIDO, ${usuario.first_name} ✨</h1>
-                
-                <div class="info-destacada">
-                    <h3>🎪 SALÓN PRINCIPAL</h3>
-                    
-                    <div class="detalles">
-                        <h4>🎰 TUS FICHAS</h4>
-                        <div style="color: #ff4444; font-size: 28px; font-weight: bold; margin: 10px 0;">
-                            200 🔴 <small style="font-size: 16px;">(retirables)</small>
-                        </div>
-                        <div style="color: #4444ff; font-size: 20px; margin: 5px 0;">
-                            20 🔵 <small>(cortesía - expiran en 12h)</small>
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 25px 0;">
-                        <button class="btn-opcion" onclick="irAJugar()">
-                            🎮 JUGAR AHORA
-                        </button>
-                        <button class="btn-opcion" onclick="verMisFichas()">
-                            💎 MIS FICHAS
-                        </button>
-                        <button class="btn-opcion" onclick="verHistorial()">
-                            📜 HISTORIAL
-                        </button>
-                        <button class="btn-opcion" onclick="verAjustes()">
-                            ⚙️ AJUSTES
-                        </button>
-                    </div>
+                <h3>1.2 Verificación de Identidad</h3>
+                <div class="importante">
+                    <p><strong>MUY IMPORTANTE:</strong></p>
+                    <ul>
+                        <li>Tu <strong>nombre en Telegram</strong> DEBE coincidir EXACTAMENTE con tu <strong>nombre en tu cuenta bancaria</strong></li>
+                        <li>Si los nombres no coinciden, NO podrás jugar</li>
+                        <li>Razón: Necesitamos verificar depósitos y procesar retiros correctamente</li>
+                        <li>No se aceptan apodos, alias o nombres ficticios</li>
+                    </ul>
                 </div>
-                
-                <div class="estado">
-                    ID de usuario: ${usuario.id}<br>
-                    Sesión activa: ${new Date().toLocaleTimeString()}
-                </div>
-            `;
-            
-            document.getElementById('estado-conexion').textContent = "🟢 SESIÓN ACTIVA - LISTO PARA JUGAR";
-        }
 
-        // ==================== ADVERTENCIA SI NO ES TELEGRAM ====================
-        function mostrarAdvertencia() {
-            console.log("Mostrando advertencia - No está en Telegram");
-            
-            document.getElementById('app-container').innerHTML = `
-                <h1 class="titulo-con-simbolos">♠️♣️ ACCESO RESTRINGIDO ♥️♦️</h1>
+                <h3>1.3 Sistema de Invitaciones</h3>
+                <ul>
+                    <li>Solo se permite el acceso mediante <strong>invitación de un Administrador autorizado</strong></li>
+                    <li>Cada jugador es responsabilidad del Administrador que lo invitó</li>
+                    <li><strong>PROHIBIDO</strong> compartir enlaces de acceso públicamente</li>
+                    <li><strong>PROHIBIDO</strong> invitar a desconocidos sin autorización del administrador</li>
+                    <li>Violación = expulsión inmediata sin devolución de fondos</li>
+                </ul>
+            </section>
+
+            <section class="seccion">
+                <h2>2. SISTEMA DE FICHAS Y PAGOS</h2>
                 
-                <div class="info-destacada">
-                    <h3>ESTE JUEGO SOLO FUNCIONA EN TELEGRAM</h3>
-                    <p>Para jugar correctamente:</p>
+                <h3>2.1 Compra de Fichas</h3>
+                <p><strong>Depósito Mínimo:</strong> 200 fichas = 200 rublos (1 ficha = 1 rublo)</p>
+                
+                <div class="proceso">
+                    <p><strong>Proceso de Compra:</strong></p>
                     <ol>
-                        <li>Abre <strong>Telegram</strong> en tu teléfono</li>
-                        <li>Busca: <strong>@BacaraRealBot</strong></li>
-                        <li>Toca el enlace del juego</li>
-                        <li>¡Disfruta de Bacará Club!</li>
+                        <li>Contacta a tu Administrador asignado</li>
+                        <li>Transfiere el monto a la cuenta bancaria indicada</li>
+                        <li><strong>IMPORTANTE:</strong> Incluye tu ID de Telegram en el concepto</li>
+                        <li>Las fichas se acreditan en máximo 10 minutos</li>
+                        <li>Recibirás notificación en el bot</li>
                     </ol>
-                    
-                    <div style="margin-top: 20px; text-align: center;">
-                        <p style="color: #d4af37; margin-bottom: 10px;">
-                            📱 Enlace directo:
-                        </p>
-                        <code>t.me/BacaraRealBot/mesabacara</code>
+                </div>
+
+                <h3>2.2 Bono de Bienvenida</h3>
+                <div class="destacado">
+                    <p><strong>Primer Depósito Especial:</strong></p>
+                    <ul>
+                        <li>Al hacer tu primer depósito de 200₽, recibes <strong>220 fichas rojas</strong> (20 fichas extra GRATIS)</li>
+                        <li>Este bono es <strong>retirable</strong> - puedes cobrar todo lo que ganes</li>
+                        <li><strong>Solo una vez por jugador</strong></li>
+                    </ul>
+                </div>
+
+                <h3>2.3 Retiros de Ganancias</h3>
+                <ul>
+                    <li>Comando en el bot: <code>/retirar [cantidad]</code></li>
+                    <li>Mínimo para retirar: <strong>200 fichas</strong> (200 rublos)</li>
+                    <li>Plazo de procesamiento: <strong>Máximo 24 horas</strong></li>
+                    <li>El pago se realiza a la misma cuenta bancaria desde donde depositaste</li>
+                </ul>
+            </section>
+
+            <section class="seccion">
+                <h2>3. REGLAS DEL JUEGO</h2>
+                
+                <h3>3.1 Sistema de Bacará Cubano</h3>
+                <ul>
+                    <li>6 jugadores por mesa</li>
+                    <li>2 jugadores activos en duelo: <strong>👑 Corona</strong> vs <strong>⚔️ Retador</strong></li>
+                    <li>4 jugadores espectadores (pueden apostar)</li>
+                    <li><strong>8 mazos de cartas</strong> (416 cartas totales)</li>
+                    <li>Barajado automático cada 75-80 manos</li>
+                </ul>
+
+                <h3>3.2 Sistema de Comisión</h3>
+                <div class="comision">
+                    <p><strong>LA CASA COBRA 5% SOBRE GANANCIAS:</strong></p>
+                    <ul>
+                        <li>✅ <strong>Primera victoria:</strong> 0% comisión (GRATIS)</li>
+                        <li>✅ <strong>Segunda victoria consecutiva en adelante:</strong> 5% comisión</li>
+                    </ul>
+                    <p><strong>Ejemplo:</strong></p>
+                    <div class="ejemplo">
+                        <p>Mano 1: Ganas 100 → 0% comisión</p>
+                        <p>Mano 2: Ganas 100 → 5% comisión (recibes 95)</p>
+                        <p>Mano 3: Ganas 100 → 5% comisión (recibes 95)</p>
+                        <p>Mano 4: PIERDES → Racha termina</p>
+                        <p>Mano 5: Ganas 100 → 0% comisión (nueva racha)</p>
                     </div>
                 </div>
+
+                <h3>3.3 Privacidad en el Juego</h3>
+                <ul>
+                    <li>Los jugadores aparecen con <strong>figuras genéricas</strong> (Mago, Zorro, etc.)</li>
+                    <li>Solo TÚ sabes qué figura eres</li>
+                    <li>Los demás NO saben tu identidad</li>
+                    <li>Solo ves TUS cartas - las del oponente están ocultas</li>
+                </ul>
+            </section>
+
+            <section class="seccion">
+                <h2>4. CONDUCTA Y PROHIBICIONES</h2>
                 
-                <div class="estado" style="color: #ffcc00;">
-                    ⚠️ Si ya estás en Telegram y ves este mensaje,<br>
-                    cierra y vuelve a abrir el juego desde Telegram.
+                <h3>Está ESTRICTAMENTE PROHIBIDO:</h3>
+                <ul>
+                    <li>❌ Crear múltiples cuentas</li>
+                    <li>❌ Compartir cuenta con otras personas</li>
+                    <li>❌ Uso de bots o automatización</li>
+                    <li>❌ Insultos o acoso a otros jugadores</li>
+                    <li>❌ Reclamar pérdidas como "trampa" sin evidencia</li>
+                    <li>❌ Difamación de la casa o administradores</li>
+                </ul>
+
+                <h3>Consecuencias:</h3>
+                <div class="consecuencias">
+                    <p><strong>Primera falta:</strong> Advertencia</p>
+                    <p><strong>Segunda falta:</strong> Suspensión 7 días</p>
+                    <p><strong>Tercera falta:</strong> EXPULSIÓN PERMANENTE sin devolución</p>
                 </div>
-            `;
-            
-            document.getElementById('estado-conexion').textContent = "🔴 ESPERANDO CONEXIÓN CON TELEGRAM";
-        }
+            </section>
 
-        // ==================== FLUJO PRINCIPAL CORREGIDO ====================
-        function iniciarAplicacion() {
-            console.log("=== INICIANDO APLICACIÓN BACARÁ REAL ===");
-            
-            // 1. Verificar si estamos en Telegram
-            if (!verificarTelegram()) {
-                console.log("No estamos en Telegram, mostrando advertencia");
-                mostrarAdvertencia();
-                return;
-            }
-            
-            // 2. Inicializar Telegram Web App
-            if (!inicializarTelegram()) {
-                console.log("Error inicializando Telegram");
-                mostrarAdvertencia();
-                return;
-            }
-            
-            // 3. Obtener usuario de Telegram
-            const usuario = obtenerUsuarioTelegram();
-            
-            if (!usuario) {
-                console.log("Usuario no autenticado, mostrando advertencia");
-                mostrarAdvertencia();
-                return;
-            }
-            
-            // 4. Verificar si ya aceptó términos
-            if (!verificarTerminosAceptados()) {
-                console.log("Primera vez del usuario, mostrando términos");
-                mostrarPantallaReglas(usuario);
-            } else {
-                console.log("Usuario ya aceptó términos, mostrando salón principal");
-                mostrarSalonPrincipal(usuario);
-            }
-        }
+            <section class="seccion">
+                <h2>5. RESPONSABILIDAD DEL JUGADOR</h2>
+                
+                <h3>5.1 Juego Responsable</h3>
+                <ul>
+                    <li>Solo juega con dinero que puedas permitirte perder</li>
+                    <li>El juego puede ser adictivo - establece límites</li>
+                    <li>Si tienes problema de adicción, busca ayuda profesional</li>
+                </ul>
 
-        // ==================== INICIALIZACIÓN ====================
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log("DOM cargado, iniciando aplicación...");
-            
-            // Pequeña animación para el título
-            const titulo = document.querySelector('h1');
-            if (titulo) {
-                let brillo = 0.3;
-                setInterval(() => {
-                    brillo = 0.3 + Math.random() * 0.4;
-                    titulo.style.textShadow = `0 0 15px rgba(212, 175, 55, ${brillo})`;
-                }, 1000);
-            }
-            
-            // Iniciar aplicación después de que cargue todo
-            setTimeout(iniciarAplicacion, 500);
-        });
+                <h3>5.2 Riesgos Aceptados</h3>
+                <div class="riesgos">
+                    <p><strong>Al jugar, ACEPTAS que:</strong></p>
+                    <ul>
+                        <li>Puedes perder TODO el dinero que apuestes</li>
+                        <li>La casa NO es responsable por tus pérdidas</li>
+                        <li>No hay reembolsos por "mala suerte"</li>
+                        <li>Nadie te obligó a jugar - es tu decisión</li>
+                    </ul>
+                </div>
 
-        // Manejar errores globales
-        window.addEventListener('error', function(e) {
-            console.error("Error global:", e.error);
-            document.getElementById('estado-conexion').textContent = "🔴 ERROR - RECARGAR LA PÁGINA";
-        });
-    </script>
+                <h3>5.3 Reclamos y Disputas</h3>
+                <ul>
+                    <li>Solo se aceptan reclamos con <strong>evidencia concreta</strong> (capturas)</li>
+                    <li>Plazo para reclamar: <strong>24 horas</strong> después del incidente</li>
+                    <li>Contacta a tu Administrador primero</li>
+                    <li>Pasadas 24 horas, NO se aceptan reclamos</li>
+                </ul>
+            </section>
+
+            <section class="seccion">
+                <h2>6. ASPECTOS LEGALES</h2>
+                
+                <h3>6.1 Jurisdicción</h3>
+                <ul>
+                    <li>Este servicio opera bajo las leyes de la Federación Rusa</li>
+                    <li>Al jugar, aceptas someterte a estas leyes</li>
+                </ul>
+
+                <h3>6.2 Modificaciones</h3>
+                <ul>
+                    <li>Estos términos pueden cambiar en cualquier momento</li>
+                    <li>Serás notificado de cambios importantes con 7 días de anticipación</li>
+                    <li>Seguir jugando = aceptar nuevas reglas</li>
+                </ul>
+
+                <h3>6.3 Privacidad</h3>
+                <ul>
+                    <li>Tus datos personales son <strong>confidenciales</strong></li>
+                    <li>NO compartimos tu información con terceros</li>
+                    <li>Los administradores solo ven lo necesario para procesar pagos</li>
+                </ul>
+            </section>
+
+            <div class="ultima-advertencia">
+                <h2>⚠️ ÚLTIMA ADVERTENCIA</h2>
+                <p>Este es un juego de azar. Puedes ganar o perder. Solo apuesta lo que estés dispuesto a perder. Si tienes dudas, <strong>NO JUEGUES</strong>.</p>
+            </div>
+
+        </div>
+
+        <!-- INDICADOR DE SCROLL -->
+        <div class="scroll-indicador" id="scroll-indicador">
+            <p>⬇️ Desliza para leer todo ⬇️</p>
+        </div>
+
+        <!-- CHECKBOX Y BOTÓN -->
+        <div class="footer-aceptacion">
+            <label class="checkbox-container">
+                <input type="checkbox" id="checkbox-acepto">
+                <span class="checkmark"></span>
+                <span class="texto-checkbox">He leído y acepto todos los términos y condiciones</span>
+            </label>
+
+            <button class="btn-acepto" id="btn-acepto" disabled>
+                ✅ ACEPTO Y QUIERO JUGAR
+            </button>
+        </div>
+
+        <!-- PIE DE PÁGINA -->
+        <footer class="pie-pagina">
+            <p>VERSIÓN 1.0 | Febrero 2026</p>
+            <p>© 2026 Bacará Real - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
