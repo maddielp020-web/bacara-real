@@ -116,65 +116,55 @@ console.log('   ✅ Solo entonces se habilita el botón ACEPTO');
 
 ---
 
-## 🔧 CÓMO ACTUALIZAR EN GITHUB:
+## ✅ CONFIRMACIÓN - ESTE CÓDIGO TIENE:
 
-### **OPCIÓN 1 - Editar el archivo:**
-1. Ve a tu repositorio
-2. Abre `js/script.js`
-3. Toca el ícono del lápiz (editar)
-4. **BORRA TODO** el contenido actual
-5. **COPIA Y PEGA** el código de arriba
-6. Commit changes
-
-### **OPCIÓN 2 - Reemplazar completo:**
-1. Elimina `js/script.js`
-2. Crea nuevo archivo `js/script.js`
-3. Pega el código de arriba
-4. Commit
+1. ✅ `function verificarActivacionBoton()` - Línea 41
+2. ✅ Llamada dentro del evento scroll - Línea 31
+3. ✅ Llamada dentro del evento checkbox - Línea 39
+4. ✅ Variables de estado `haLeidoTodo` y `checkboxMarcado`
+5. ✅ Mensajes en consola para debugging
+6. ✅ Redirección a `mesa.html`
+7. ✅ Sistema de "ya aceptó antes"
 
 ---
 
-## ✅ AHORA EL BOTÓN SE ACTIVARÁ CUANDO:
+## 🎯 CÓMO ACTUALIZAR:
 
-1. ✅ Deslices hasta el final (scroll completo)
-2. ✅ **Y** marques el checkbox
-
-**Ambas condiciones son necesarias.**
+1. Abre GitHub → `js/script.js`
+2. Editar (lápiz)
+3. **CTRL+A** (seleccionar todo) o selecciona manualmente
+4. **Borrar todo**
+5. **Copiar** el código de arriba
+6. **Pegar** en el archivo vacío
+7. Commit changes
+8. Espera 30 segundos
+9. Prueba en: `https://maddielp020-web.github.io/bacara-real/`
 
 ---
 
-## 🧪 CÓMO PROBAR:
+## 🧪 PRUEBA PASO A PASO:
 
-### **TEST 1 - Solo checkbox:**
 1. Abre la página
-2. Marca el checkbox SIN hacer scroll
-3. **Resultado esperado:** Botón sigue deshabilitado ❌
-
-### **TEST 2 - Solo scroll:**
-1. Refresca la página
-2. Desliza hasta el final SIN marcar checkbox
-3. **Resultado esperado:** Botón sigue deshabilitado ❌
-
-### **TEST 3 - Ambas condiciones:**
-1. Refresca la página
-2. Desliza hasta el final ✅
-3. Marca el checkbox ✅
-4. **Resultado esperado:** Botón se activa 🟢 y puedes hacer clic
+2. **NO hagas scroll** - Solo marca el checkbox
+   - ❌ Botón debe seguir gris
+3. **Desmarca** el checkbox
+4. **Haz scroll hasta el final**
+5. El indicador "⬇️ Desliza..." debe desaparecer
+6. **Marca el checkbox**
+7. ✅ **AHORA SÍ** el botón debe ponerse verde
+8. Click en "ACEPTO Y QUIERO JUGAR"
+9. Te redirige a `mesa.html`
 
 ---
 
-## 📊 MENSAJES EN CONSOLA:
-
-Abre la consola del navegador (Safari en iPhone: Configuración > Safari > Avanzado > Web Inspector) y verás:
+## 📊 EN LA CONSOLA VERÁS:
 ```
 ✅ Términos y Condiciones cargados
 📋 Sistema de doble verificación activo:
    1️⃣ Debe leer todo (scroll hasta el final)
    2️⃣ Debe marcar checkbox
    ✅ Solo entonces se habilita el botón ACEPTO
-
 ⚠️ Debes leer todo antes de aceptar (desliza hasta el final)
 ⚠️ Debes marcar el checkbox para aceptar
-
 ✅ Botón ACEPTO habilitado
 ✅ Términos aceptados - Redirigiendo a mesa.html
