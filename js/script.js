@@ -6,9 +6,11 @@ const scrollIndicador = document.getElementById('scroll-indicador');
 const checkboxAcepto = document.getElementById('checkbox-acepto');
 const btnAcepto = document.getElementById('btn-acepto');
 
-// ==================== DETECTAR SCROLL COMPLETO ====================
+// ==================== VARIABLES DE ESTADO ====================
 let haLeidoTodo = false;
+let checkboxMarcado = false;
 
+// ==================== DETECTAR SCROLL COMPLETO ====================
 contenidoScroll.addEventListener('scroll', function() {
     // Calcular si llegó al final del scroll
     const scrollTop = contenidoScroll.scrollTop;
@@ -19,23 +21,52 @@ contenidoScroll.addEventListener('scroll', function() {
     if (scrollTop + clientHeight >= scrollHeight - 50) {
         haLeidoTodo = true;
         scrollIndicador.style.display = 'none';
+        
+        // Verificar si puede habilitar el botón
+        verificarActivacionBoton();
     }
 });
 
-// ==================== HABILITAR BOTÓN AL MARCAR CHECKBOX ====================
+// ==================== DETECTAR CAMBIO EN CHECKBOX ====================
 checkboxAcepto.addEventListener('change', function() {
-    if (this.checked) {
+    checkboxMarcado = this.checked;
+    
+    // Verificar si puede habilitar el botón
+    verificarActivacionBoton();
+});
+
+// ==================== VERIFICAR SI PUEDE ACTIVAR BOTÓN ====================
+function verificarActivacionBoton() {
+    // El botón se activa SOLO si:
+    // 1. Ha leído todo (scroll completo)
+    // 2. Y el checkbox está marcado
+    
+    if (haLeidoTodo && checkboxMarcado) {
         btnAcepto.disabled = false;
+        console.log('✅ Botón ACEPTO habilitado');
     } else {
         btnAcepto.disabled = true;
+        
+        // Mensaje de ayuda en consola
+        if (!haLeidoTodo) {
+            console.log('⚠️ Debes leer todo antes de aceptar (desliza hasta el final)');
+        }
+        if (!checkboxMarcado) {
+            console.log('⚠️ Debes marcar el checkbox para aceptar');
+        }
     }
-});
+}
 
 // ==================== ACCIÓN AL PRESIONAR "ACEPTO" ====================
 btnAcepto.addEventListener('click', function() {
-    // Verificar que el checkbox esté marcado
-    if (!checkboxAcepto.checked) {
-        alert('⚠️ Debes aceptar los términos para continuar');
+    // Verificación de seguridad
+    if (!checkboxMarcado) {
+        alert('⚠️ Debes marcar el checkbox para continuar');
+        return;
+    }
+    
+    if (!haLeidoTodo) {
+        alert('⚠️ Debes leer todos los términos antes de aceptar');
         return;
     }
     
@@ -43,8 +74,9 @@ btnAcepto.addEventListener('click', function() {
     localStorage.setItem('terminos_aceptados', 'true');
     localStorage.setItem('fecha_aceptacion', new Date().toISOString());
     
+    console.log('✅ Términos aceptados - Redirigiendo a mesa.html');
+    
     // Redirigir a la mesa de juego
-    // NOTA: Cambiar 'mesa.html' por el nombre de tu archivo de juego
     window.location.href = 'mesa.html';
 });
 
@@ -76,18 +108,73 @@ window.addEventListener('load', function() {
 
 // ==================== CONSOLA INFO ====================
 console.log('✅ Términos y Condiciones cargados');
-console.log('📋 Sistema de scroll detectado');
-console.log('🔒 Sistema de aceptación activado');
+console.log('📋 Sistema de doble verificación activo:');
+console.log('   1️⃣ Debe leer todo (scroll hasta el final)');
+console.log('   2️⃣ Debe marcar checkbox');
+console.log('   ✅ Solo entonces se habilita el botón ACEPTO');
 ```
 
 ---
 
-## 📁 ESTRUCTURA DE CARPETAS PARA GITHUB:
+## 🔧 CÓMO ACTUALIZAR EN GITHUB:
+
+### **OPCIÓN 1 - Editar el archivo:**
+1. Ve a tu repositorio
+2. Abre `js/script.js`
+3. Toca el ícono del lápiz (editar)
+4. **BORRA TODO** el contenido actual
+5. **COPIA Y PEGA** el código de arriba
+6. Commit changes
+
+### **OPCIÓN 2 - Reemplazar completo:**
+1. Elimina `js/script.js`
+2. Crea nuevo archivo `js/script.js`
+3. Pega el código de arriba
+4. Commit
+
+---
+
+## ✅ AHORA EL BOTÓN SE ACTIVARÁ CUANDO:
+
+1. ✅ Deslices hasta el final (scroll completo)
+2. ✅ **Y** marques el checkbox
+
+**Ambas condiciones son necesarias.**
+
+---
+
+## 🧪 CÓMO PROBAR:
+
+### **TEST 1 - Solo checkbox:**
+1. Abre la página
+2. Marca el checkbox SIN hacer scroll
+3. **Resultado esperado:** Botón sigue deshabilitado ❌
+
+### **TEST 2 - Solo scroll:**
+1. Refresca la página
+2. Desliza hasta el final SIN marcar checkbox
+3. **Resultado esperado:** Botón sigue deshabilitado ❌
+
+### **TEST 3 - Ambas condiciones:**
+1. Refresca la página
+2. Desliza hasta el final ✅
+3. Marca el checkbox ✅
+4. **Resultado esperado:** Botón se activa 🟢 y puedes hacer clic
+
+---
+
+## 📊 MENSAJES EN CONSOLA:
+
+Abre la consola del navegador (Safari en iPhone: Configuración > Safari > Avanzado > Web Inspector) y verás:
 ```
-tu-repositorio/
-├── index.html          (Archivo 1)
-├── css/
-│   └── styles.css     (Archivo 2)
-├── js/
-│   └── script.js      (Archivo 3)
-└── mesa.html          (Lo crearás en Fase 2)
+✅ Términos y Condiciones cargados
+📋 Sistema de doble verificación activo:
+   1️⃣ Debe leer todo (scroll hasta el final)
+   2️⃣ Debe marcar checkbox
+   ✅ Solo entonces se habilita el botón ACEPTO
+
+⚠️ Debes leer todo antes de aceptar (desliza hasta el final)
+⚠️ Debes marcar el checkbox para aceptar
+
+✅ Botón ACEPTO habilitado
+✅ Términos aceptados - Redirigiendo a mesa.html
