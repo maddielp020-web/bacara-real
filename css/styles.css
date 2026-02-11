@@ -1,0 +1,345 @@
+/* ==================== RESET Y CONFIGURACIÓN BASE ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #0a2910 0%, #062011 100%);
+    color: #ffffff;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 10px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==================== CONTENEDOR PRINCIPAL ==================== */
+.contenedor {
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, #123f2a 0%, #0a291a 100%);
+    border-radius: 20px;
+    border: 6px solid #8B4513;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 3px solid #d4af37;
+}
+
+.header h1 {
+    color: #d4af37;
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.subtitulo {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* ==================== CONTENIDO DE TÉRMINOS ==================== */
+.contenido-terminos {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: calc(100vh - 280px);
+    -webkit-overflow-scrolling: touch;
+}
+
+.contenido-terminos::-webkit-scrollbar {
+    width: 8px;
+}
+
+.contenido-terminos::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.contenido-terminos::-webkit-scrollbar-thumb {
+    background: #d4af37;
+    border-radius: 10px;
+}
+
+/* ==================== SECCIONES ==================== */
+.seccion {
+    margin-bottom: 30px;
+}
+
+.seccion h2 {
+    color: #d4af37;
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #d4af37;
+}
+
+.seccion h3 {
+    color: #fbbf24;
+    font-size: 16px;
+    margin: 15px 0 10px 0;
+}
+
+.seccion p {
+    margin-bottom: 10px;
+    color: #e0e0e0;
+    font-size: 14px;
+}
+
+.seccion ul,
+.seccion ol {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    color: #e0e0e0;
+    font-size: 14px;
+}
+
+.seccion li {
+    margin-bottom: 8px;
+}
+
+/* ==================== ADVERTENCIAS Y DESTACADOS ==================== */
+.advertencia-importante {
+    background: rgba(220, 38, 38, 0.2);
+    border: 3px solid #dc2626;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.advertencia-importante h2 {
+    color: #ef4444;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.importante {
+    background: rgba(245, 158, 11, 0.15);
+    border-left: 4px solid #f59e0b;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+.destacado {
+    background: rgba(34, 197, 94, 0.15);
+    border-left: 4px solid #22c55e;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+}
+
+.proceso,
+.comision,
+.riesgos,
+.consecuencias {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.ejemplo {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.ejemplo p {
+    margin: 5px 0;
+}
+
+.ultima-advertencia {
+    background: rgba(220, 38, 38, 0.2);
+    border: 3px solid #dc2626;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.ultima-advertencia h2 {
+    color: #ef4444;
+    margin-bottom: 15px;
+}
+
+code {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    color: #fbbf24;
+    font-size: 13px;
+}
+
+/* ==================== INDICADOR DE SCROLL ==================== */
+.scroll-indicador {
+    background: rgba(212, 175, 55, 0.2);
+    border-top: 2px solid #d4af37;
+    padding: 10px;
+    text-align: center;
+    color: #d4af37;
+    font-size: 14px;
+    animation: pulso 2s infinite;
+}
+
+@keyframes pulso {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* ==================== FOOTER CON CHECKBOX Y BOTÓN ==================== */
+.footer-aceptacion {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-top: 3px solid #d4af37;
+}
+
+/* CHECKBOX PERSONALIZADO */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.checkbox-container:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid #d4af37;
+    border-radius: 6px;
+    margin-right: 12px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background: #22c55e;
+    border-color: #22c55e;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.texto-checkbox {
+    color: #e0e0e0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* BOTÓN ACEPTO */
+.btn-acepto {
+    width: 100%;
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    border: 3px solid #22c55e;
+    color: white;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.btn-acepto:disabled {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+    border-color: #6b7280;
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+}
+
+.btn-acepto:not(:disabled):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+}
+
+.btn-acepto:not(:disabled):active {
+    transform: translateY(0);
+}
+
+/* ==================== PIE DE PÁGINA ==================== */
+.pie-pagina {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    text-align: center;
+    border-top: 2px solid #d4af37;
+}
+
+.pie-pagina p {
+    color: #aaa;
+    font-size: 11px;
+    margin: 3px 0;
+}
+
+/* ==================== RESPONSIVE PARA IPHONE ==================== */
+@media (max-width: 480px) {
+    .contenedor {
+        border-width: 4px;
+        border-radius: 15px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+
+    .seccion h2 {
+        font-size: 18px;
+    }
+
+    .seccion h3 {
+        font-size: 15px;
+    }
+
+    .seccion p,
+    .seccion li {
+        font-size: 13px;
+    }
+
+    .btn-acepto {
+        font-size: 16px;
+        padding: 16px;
+    }
+
+    .contenido-terminos {
+        max-height: calc(100vh - 300px);
+    }
+}
