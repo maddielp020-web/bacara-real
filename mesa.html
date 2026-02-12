@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Mesa de Bacará</title>
+    <title>Mesa de Bacará - Fichas Profesionales</title>
     <style>
         /* ==================== RESET ==================== */
         * {
@@ -50,86 +50,102 @@
             pointer-events: none;
         }
 
-        /* ==================== JUGADOR (posición genérica) ==================== */
+        /* ==================== JUGADOR (HUD PROFESIONAL) ==================== */
         .jugador {
             position: absolute;
-            background: rgba(0, 0, 0, 0.75);
-            border: 2px solid #d4af37;
-            border-radius: 10px;
-            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 3px solid #d4af37;
+            border-radius: 12px;
+            padding: 10px 14px;
             text-align: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
             pointer-events: auto;
+            transition: all 0.3s ease;
+        }
+
+        .jugador:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .jugador-avatar {
+            font-size: 20px;
+            margin-bottom: 4px;
+            display: block;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .jugador-nombre {
             color: #d4af37;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            letter-spacing: 0.5px;
         }
 
+        /* ==================== FICHAS 🪙 PLATA CASINO ==================== */
         .jugador-fichas {
-            color: #ef4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: #ffffff;
             font-size: 16px;
             font-weight: bold;
-            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
         }
 
-        /* ==================== POSICIONES ESPECÍFICAS (basadas en tu imagen) ==================== */
-        
+        .ficha-casino {
+            font-size: 22px;
+            filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 8px rgba(255,215,0,0.6));
+            animation: brillo-ficha 3s ease-in-out infinite;
+        }
+
+        @keyframes brillo-ficha {
+            0%, 100% { 
+                filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 6px rgba(255,215,0,0.5));
+                transform: scale(1);
+            }
+            50% { 
+                filter: drop-shadow(0 3px 6px rgba(0,0,0,0.7)) drop-shadow(0 0 12px rgba(255,215,0,0.9));
+                transform: scale(1.05);
+            }
+        }
+
+        .fichas-numero {
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #c0c0c0, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ==================== POSICIONES ESPECÍFICAS ==================== */
+
         /* LADO IZQUIERDO */
-        .jugador-leon {
-            top: 30%;
-            left: 5%;
-            transform: translateY(-50%);
-        }
-
-        .jugador-dragon {
-            top: 50%;
-            left: 5%;
-            transform: translateY(-50%);
-        }
-
-        .jugador-conejo {
-            top: 70%;
-            left: 5%;
-            transform: translateY(-50%);
-        }
+        .jugador-leon { top: 46%; left: 2%; transform: translateY(-100%); }
+        .jugador-dragon { top: 58%; left: 2%; transform: translateY(-50%); }
+        .jugador-conejo { top: 70%; left: 2%; transform: translateY(0%); }
 
         /* LADO DERECHO */
-        .jugador-aguila {
-            top: 30%;
-            right: 5%;
-            transform: translateY(-50%);
-        }
-
-        .jugador-serpiente {
-            top: 50%;
-            right: 5%;
-            transform: translateY(-50%);
-        }
-
-        .jugador-buho {
-            top: 70%;
-            right: 5%;
-            transform: translateY(-50%);
-        }
+        .jugador-aguila { top: 46%; right: 2%; transform: translateY(-100%); }
+        .jugador-cobra { top: 58%; right: 2%; transform: translateY(-50%); }
+        .jugador-buho { top: 70%; right: 2%; transform: translateY(0%); }
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 480px) {
             .jugador {
-                padding: 6px 10px;
+                padding: 8px 12px;
+                border-width: 2px;
             }
-
-            .jugador-nombre {
-                font-size: 12px;
-            }
-
-            .jugador-fichas {
-                font-size: 14px;
-            }
+            
+            .jugador-avatar { font-size: 18px; }
+            .jugador-nombre { font-size: 12px; }
+            .ficha-casino { font-size: 20px; }
+            .fichas-numero { font-size: 14px; }
         }
     </style>
 </head>
@@ -143,46 +159,76 @@
             
             <!-- LADO IZQUIERDO -->
             <div class="jugador jugador-leon">
+                <span class="jugador-avatar">🦁</span>
                 <div class="jugador-nombre">León</div>
-                <div class="jugador-fichas">🔴 0</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero">1,250</span>
+                </div>
             </div>
 
             <div class="jugador jugador-dragon">
+                <span class="jugador-avatar">🐉</span>
                 <div class="jugador-nombre">Dragón</div>
-                <div class="jugador-fichas">🔴 0</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero">850</span>
+                </div>
             </div>
 
             <div class="jugador jugador-conejo">
+                <span class="jugador-avatar">🐰</span>
                 <div class="jugador-nombre">Conejo</div>
-                <div class="jugador-fichas">🔴 0</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero">420</span>
+                </div>
             </div>
 
             <!-- LADO DERECHO -->
             <div class="jugador jugador-aguila">
+                <span class="jugador-avatar">🦅</span>
                 <div class="jugador-nombre">Águila</div>
-                <div class="jugador-fichas">🔴 0</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero">2,100</span>
+                </div>
             </div>
 
-            <div class="jugador jugador-serpiente">
-                <div class="jugador-nombre">Serpiente</div>
-                <div class="jugador-fichas">🔴 0</div>
+            <div class="jugador jugador-cobra">
+                <span class="jugador-avatar">🐍</span>
+                <div class="jugador-nombre">Cobra</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero">675</span>
+                </div>
             </div>
 
             <div class="jugador jugador-buho">
+                <span class="jugador-avatar">🦉</span>
                 <div class="jugador-nombre">Búho</div>
-                <div class="jugador-fichas">🔴 0</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero">980</span>
+                </div>
             </div>
 
         </div>
     </div>
 
     <script>
-        // ==================== CAPA 3 - VERIFICACIÓN ==================== 
-        console.log('✅ CAPA 3: Nombres y contadores cargados');
-        console.log('📍 6 jugadores posicionados:');
-        console.log('   Izquierda: León, Dragón, Conejo');
-        console.log('   Derecha: Águila, Serpiente, Búho');
-        console.log('🔴 Contadores inicializados en 0');
+        // ==================== CAPA 3 PROFESIONAL - FICHAS 🪙 ==================== 
+        console.log('✅ CAPA 3 PRO: Fichas de casino 🪙 cargadas');
+        console.log('✨ Animación brillo activada en todas las fichas');
+        console.log('📍 6 jugadores posicionados perfectamente:');
+        console.log('   🦁 León: 1,250 🪙 | 🦅 Águila: 2,100 🪙');
+        console.log('   🐉 Dragón: 850 🪙 | 🐍 Cobra: 675 🪙');
+        console.log('   🐰 Conejo: 420 🪙 | 🦉 Búho: 980 🪙');
+        console.log('🎯 Posicionamiento respecto a fichas de mesa:');
+        console.log('   Superior: Recuadro ENCIMA ✓');
+        console.log('   Centro: Recuadro PARALELO ✓');
+        console.log('   Inferior: Recuadro DEBAJO ✓');
+        console.log('📱 Optimizado para iPhone Safari 2026');
     </script>
 </body>
 </html>
