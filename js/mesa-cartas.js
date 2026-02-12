@@ -34,6 +34,15 @@ class MesaCartas {
         if (['10', 'J', 'Q', 'K'].includes(valor)) return 0;
         return parseInt(valor);
     }
+    
+// 🌈 COLOR POR PALO
+obtenerColorPalo(palo) {
+    switch(palo) {
+        case '♥': case '♦': return 'red';      // Corazones/Diamantes = ROJO
+        case '♠': case '♣': return '#1a1a1a';  // Picas/Tréboles = NEGRO
+        default: return '#ccc';
+    }
+}
 
     // 🎲 ALGORITMO FISHER-YATES CERTIFICADO
     barajar() {
@@ -43,6 +52,7 @@ class MesaCartas {
         }
         this.cartasRestantes = this.mazo.length;
         this.barajando = false;
+        setInterval(() => this.verificarBarajado(), 1000); // Check cada segundo
     }
 
     // 🃏 REPARTIR MANO COMPLETA (4 cartas)
@@ -76,14 +86,29 @@ class MesaCartas {
     }
 
     // ♻️ VERIFICAR BARAJADO (<16 cartas)
-    verificarBarajado() {
-        if (this.cartasRestantes <= 16 && !this.barajando) {
-            this.barajando = true;
-            setTimeout(() => {
-                this.barajar();
-            }, 2000);
-        }
-    }
+    actualizarCartas() {
+    const estado = window.mesaCartas?.obtenerEstado() || {};
+    const mano = estado.manoActual || { corona: { cartas: [], puntuacion: 0 }, retador: { cartas: [], puntuacion: 0 } };
+
+    // Corona
+    const c1 = mano.corona.cartas[0];
+    const c2 = mano.corona.cartas[1];
+    document.getElementById('carta1-corona').innerHTML = c1 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(c1.palo)}">${c1.valor}${c1.palo}</span>` : '?';
+    document.getElementById('carta2-corona').innerHTML = c2 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(c2.palo)}">${c2.valor}${c2.palo}</span>` : '?';
+
+    // Retador
+    const r1 = mano.retador.cartas[0];
+    const r2 = mano.retador.cartas[1];
+    document.getElementById('carta1-retador').innerHTML = r1 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(r1.palo)}">${r1.valor}${r1.palo}</span>` : '?';
+    document.getElementById('carta2-retador').innerHTML = r2 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(r2.palo)}">${r2.valor}${r2.palo}</span>` : '?';
+
+    document.getElementById('puntuacion-corona').textContent = mano.corona.puntuacion;
+    document.getElementById('puntuacion-retador').textContent = mano.retador.puntuacion;
+}
 
     // 📤 EXPORTAR PARA UI
     obtenerEstado() {
