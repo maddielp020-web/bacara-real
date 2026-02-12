@@ -44,16 +44,14 @@ body {
 }
 
 .corona-badge { 
-    position: absolute; top: -15px; left: 50%; transform: translateX(-50%);
-    background: rgba(255,215,0,.95); color: #000; padding: 4px 12px; 
-    border-radius: 20px; font-size: 12px; font-weight: bold; 
-    box-shadow: 0 4px 15px rgba(255,215,0,.5); animation: corona-brillo 2s infinite; z-index: 10; 
+    position: absolute; top: -28px; left: 30%; transform: translateX(-50%);
+    background: rgba(255,215,0,.95); color: #000; padding: 4px 10px; 
+    border-radius: 15px; font-size: 11px; font-weight: bold; z-index: 20;
 }
 .retador-badge { 
-    position: absolute; top: -15px; right: -10px;
+    position: absolute; top: -28px; right: 25%; 
     background: rgba(220,38,38,.95); color: #fff; padding: 4px 10px; 
-    border-radius: 15px; font-size: 12px; font-weight: bold; 
-    box-shadow: 0 4px 15px rgba(220,38,38,.5); z-index: 10; 
+    border-radius: 15px; font-size: 11px; font-weight: bold; z-index: 20;
 }
 @keyframes corona-brillo { 
     0%, 100% { box-shadow: 0 4px 15px rgba(255,215,0,.5); } 
