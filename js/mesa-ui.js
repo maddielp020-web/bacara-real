@@ -38,19 +38,28 @@ class MesaUI {
 
     // 🃏 CARTAS CENTRAL
     actualizarCartas() {
-        const estado = window.mesaCartas?.obtenerEstado() || {};
-        const mano = estado.manoActual || { corona: { cartas: [], puntuacion: 0 }, retador: { cartas: [], puntuacion: 0 } };
+    const estado = window.mesaCartas?.obtenerEstado() || {};
+    const mano = estado.manoActual || { corona: { cartas: [], puntuacion: 0 }, retador: { cartas: [], puntuacion: 0 } };
 
-        // Corona
-        document.getElementById('carta1-corona').textContent = mano.corona.cartas[0]?.valor + mano.corona.cartas[0]?.palo || '?';
-        document.getElementById('carta2-corona').textContent = mano.corona.cartas[1]?.valor + mano.corona.cartas[1]?.palo || '?';
-        document.getElementById('puntuacion-corona').textContent = mano.corona.puntuacion;
+    // Corona
+    const c1 = mano.corona.cartas[0];
+    const c2 = mano.corona.cartas[1];
+    document.getElementById('carta1-corona').innerHTML = c1 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(c1.palo)}">${c1.valor}${c1.palo}</span>` : '?';
+    document.getElementById('carta2-corona').innerHTML = c2 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(c2.palo)}">${c2.valor}${c2.palo}</span>` : '?';
 
-        // Retador
-        document.getElementById('carta1-retador').textContent = mano.retador.cartas[0]?.valor + mano.retador.cartas[0]?.palo || '?';
-        document.getElementById('carta2-retador').textContent = mano.retador.cartas[1]?.valor + mano.retador.cartas[1]?.palo || '?';
-        document.getElementById('puntuacion-retador').textContent = mano.retador.puntuacion;
-    }
+    // Retador
+    const r1 = mano.retador.cartas[0];
+    const r2 = mano.retador.cartas[1];
+    document.getElementById('carta1-retador').innerHTML = r1 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(r1.palo)}">${r1.valor}${r1.palo}</span>` : '?';
+    document.getElementById('carta2-retador').innerHTML = r2 ? 
+        `<span style="color: ${window.mesaCartas.obtenerColorPalo(r2.palo)}">${r2.valor}${r2.palo}</span>` : '?';
+
+    document.getElementById('puntuacion-corona').textContent = mano.corona.puntuacion;
+    document.getElementById('puntuacion-retador').textContent = mano.retador.puntuacion;
+}
 
     // 📝 HISTORIAL
     actualizarHistorial() {
