@@ -4,10 +4,6 @@ class MesaUI {
         this.jugadores = {
             leon: 1250, dragon: 850, conejo: 420,
             aguila: 2100, cobra: 675, buho: 980
-        };
-        this.coronaActual = 'leon';
-        this.retadorActual = 'dragon';
-    }
 
     // 🖼️ ACTUALIZAR TODO
     actualizarTodo() {
@@ -43,14 +39,30 @@ class MesaUI {
 
     // 👑⚔️ ROLES
     actualizarRoles() {
-        document.querySelectorAll('.corona-badge, .retador-badge').forEach(b => b.style.display = 'none');
-        if (document.getElementById(`corona-${this.coronaActual}`)) {
-            document.getElementById(`corona-${this.coronaActual}`).style.display = 'block';
-        }
-        if (document.getElementById(`retador-${this.retadorActual}`)) {
-            document.getElementById(`retador-${this.retadorActual}`).style.display = 'block';
-        }
+    // Ocultar todos los badges primero
+    document.querySelectorAll('.corona-badge, .retador-badge')
+        .forEach(b => b.style.display = 'none');
+
+    // Leer estado del duelo desde mesa-duelo.js
+    const duelo = window.mesaDuelo?.obtenerEstadoDuelo
+        ? window.mesaDuelo.obtenerEstadoDuelo()
+        : null;
+
+    if (!duelo || !duelo.coronaActual || !duelo.retadorActual) {
+        // Si algo falla, no mostramos nada para evitar errores visuales
+        return;
     }
+
+    const { coronaActual, retadorActual } = duelo;
+
+    // Mostrar badge de CORONA
+    const badgeCorona = document.getElementById(`corona-${coronaActual}`);
+    if (badgeCorona) badgeCorona.style.display = 'block';
+
+    // Mostrar badge de RETADOR
+    const badgeRetador = document.getElementById(`retador-${retadorActual}`);
+    if (badgeRetador) badgeRetador.style.display = 'block';
+}
 
     // 🃏 CARTAS CENTRAL
     actualizarCartas() {
