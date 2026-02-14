@@ -142,13 +142,17 @@ mostrarEmojiReaccion(jugadorId, emoji) {
 }
 
 mostrarReaccionesPorMano(ganador) {
+    // Leer estado actual del duelo
+    const duelo = window.mesaDuelo?.obtenerEstadoDuelo();
+    if (!duelo || !duelo.coronaActual || !duelo.retadorActual) return;
+
     // 1. Corona
     const coronaEmoji = ganador === 'corona' ? '🥳' : '🥵';
-    this.mostrarEmojiReaccion(this.coronaActual, coronaEmoji);
+    this.mostrarEmojiReaccion(duelo.coronaActual, coronaEmoji);
 
     // 2. Retador
     const retadorEmoji = ganador === 'retador' ? '🥳' : '🥵';
-    this.mostrarEmojiReaccion(this.retadorActual, retadorEmoji);
+    this.mostrarEmojiReaccion(duelo.retadorActual, retadorEmoji);
 }
 
 // 🎮 INSTANCIA GLOBAL UI
