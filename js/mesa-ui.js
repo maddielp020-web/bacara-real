@@ -4,10 +4,12 @@ class MesaUI {
         this.jugadores = {
             leon: 1250, dragon: 850, conejo: 420,
             aguila: 2100, cobra: 675, buho: 980
+        };
+    }
 
     // 🖼️ ACTUALIZAR TODO
     actualizarTodo() {
-        this.crearBotonHistorial();   // ← NUEVO: botón historial
+        this.crearBotonHistorial();
         this.actualizarCartas();
         this.actualizarCajon();
         this.actualizarRoles();
@@ -19,10 +21,7 @@ class MesaUI {
     crearBotonHistorial() {
         const overlay = document.getElementById('mesa-overlay');
         if (!overlay) return;
-
-        // Evitar duplicados
         if (document.getElementById('boton-historial')) return;
-
         const btn = document.createElement('div');
         btn.id = 'boton-historial';
         btn.className = 'boton-historial';
@@ -30,83 +29,42 @@ class MesaUI {
         overlay.appendChild(btn);
     }
 
-    // 🃏 CAJÓN DE CARTAS
     actualizarCajon() {
         const estado = window.mesaCartas?.obtenerEstado() || { cartasRestantes: 416, barajando: false };
         document.getElementById('cartas-restantes').textContent = `🃏 ${estado.cartasRestantes} cartas`;
         document.getElementById('estado-barajando').style.display = estado.barajando ? 'block' : 'none';
     }
 
-    // 👑⚔️ ROLES
     actualizarRoles() {
-    // Ocultar todos los badges primero
-    document.querySelectorAll('.corona-badge, .retador-badge')
-        .forEach(b => b.style.display = 'none');
-
-    // Leer estado del duelo desde mesa-duelo.js
-    const duelo = window.mesaDuelo?.obtenerEstadoDuelo
-        ? window.mesaDuelo.obtenerEstadoDuelo()
-        : null;
-
-    if (!duelo || !duelo.coronaActual || !duelo.retadorActual) {
-        // Si algo falla, no mostramos nada para evitar errores visuales
-        return;
+        document.querySelectorAll('.corona-badge, .retador-badge').forEach(b => b.style.display = 'none');
+        const duelo = window.mesaDuelo?.obtenerEstadoDuelo?.() || {};
+        if (duelo.coronaActual) {
+            const badgeCorona = document.getElementById(`corona-${duelo.coronaActual}`);
+            if (badgeCorona) badgeCorona.style.display = 'block';
+        }
+        if (duelo.retadorActual) {
+            const badgeRetador = document.getElementById(`retador-${duelo.retadorActual}`);
+            if (badgeRetador) badgeRetador.style.display = 'block';
+        }
     }
 
-    const { coronaActual, retadorActual } = duelo;
-
-    // Mostrar badge de CORONA
-    const badgeCorona = document.getElementById(`corona-${coronaActual}`);
-    if (badgeCorona) badgeCorona.style.display = 'block';
-
-    // Mostrar badge de RETADOR
-    const badgeRetador = document.getElementById(`retador-${retadorActual}`);
-    if (badgeRetador) badgeRetador.style.display = 'block';
-}
-
-    // 🃏 CARTAS CENTRAL
     actualizarCartas() {
-    const estado = window.mesaCartas?.obtenerEstado() || {};
-    const mano = estado.manoActual || { 
-        corona: { cartas: [], puntuacion: 0 }, 
-        retador: { cartas: [], puntuacion: 0 } 
-    };
-
-    // CORONA
-    const c1 = mano.corona.cartas[0];
-    const c2 = mano.corona.cartas[1];
-
-    document.getElementById('carta1-corona').innerHTML = c1
-        ? `<span style="color: ${window.mesaCartas.obtenerColorPalo(c1.palo)}">${c1.valor}${c1.palo}</span>`
-        : '?';
-
-    document.getElementById('carta2-corona').innerHTML = c2
-        ? `<span style="color: ${window.mesaCartas.obtenerColorPalo(c2.palo)}">${c2.valor}${c2.palo}</span>`
-        : '?';
-
-    document.getElementById('puntuacion-corona').textContent = mano.corona.puntuacion;
-
-    // RETADOR
-    const r1 = mano.retador.cartas[0];
-    const r2 = mano.retador.cartas[1];
-
-    document.getElementById('carta1-retador').innerHTML = r1
-        ? `<span style="color: ${window.mesaCartas.obtenerColorPalo(r1.palo)}">${r1.valor}${r1.palo}</span>`
-        : '?';
-
-    document.getElementById('carta2-retador').innerHTML = r2
-        ? `<span style="color: ${window.mesaCartas.obtenerColorPalo(r2.palo)}">${r2.valor}${r2.palo}</span>`
-        : '?';
-
-    document.getElementById('puntuacion-retador').textContent = mano.retador.puntuacion;
-}
-
-    // 📝 HISTORIAL (placeholder)
-    actualizarHistorial() {
-        // Por ahora no hacemos nada: solo existe el botón visual "📜 Historial"
+        const estado = window.mesaCartas?.obtenerEstado() || {};
+        const mano = estado.manoActual || { corona: { cartas: [], puntuacion: 0 }, retador: { cartas: [], puntuacion: 0 } };
+        const c1 = mano.corona.cartas[0];
+        const c2 = mano.corona.cartas[1];
+        document.getElementById('carta1-corona').innerHTML = c1 ? `<span style="color: ${window.mesaCartas?.obtenerColorPalo(c1.palo)}">${c1.valor}${c1.palo}</span>` : '?';
+        document.getElementById('carta2-corona').innerHTML = c2 ? `<span style="color: ${window.mesaCartas?.obtenerColorPalo(c2.palo)}">${c2.valor}${c2.palo}</span>` : '?';
+        document.getElementById('puntuacion-corona').textContent = mano.corona.puntuacion;
+        const r1 = mano.retador.cartas[0];
+        const r2 = mano.retador.cartas[1];
+        document.getElementById('carta1-retador').innerHTML = r1 ? `<span style="color: ${window.mesaCartas?.obtenerColorPalo(r1.palo)}">${r1.valor}${r1.palo}</span>` : '?';
+        document.getElementById('carta2-retador').innerHTML = r2 ? `<span style="color: ${window.mesaCartas?.obtenerColorPalo(r2.palo)}">${r2.valor}${r2.palo}</span>` : '?';
+        document.getElementById('puntuacion-retador').textContent = mano.retador.puntuacion;
     }
 
-    // 🪙 FICHAS
+    actualizarHistorial() {}
+
     actualizarFichas() {
         document.querySelectorAll('.fichas-numero').forEach(el => {
             const jugador = el.dataset.jugador;
@@ -114,32 +72,39 @@ class MesaUI {
         });
     }
 
-    // 🎯 COMISIÓN
     mostrarComision() {
         const estadoApuestas = window.mesaApuestas?.obtenerEstado();
         if (estadoApuestas?.comisionActiva) {
             const alerta = document.getElementById('comision-alert');
-            alerta.classList.add('mostrar');
-            setTimeout(() => alerta.classList.remove('mostrar'), 3000);
+            if (alerta) {
+                alerta.classList.add('mostrar');
+                setTimeout(() => alerta.classList.remove('mostrar'), 3000);
+            }
+        }
+    }
 
-mostrarReaccionesPorMano(ganador) {
-    const duelo = window.mesaDuelo?.obtenerEstadoDuelo();
-    if (!duelo?.coronaActual || !duelo?.retadorActual) return;
+    // 🥳 EMOJIS REACCIÓN
+    mostrarEmojiReaccion(jugadorId, emoji) {
+        const jugadorElement = document.querySelector(`.jugador-${jugadorId}`);
+        if (!jugadorElement) return;
+        const emojiDiv = document.createElement('div');
+        emojiDiv.className = `emoji-reaccion emoji-${jugadorId}`;
+        emojiDiv.textContent = emoji;
+        jugadorElement.appendChild(emojiDiv);
+        setTimeout(() => emojiDiv.remove(), 2000);
+    }
 
-    // Corona
-    const coronaEmoji = ganador === 'corona' ? '🥳' : '🥵';
-    this.mostrarEmojiReaccion(duelo.coronaActual, coronaEmoji);
-
-    // Retador  
-    const retadorEmoji = ganador === 'retador' ? '🥳' : '🥵';
-    this.mostrarEmojiReaccion(duelo.retadorActual, retadorEmoji);
+    mostrarReaccionesPorMano(ganador) {
+        const duelo = window.mesaDuelo?.obtenerEstadoDuelo?.() || {};
+        if (!duelo.coronaActual || !duelo.retadorActual) return;
+        const coronaEmoji = ganador === 'corona' ? '🥳' : '🥵';
+        this.mostrarEmojiReaccion(duelo.coronaActual, coronaEmoji);
+        const retadorEmoji = ganador === 'retador' ? '🥳' : '🥵';
+        this.mostrarEmojiReaccion(duelo.retadorActual, retadorEmoji);
+    }
 }
 
-// 🎮 INSTANCIA GLOBAL UI
 window.mesaUI = new MesaUI();
-
-// 🔗 FUNCIONES PÚBLICAS
 window.actualizarUICompleta = () => window.mesaUI?.actualizarTodo();
 window.mesaUI.mostrarComision = () => window.mesaUI?.mostrarComision();
-
-console.log('🖼️ mesa-ui.js CARGADO - Controlador visual con botón historial');
+console.log('🖼️ mesa-ui.js CARGADO');
