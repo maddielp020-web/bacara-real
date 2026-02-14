@@ -91,6 +91,9 @@
                     const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
                     window.procesarResultado(ganador);
                 }
+            
+             window.mesaUI?.mostrarReaccionesPorMano(ganador);
+
                 window.actualizarUICompleta();
             }, 5000);
         }
