@@ -73,22 +73,53 @@ class MesaApuestas {
 
     // 📊 ESTADO COMPLETO (para UI)
     obtenerEstado() {
-        return {
-            apuestasCorona: this.apuestasEspectadores.corona,
-            apuestasRetador: this.apuestasEspectadores.retador,
-            rachaCorona: this.rachaVictoriasCorona,
-            comisionActiva: this.rachaVictoriasCorona >= 2,
-            manoGanador: this.manoGanador,
-            totalCasa: this.comisionCasa
-        };
-    }
+    return {
+        apuestasCorona: this.apuestasEspectadores.corona,
+        apuestasRetador: this.apuestasEspectadores.retador,
+        rachaCorona: this.rachaVictoriasCorona,
+        comisionActiva: this.rachaVictoriasCorona >= 2,
+        manoGanador: this.manoGanador,
+        totalCasa: this.comisionCasa
+    };
+}
 
     // 🎲 SIMULAR APUESTA PRUEBAS
     simularApuestas() {
         const apuesta = Math.floor(Math.random() * 100) + 50;
         const destino = Math.random() > 0.5 ? 'corona' : 'retador';
         return this.apostarEspectador(destino, apuesta);
+    
+    // 🧮 REGISTRAR RESULTADO PARA RACHA Y COMISIÓN
+// info: { ganador: 'corona'|'retador', coronaActual, retadorActual, coronaAnterior, retadorAnterior }
+registrarResultado(info) {
+    if (!info || !info.ganador) return;
+
+    // ¿Quién es el jugador que ganó esta mano?
+    // Si ganó 'corona', el ganador es info.coronaActual
+    // Si ganó 'retador', el ganador es info.retadorAnterior (el retador que jugó esa mano)
+    const jugadorGanadorId = info.ganador === 'corona'
+        ? info.coronaActual
+        : info.retadorAnterior;
+
+    // Actualizar racha SOLO para Corona (según T&C la comisión se asocia a la posición Corona)
+    if (info.ganador === 'corona') {
+        // Corona ganó una mano
+        this.rachaVictoriasCorona += 1;
+    } else {
+        // Corona perdió → racha se reinicia
+        this.rachaVictoriasCorona = 0;
     }
+
+    // ¿Hay comisión activa?
+    const comisionActiva = this.rachaVictoriasCorona >= 2;
+    if (comisionActiva) {
+        // Aquí NO calculamos aún el monto exacto (falta enlazar apuestaActual),
+        // pero sí podemos activar el cartel visual
+        this.mostrarAlertaComision();
+    }
+
+    // Guardar por si hace falta en otros módulos
+    this.manoGanador = info.ganador;
 }
 
 // 🎮 INSTANCIA GLOBAL
