@@ -121,7 +121,35 @@ class MesaDuelo {
         this.dueloActivo = !!(this.coronaActual && this.retadorActual);
 
         // 4) Devolver resumen para UI / apuestas / emojis de reacción
-        return {
+       // 3) Actualizar estado interno
+this.coronaActual = coronaNueva;
+this.retadorActual = retadorNuevo;
+this.manoEnDuelo = manoEnDueloNueva;
+this.dueloActivo = !!(this.coronaActual && this.retadorActual);
+
+// 4) Notificar a sistema de apuestas (racha + comisión)
+if (window.mesaApuestas && typeof window.mesaApuestas.registrarResultado === 'function') {
+    window.mesaApuestas.registrarResultado({
+        ganador,              // 'corona' | 'retador'
+        coronaActual: this.coronaActual,
+        retadorActual: this.retadorActual,
+        coronaAnterior,
+        retadorAnterior
+    });
+}
+
+// 5) Devolver resumen para UI / historial / emojis
+return {
+    coronaAnterior,
+    coronaNueva,
+    retadorAnterior,
+    retadorNuevo,
+    manoEnDueloAnterior,
+    manoEnDueloNueva,
+    dueloTerminado
+};
+
+         return {
             coronaAnterior,
             coronaNueva,
             retadorAnterior,
