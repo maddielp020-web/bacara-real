@@ -8,6 +8,20 @@ class MesaUI {
         this.coronaActual = 'leon';
         this.retadorActual = 'dragon';
     }
+    
+crearBotonHistorial() {
+    const overlay = document.getElementById('mesa-overlay');
+    if (!overlay) return;
+
+    // Evitar duplicados
+    if (document.getElementById('boton-historial')) return;
+
+    const btn = document.createElement('div');
+    btn.id = 'boton-historial';
+    btn.className = 'boton-historial';
+    btn.innerHTML = `<span class="icono">📜</span><span>Historial</span>`;
+    overlay.appendChild(btn);
+}
 
     // 🖼️ ACTUALIZAR TODO
     actualizarTodo() {
@@ -61,16 +75,10 @@ class MesaUI {
     document.getElementById('puntuacion-retador').textContent = mano.retador.puntuacion;
 }
 
-    // 📝 HISTORIAL
-    actualizarHistorial() {
-        const historial = window.mesaHistorial?.obtenerEstadoRapido()?.ultimasManos || [];
-        const historialDiv = document.getElementById('historial-rapido');
-        if (historialDiv) {
-            historialDiv.innerHTML = historial.map(mano => 
-                `<div>${mano.ganador} ${mano.coronaPuntos}-${mano.retadorPuntos}</div>`
-            ).join('') || 'Sin historial';
-        }
-    }
+    // 📝 HISTORIAL (placeholder por ahora)
+actualizarHistorial() {
+    // Por ahora no hacemos nada: solo existe el botón visual "📜 Historial"
+}
 
     // 🪙 FICHAS
     actualizarFichas() {
