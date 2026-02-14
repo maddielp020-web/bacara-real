@@ -121,8 +121,34 @@ class MesaUI {
             const alerta = document.getElementById('comision-alert');
             alerta.classList.add('mostrar');
             setTimeout(() => alerta.classList.remove('mostrar'), 3000);
+
+// 🥳🥵 EMOJIS REACCIÓN (solo Corona/Retador)
+mostrarEmojiReaccion(jugadorId, emoji) {
+    const jugadorElement = document.querySelector(`.jugador-${jugadorId}`);
+    if (!jugadorElement) return;
+
+    // Crear emoji
+    const emojiDiv = document.createElement('div');
+    emojiDiv.className = `emoji-reaccion emoji-${jugadorId}`;
+    emojiDiv.textContent = emoji;
+    jugadorElement.appendChild(emojiDiv);
+
+    // Auto-eliminar a los 2 segundos
+    setTimeout(() => {
+        if (emojiDiv.parentNode) {
+            emojiDiv.parentNode.removeChild(emojiDiv);
         }
-    }
+    }, 2000);
+}
+
+mostrarReaccionesPorMano(ganador) {
+    // 1. Corona
+    const coronaEmoji = ganador === 'corona' ? '🥳' : '🥵';
+    this.mostrarEmojiReaccion(this.coronaActual, coronaEmoji);
+
+    // 2. Retador
+    const retadorEmoji = ganador === 'retador' ? '🥳' : '🥵';
+    this.mostrarEmojiReaccion(this.retadorActual, retadorEmoji);
 }
 
 // 🎮 INSTANCIA GLOBAL UI
