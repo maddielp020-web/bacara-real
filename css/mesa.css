@@ -125,12 +125,6 @@ body {
 .comision-alert.mostrar { opacity: 1; transform: translateY(0); }
 
 /* ==================== HISTORIAL ==================== */
-.historial-rapido {
-    position: absolute; bottom: 5%; left: 5%; background: rgba(0,0,0,.9);
-    border: 2px solid #d4af37; border-radius: 10px; padding: 10px;
-    max-height: 100px; overflow-y: auto; font-size: 12px; color: #d4af37;
-    max-width: 150px;
-}
 
 /* ==================== POSICIONES JUGADORES ==================== */
 .jugador-leon { top: 46%; left: 2%; transform: translateY(-100%); }
@@ -147,4 +141,26 @@ body {
     .jugador-nombre { font-size: 12px; }
     .ficha-casino { font-size: 20px; }
     .fichas-numero { font-size: 14px; }
+}
+
+/* BOTÓN HISTORIAL - ESQUINA SUPERIOR IZQUIERDA */
+.boton-historial {
+    position: absolute;
+    top: 4%;
+    left: 4%;
+    background: #4A90E2;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    cursor: default;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.boton-historial span.icono {
+    font-size: 14px;
 }
