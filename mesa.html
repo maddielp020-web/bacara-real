@@ -85,18 +85,18 @@
         }
 
         function simularPartida() {
-            setInterval(() => {
-                if (window.mesaCartas) window.mesaCartas.nuevaMano();
-                if (window.mesaApuestas) {
-                    const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
-                    window.procesarResultado(ganador);
-                }
-            
-             window.mesaUI?.mostrarReaccionesPorMano(ganador);
-
-                window.actualizarUICompleta();
-            }, 5000);
+    setInterval(() => {
+        if (window.mesaCartas) window.mesaCartas.nuevaMano();
+        if (window.mesaApuestas) {
+            const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
+            window.procesarResultado(ganador);
+            if (window.mesaUI?.mostrarReaccionesPorMano) {
+                window.mesaUI.mostrarReaccionesPorMano(ganador);
+            }
         }
+        window.actualizarUICompleta();
+    }, 5000);
+}
 
         function apostar(destino, cantidad) {
             window.apostar(destino, cantidad);
