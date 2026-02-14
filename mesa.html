@@ -42,12 +42,13 @@
         </div>
     </div>
 
-    <!-- JS MÓDULOS -->
-    <script src="js/mesa-cartas.js"></script>
-    <script src="js/mesa-apuestas.js"></script>
-    <script src="js/mesa-historial.js"></script>
-    <script src="js/mesa-ui.js"></script>
-    
+ <!-- JS MÓDULOS -->
+<script src="js/mesa-cartas.js"></script>
+<script src="js/mesa-apuestas.js"></script>
+<script src="js/mesa-historial.js"></script>
+<script src="js/mesa-duelo.js"></script>
+<script src="js/mesa-ui.js"></script>
+       
     <script>
         // 🚀 INICIALIZAR
         window.addEventListener('load', function() {
@@ -83,8 +84,7 @@
                 overlay.appendChild(div);
             });
         }
-
-        function simularPartida() {
+     function simularPartida() {
     setInterval(() => {
         if (window.mesaCartas) window.mesaCartas.nuevaMano();
         if (window.mesaApuestas) {
