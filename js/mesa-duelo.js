@@ -62,6 +62,7 @@ class MesaDuelo {
     // 🧠 PROCESAR FIN DE MANO
     // ganador: 'corona' | 'retador'
     procesarFinDeMano(ganador) {
+        console.log('⚔️ procesarFinDeMano llamado con ganador:', ganador);
         const coronaAnterior = this.coronaActual;
         const retadorAnterior = this.retadorActual;
         const manoEnDueloAnterior = this.manoEnDuelo;
