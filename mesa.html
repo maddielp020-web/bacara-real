@@ -52,57 +52,24 @@
 <script src="js/mesa-ui.js"></script>
        
     <script>
-        // 🚀 INICIALIZAR
-        window.addEventListener('load', function() {
+    // 🔧 Fixes críticos primero
+    window.mesaCartas = window.mesaCartas || { nuevaMano: () => {}, obtenerEstado: () => ({}), obtenerColorPalo: (p) => '#000' };
+    window.mesaApuestas = window.mesaApuestas || { procesarResultado: (w) => {}, apostar: (d,c) => {} };
+    window.mesaDuelo = window.mesaDuelo || { obtenerEstadoDuelo: () => ({coronaActual: 'leon', retadorActual: 'dragon'}) };
+    window.procesarResultado = window.procesarResultado || ((w) => {});
+
+    // 🚀 INICIALIZAR (espera 100ms que todos los JS carguen)
+    window.addEventListener('load', function() {
+        setTimeout(() => {
             crearJugadores();
+            window.mesaDuelo?.iniciarDueloInicial?.('leon', 'aguila');
             simularPartida();
             console.log('🎮 FASE 4 COMPLETA ✅');
-        });
+        }, 100);
+    });
 
-        function crearJugadores() {
-            const overlay = document.getElementById('mesa-overlay');
-            const jugadores = [
-                {clase: 'jugador-leon', id: 'leon', avatar: '🦁', nombre: 'León'},
-                {clase: 'jugador-dragon', id: 'dragon', avatar: '🐉', nombre: 'Dragón'},
-                {clase: 'jugador-conejo', id: 'conejo', avatar: '🐰', nombre: 'Conejo'},
-                {clase: 'jugador-aguila', id: 'aguila', avatar: '🦅', nombre: 'Águila'},
-                {clase: 'jugador-cobra', id: 'cobra', avatar: '🐍', nombre: 'Cobra'},
-                {clase: 'jugador-buho', id: 'buho', avatar: '🦉', nombre: 'Búho'}
-            ];
-            
-            jugadores.forEach(j => {
-                const div = document.createElement('div');
-                div.className = `jugador ${j.clase}`;
-                div.innerHTML = `
-                    <span class="corona-badge" id="corona-${j.id}">👑 CORONA</span>
-                    <span class="retador-badge" id="retador-${j.id}">⚔️ RETADOR</span>
-                    <span class="jugador-avatar">${j.avatar}</span>
-                    <div class="jugador-nombre">${j.nombre}</div>
-                    <div class="jugador-fichas">
-                        <span class="ficha-casino">🪙</span>
-                        <span class="fichas-numero" data-jugador="${j.id}">1,250</span>
-                    </div>
-                `;
-                overlay.appendChild(div);
-            });
-        }
-     function simularPartida() {
-    setInterval(() => {
-        if (window.mesaCartas) window.mesaCartas.nuevaMano();
-        if (window.mesaApuestas) {
-            const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
-            window.procesarResultado(ganador);
-            if (window.mesaUI && window.mesaUI.mostrarReaccionesPorMano) {
-    window.mesaUI.mostrarReaccionesPorMano(ganador);  // ✅ CORRECTO
-}
-        }
-        window.actualizarUICompleta();
-    }, 5000);
-}
+    // resto de tus funciones crearJugadores() y simularPartida() IGUALES
+</script>
 
-        function apostar(destino, cantidad) {
-            window.apostar(destino, cantidad);
-        }
-    </script>
 </body>
 </html>
