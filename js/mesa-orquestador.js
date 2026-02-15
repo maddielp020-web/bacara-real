@@ -51,11 +51,15 @@ class MesaOrquestador {
         window.mesaUI?.mostrarReaccionesPorMano?.(ganador);
         
         // 6. PROCESAR ROTACIÓN DUEL (🎯 CRÍTICO)
-        const resultadoDuelo = window.procesarFinDeManoDuelo?.(ganador) || {};
-        console.log('🔄 Duelo:', resultadoDuelo);
-        
-        // 7. PROCESAR APUESTAS/COMISIÓN
-        window.procesarResultado?.(ganador);
+const resultadoDuelo = window.procesarFinDeManoDuelo?.(ganador) || {};
+console.log('🔄 Duelo:', resultadoDuelo);
+
+// ✅ NUEVAS LÍNEAS DE VERIFICACIÓN
+console.log('🔍 ¿procesarFinDeManoDuelo existe?', typeof window.procesarFinDeManoDuelo);
+console.log('🔍 ganador recibido:', ganador);
+
+// 7. PROCESAR APUESTAS/COMISIÓN
+window.procesarResultado?.(ganador);
         
         // 8. MOSTRAR COMISIÓN
         window.mesaUI?.mostrarComision?.();
