@@ -13,23 +13,23 @@
             <!-- CAJÓN -->
             <div class="cajon-cartas" id="cajon-cartas">
                 <div class="cartas-restantes" id="cartas-restantes">🃏 416 cartas</div>
-                <div class="estado-barajando" id="estado-barajando">♻️ Barajando...</div>
+                <div class="estado-barajando" id="estado-barajando" style="display: none;">♻️ Barajando...</div>
             </div>
 
             <!-- CENTRAL -->
             <div class="area-central">
-<div class="mano-jugador" id="mano-corona">
-    <div class="icono-fijo corona">👑</div>
-    <div class="carta-placeholder" id="carta1-corona">?</div>
-    <div class="carta-placeholder" id="carta2-corona">?</div>
-    <div class="puntuacion" id="puntuacion-corona">0</div>
-</div>
-<div class="mano-jugador" id="mano-retador">
-    <div class="icono-fijo retador">⚔️</div>
-    <div class="carta-placeholder" id="carta1-retador">?</div>
-    <div class="carta-placeholder" id="carta2-retador">?</div>
-    <div class="puntuacion" id="puntuacion-retador">0</div>
-</div>
+                <div class="mano-jugador" id="mano-corona">
+                    <div class="icono-fijo corona">👑</div>
+                    <div class="carta-placeholder" id="carta1-corona">?</div>
+                    <div class="carta-placeholder" id="carta2-corona">?</div>
+                    <div class="puntuacion" id="puntuacion-corona">0</div>
+                </div>
+                <div class="mano-jugador" id="mano-retador">
+                    <div class="icono-fijo retador">⚔️</div>
+                    <div class="carta-placeholder" id="carta1-retador">?</div>
+                    <div class="carta-placeholder" id="carta2-retador">?</div>
+                    <div class="puntuacion" id="puntuacion-retador">0</div>
+                </div>
             </div>
 
             <!-- APUESTAS -->
@@ -40,16 +40,15 @@
 
             <!-- ALERTAS -->
             <div class="comision-alert" id="comision-alert">-5% COMISIÓN</div>
-            
         </div>
     </div>
 
- <!-- JS MÓDULOS -->
-<script src="js/mesa-cartas.js"></script>
-<script src="js/mesa-apuestas.js"></script>
-<script src="js/mesa-historial.js"></script>
-<script src="js/mesa-duelo.js"></script>
-<script src="js/mesa-ui.js"></script>
+    <!-- JS MÓDULOS -->
+    <script src="js/mesa-cartas.js"></script>
+    <script src="js/mesa-apuestas.js"></script>
+    <script src="js/mesa-historial.js"></script>
+    <script src="js/mesa-duelo.js"></script>
+    <script src="js/mesa-ui.js"></script>
        
     <script>
         // 🚀 INICIALIZAR
@@ -86,22 +85,53 @@
                 overlay.appendChild(div);
             });
         }
-     function simularPartida() {
-    setInterval(() => {
-        if (window.mesaCartas) window.mesaCartas.nuevaMano();
-        if (window.mesaApuestas) {
-            const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
-            window.procesarResultado(ganador);
-            if (window.mesaUI && window.mesaUI.mostrarReaccionesPorMano) {
-    window.mesaUI.mostrarReaccionesPorMano(ganador);  // ✅ CORRECTO
-}
-        }
-        window.actualizarUICompleta();
-    }, 5000);
-}
 
+        // ✅ SIMULAR PARTIDA CORREGIDA - SIN ERRORES
+        function simularPartida() {
+            setInterval(() => {
+                try {
+                    console.log('🔄 Simulando partida...');
+                    
+                    // 1. NUEVA MANO (SOLO si existe)
+                    if (window.mesaCartas && typeof window.mesaCartas.nuevaMano === 'function') {
+                        window.mesaCartas.nuevaMano();
+                        console.log('✅ Nueva mano generada');
+                    }
+                    
+                    // 2. GANADOR ALEATORIO
+                    const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
+                    
+                    // 3. REGISTRAR RESULTADO (método correcto)
+                    if (window.mesaApuestas && typeof window.mesaApuestas.registrarResultado === 'function') {
+                        window.mesaApuestas.registrarResultado(ganador);
+                        console.log('✅ Resultado registrado:', ganador);
+                    }
+                    
+                    // 4. EMOJIS DE REACCIÓN
+                    if (window.mesaUI && window.mesaUI.mostrarReaccionesPorMano) {
+                        window.mesaUI.mostrarReaccionesPorMano(ganador);
+                        console.log('🎯 Emojis activados para:', ganador);
+                    }
+                    
+                    // 5. ACTUALIZAR INTERFAZ COMPLETA
+                    if (window.actualizarUICompleta) {
+                        window.actualizarUICompleta();
+                        console.log('✅ UI actualizada');
+                    }
+                    
+                } catch (error) {
+                    console.error('❌ Error en simularPartida:', error);
+                }
+            }, 5000);
+        }
+
+        // ✅ APUESTAS
         function apostar(destino, cantidad) {
-            window.apostar(destino, cantidad);
+            if (window.apostar && typeof window.apostar === 'function') {
+                window.apostar(destino, cantidad);
+            } else {
+                console.log('⚠️ Función apostar no disponible');
+            }
         }
     </script>
 </body>
