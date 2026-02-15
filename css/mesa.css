@@ -218,3 +218,22 @@ body {
 }
 .emoji-corona { top: -50px; left: 50%; transform: translateX(-50%); }
 .emoji-retador { top: -50px; right: 20%; }
+
+/* ✅ FIX ÍCONOS VISIBLES */
+.mano-jugador {
+    position: relative; /* ← NUEVO */
+    overflow: visible;  /* ← NUEVO */
+}
+
+.icono-fijo {
+    position: absolute !important;
+    top: 50% !important;
+    left: 5px;
+    transform: translateY(-50%) !important;
+    z-index: 15 !important;
+    font-size: 20px !important;
+    pointer-events: none !important;
+}
+
+.icono-fijo.corona { color: #ffd700 !important; }
+.icono-fijo.retador { color: #ff4444 !important; right: 5px; left: auto !important; }
