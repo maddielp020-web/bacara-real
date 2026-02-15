@@ -87,40 +87,40 @@ class MesaCartas {
         return suma % 10;
     }
 
-    // ♻️ BARAJADO AUTOMÁTICO ≤16
-    verificarBarajado() {
-    // ✅ FIX: Pausar durante simulación + solo cuando realmente necesario
-    if (window.mesaOrquestador?.enPausaBarajado || this.barajando) {
+    // ♻️ BARAJADO AUTOMÁTICO ≤16 - FIX DEFINITIVO
+verificarBarajado() {
+    // ✅ FIX 1: Pausar si orquestador activo
+    if (window.mesaOrquestador && window.mesaOrquestador.enPausaBarajado) {
+        return; // Silenciosamente pausado
+    }
+    
+    // ✅ FIX 2: Solo si NO está barajando YA
+    if (this.barajando) {
         return;
     }
     
-    if (this.mazo.length <= 16) {
-        this.barajando = true;
-        console.log(`♻️ Barajando (${this.mazo.length} cartas)`);
-        
-        const barajandoEl = document.getElementById('estado-barajando');
-        if (barajandoEl) barajandoEl.style.display = 'block';
-        
-        setTimeout(() => {
-            this.barajar();
-            if (barajandoEl) barajandoEl.style.display = 'none';
-        }, 2000);
+    // ✅ FIX 3: Solo si realmente quedan pocas cartas
+    if (this.mazo.length > 16) {
+        return;
     }
-}
-
-    nuevaMano() {
-        this.manoActual = { corona: { cartas: [], puntuacion: 0 }, retador: { cartas: [], puntuacion: 0 } };
-        return this.repartirMano();
+    
+    // 🎯 EJECUTAR BARAJADO
+    this.barajando = true;
+    console.log(`♻️ Barajando (${this.mazo.length} cartas restantes)`);
+    
+    const barajandoEl = document.getElementById('estado-barajando');
+    if (barajandoEl) {
+        barajandoEl.style.display = 'block';
     }
-
-    obtenerEstado() {
-        return {
-            cartasRestantes: this.cartasRestantes,
-            barajando: this.barajando,
-            manoActual: this.manoActual,
-            mazoLength: this.mazo.length
-        };
-    }
+    
+    setTimeout(() => {
+        this.barajar();
+        this.barajando = false; // ← CRÍTICO: Resetear flag
+        if (barajandoEl) {
+            barajandoEl.style.display = 'none';
+        }
+        console.log(`✅ Barajado completo: ${this.cartasRestantes} cartas listas`);
+    }, 2500); // 2.5s visual
 }
 
 // 🎮 GLOBAL
