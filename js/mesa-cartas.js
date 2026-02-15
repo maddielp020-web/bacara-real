@@ -89,8 +89,12 @@ class MesaCartas {
 
     // ♻️ BARAJADO AUTOMÁTICO ≤16
     verificarBarajado() {
-    // ✅ FIX: Solo barajar si mazo REALMENTE vacío
-    if (this.mazo.length <= 16 && !this.barajando) {
+    // ✅ FIX: Pausar durante simulación + solo cuando realmente necesario
+    if (window.mesaOrquestador?.enPausaBarajado || this.barajando) {
+        return;
+    }
+    
+    if (this.mazo.length <= 16) {
         this.barajando = true;
         console.log(`♻️ Barajando (${this.mazo.length} cartas)`);
         
