@@ -134,6 +134,46 @@ body {
 .jugador-cobra { top: 58%; right: 2%; transform: translateY(-50%); }
 .jugador-buho { top: 70%; right: 2%; transform: translateY(0%); }
 
+ <!-- ==================== VENTANAS DE CARTAS ==================== -->
+<div class="ventanas-cartas">
+    <!-- GRUPO IZQUIERDO (Corona) - 3 cartas -->
+    <div class="grupo-cartas grupo-izquierdo" id="grupo-corona">
+        <div class="carta-dorso carta-3" id="carta-corona-3">
+            <div class="dorso-interno"></div>
+        </div>
+        <div class="carta-dorso carta-2" id="carta-corona-2">
+            <div class="dorso-interno"></div>
+        </div>
+        <div class="carta-dorso carta-1" id="carta-corona-1">
+            <div class="dorso-interno"></div>
+        </div>
+        <div class="grupo-label">👑 CORONA</div>
+    </div>
+
+    <!-- MAZO CENTRAL -->
+    <div class="mazo-central" id="mazo-central">
+        <div class="mazo-dorso"></div>
+        <div class="mazo-dorso segundo"></div>
+        <div class="mazo-dorso tercero"></div>
+        <div class="contador-cartas" id="contador-cartas">416</div>
+        <div class="mazo-label">MAZO</div>
+    </div>
+
+    <!-- GRUPO DERECHO (Retador) - 3 cartas -->
+    <div class="grupo-cartas grupo-derecho" id="grupo-retador">
+        <div class="carta-dorso carta-3" id="carta-retador-3">
+            <div class="dorso-interno"></div>
+        </div>
+        <div class="carta-dorso carta-2" id="carta-retador-2">
+            <div class="dorso-interno"></div>
+        </div>
+        <div class="carta-dorso carta-1" id="carta-retador-1">
+            <div class="dorso-interno"></div>
+        </div>
+        <div class="grupo-label">⚔️ RETADOR</div>
+    </div>
+</div>
+
 /* ==================== ÍCONOS FIJOS CORREGIDOS ==================== */
 .icono-fijo {
     position: absolute;
