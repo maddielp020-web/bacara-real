@@ -1,4 +1,22 @@
-/* ==================== RESET Y CONFIGURACIÓN BASE ==================== */
+/* ==================== VARIABLES Y RESET ==================== */
+:root {
+    --verde-profesional: #0B4F37;
+    --dorado-suave: #C4A747;
+    --negro-fondo: #121212;
+    --negro-elevado: #1E1E1E;
+    --blanco-hueso: #F0F0F0;
+    --gris-texto: #CCCCCC;
+    --rojo-advertencia: #B53B3B;
+    
+    --font-titulos: 'Playfair Display', Georgia, serif;
+    --font-subtitulos: 'Montserrat', -apple-system, sans-serif;
+    --font-texto: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    
+    --sombra-suave: 0 4px 20px rgba(0,0,0,0.3);
+    --sombra-dorada: 0 4px 20px rgba(196,167,71,0.2);
+    --borde-elegante: 1px solid rgba(196,167,71,0.2);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,350 +24,642 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background: linear-gradient(135deg, #0a2910 0%, #062011 100%);
-    color: #ffffff;
+    background: var(--negro-fondo);
+    color: var(--blanco-hueso);
+    font-family: var(--font-texto);
     line-height: 1.6;
     min-height: 100vh;
-    padding: 10px;
-    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
 }
 
-/* ==================== CONTENEDOR PRINCIPAL ==================== */
 .contenedor {
-    max-width: 600px;
+    max-width: 500px;
+    width: 100%;
     margin: 0 auto;
-    background: linear-gradient(145deg, #123f2a 0%, #0a291a 100%);
-    border-radius: 20px;
-    border: 6px solid #8B4513;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    background: var(--negro-elevado);
+    border-radius: 30px 30px 20px 20px;
+    box-shadow: var(--sombra-suave);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    position: relative;
 }
 
 /* ==================== HEADER ==================== */
 .header {
-    background: rgba(0, 0, 0, 0.4);
-    padding: 20px;
+    background: linear-gradient(135deg, var(--verde-profesional) 0%, #0D5C3F 100%);
+    padding: 30px 25px 25px;
     text-align: center;
-    border-bottom: 3px solid #d4af37;
+    position: relative;
+    border-bottom: 2px solid var(--dorado-suave);
 }
 
-.header h1 {
-    color: #d4af37;
-    font-size: 24px;
+.header-decorador {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--dorado-suave), transparent);
+}
+
+.titulo-principal {
+    font-family: var(--font-titulos);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
     margin-bottom: 5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.subtitulo {
-    color: #aaa;
-    font-size: 14px;
+.subtitulo-elegante {
+    font-family: var(--font-subtitulos);
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.9;
+    color: var(--dorado-suave);
 }
 
-/* ==================== CONTENIDO DE TÉRMINOS ==================== */
-.contenido-terminos {
-    flex: 1;
-    padding: 20px;
+/* ==================== ÁREA DE SCROLL ==================== */
+.contenido-scroll {
+    max-height: 45vh;
+    min-height: 250px;
     overflow-y: auto;
-    max-height: calc(100vh - 280px);
-    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--dorado-suave) var(--negro-fondo);
 }
 
-.contenido-terminos::-webkit-scrollbar {
-    width: 8px;
+.contenido-scroll::-webkit-scrollbar {
+    width: 5px;
 }
 
-.contenido-terminos::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.2);
+.contenido-scroll::-webkit-scrollbar-track {
+    background: var(--negro-fondo);
+}
+
+.contenido-scroll::-webkit-scrollbar-thumb {
+    background: var(--dorado-suave);
     border-radius: 10px;
 }
 
-.contenido-terminos::-webkit-scrollbar-thumb {
-    background: #d4af37;
-    border-radius: 10px;
-}
-
-/* ==================== SECCIONES ==================== */
-.seccion {
+/* ==================== SECCIONES PREMIUM ==================== */
+.seccion-premium {
     margin-bottom: 30px;
+    border-bottom: var(--borde-elegante);
+    padding-bottom: 20px;
 }
 
-.seccion h2 {
-    color: #d4af37;
-    font-size: 20px;
+.seccion-premium:last-child {
+    border-bottom: none;
+}
+
+.seccion-titulo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.titulo-numero {
+    font-family: var(--font-titulos);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dorado-suave);
+    opacity: 0.8;
+}
+
+.titulo-texto {
+    font-family: var(--font-subtitulos);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* ==================== TARJETAS Y ELEMENTOS ==================== */
+.tarjeta-requisito {
+    background: rgba(255,255,255,0.03);
+    border-radius: 15px;
+    padding: 15px;
     margin-bottom: 15px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #d4af37;
+    border: var(--borde-elegante);
 }
 
-.seccion h3 {
-    color: #fbbf24;
-    font-size: 16px;
-    margin: 15px 0 10px 0;
+.tarjeta-importante {
+    background: rgba(196,167,71,0.1);
+    border-left: 4px solid var(--dorado-suave);
+    border-radius: 0 15px 15px 0;
+    padding: 15px;
+    margin: 20px 0;
+    display: flex;
+    gap: 15px;
 }
 
-.seccion p {
+.importante-icono {
+    font-size: 2rem;
+}
+
+.importante-contenido h3 {
+    color: var(--dorado-suave);
+    margin-bottom: 8px;
+    font-family: var(--font-subtitulos);
+}
+
+/* ==================== LISTAS ELEGANTES ==================== */
+.lista-elegante {
+    list-style: none;
+}
+
+.lista-elegante li {
     margin-bottom: 10px;
-    color: #e0e0e0;
-    font-size: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.9rem;
 }
 
-.seccion ul,
-.seccion ol {
-    margin-left: 20px;
-    margin-bottom: 15px;
-    color: #e0e0e0;
-    font-size: 14px;
+.bullet-dorado {
+    color: var(--dorado-suave);
+    font-size: 1.2rem;
+    line-height: 1;
 }
 
-.seccion li {
+.bullet-rojo {
+    color: var(--rojo-advertencia);
+    font-size: 1rem;
+}
+
+.prohibido {
+    opacity: 0.7;
+}
+
+/* ==================== GRID DE PAGOS ==================== */
+.grid-2-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.tarjeta-pago {
+    background: rgba(255,255,255,0.02);
+    border: var(--borde-elegante);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+}
+
+.tarjeta-pago.destacada {
+    background: rgba(196,167,71,0.1);
+    border-color: var(--dorado-suave);
+}
+
+.pago-icono {
+    font-size: 2rem;
     margin-bottom: 8px;
 }
 
-/* ==================== ADVERTENCIAS Y DESTACADOS ==================== */
-.advertencia-importante {
-    background: rgba(220, 38, 38, 0.2);
-    border: 3px solid #dc2626;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 25px;
+.pago-cantidad {
+    font-family: var(--font-titulos);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dorado-suave);
+    line-height: 1.2;
 }
 
-.advertencia-importante h2 {
-    color: #ef4444;
-    border: none;
-    margin-bottom: 10px;
+.pago-detalle {
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
-.importante {
-    background: rgba(245, 158, 11, 0.15);
-    border-left: 4px solid #f59e0b;
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 8px;
+/* ==================== PROCESO NUMERADO ==================== */
+.lista-numerada {
+    list-style: none;
 }
 
-.destacado {
-    background: rgba(34, 197, 94, 0.15);
-    border-left: 4px solid #22c55e;
-    padding: 15px;
-    margin: 15px 0;
-    border-radius: 8px;
-}
-
-.proceso,
-.comision,
-.riesgos,
-.consecuencias {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 15px;
-    margin: 15px 0;
-}
-
-.ejemplo {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 12px;
-    border-radius: 8px;
-    margin-top: 10px;
-    font-family: monospace;
-    font-size: 13px;
-}
-
-.ejemplo p {
-    margin: 5px 0;
-}
-
-.ultima-advertencia {
-    background: rgba(220, 38, 38, 0.2);
-    border: 3px solid #dc2626;
-    border-radius: 12px;
-    padding: 20px;
-    margin-top: 30px;
-    text-align: center;
-}
-
-.ultima-advertencia h2 {
-    color: #ef4444;
-    margin-bottom: 15px;
-}
-
-code {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-family: monospace;
-    color: #fbbf24;
-    font-size: 13px;
-}
-
-/* ==================== INDICADOR DE SCROLL ==================== */
-.scroll-indicador {
-    background: rgba(212, 175, 55, 0.2);
-    border-top: 2px solid #d4af37;
-    padding: 10px;
-    text-align: center;
-    color: #d4af37;
-    font-size: 14px;
-    animation: pulso 2s infinite;
-}
-
-@keyframes pulso {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-/* ==================== FOOTER CON CHECKBOX Y BOTÓN ==================== */
-.footer-aceptacion {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 20px;
-    border-top: 3px solid #d4af37;
-}
-
-/* CHECKBOX PERSONALIZADO */
-.checkbox-container {
+.lista-numerada li {
     display: flex;
     align-items: center;
-    cursor: pointer;
-    margin-bottom: 15px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.05);
+    gap: 15px;
+    margin-bottom: 12px;
+    background: rgba(255,255,255,0.02);
+    padding: 10px 15px;
     border-radius: 10px;
-    transition: all 0.3s;
 }
 
-.checkbox-container:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.checkmark {
+.numero {
+    background: var(--dorado-suave);
+    color: var(--negro-fondo);
     width: 24px;
     height: 24px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid #d4af37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+/* ==================== RETIRO ==================== */
+.tarjeta-retiro {
+    background: var(--verde-profesional);
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.retiro-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.comando {
+    background: rgba(0,0,0,0.3);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: monospace;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* ==================== BADGES DE JUEGO ==================== */
+.badge-sistema {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.badge-corona, .badge-retador {
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.badge-corona {
+    background: rgba(196,167,71,0.2);
+    border: 1px solid var(--dorado-suave);
+}
+
+.badge-retador {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--blanco-hueso);
+}
+
+.badge-vs {
+    font-weight: 700;
+    color: var(--dorado-suave);
+}
+
+/* ==================== STATS ==================== */
+.stats-juego {
+    display: flex;
+    justify-content: space-around;
+    margin: 25px 0;
+    text-align: center;
+}
+
+.stat-valor {
+    font-family: var(--font-titulos);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dorado-suave);
+    display: block;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+}
+
+/* ==================== COMISIÓN ==================== */
+.comision-grafica {
+    display: flex;
+    gap: 5px;
+    margin: 15px 0;
+}
+
+.comision-item {
+    flex: 1;
+    text-align: center;
+    padding: 10px 5px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+.comision-item.ganado {
+    background: rgba(196,167,71,0.2);
+    color: var(--dorado-suave);
+}
+
+.comision-item.perdido {
+    background: rgba(181,59,59,0.2);
+    color: var(--rojo-advertencia);
+}
+
+/* ==================== CONDUCTA ==================== */
+.reglas-conducta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.regla-prohibida {
+    background: rgba(181,59,59,0.1);
+    border: 1px solid var(--rojo-advertencia);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+}
+
+.escala-sanciones {
+    background: rgba(255,255,255,0.02);
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.sancion-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sancion-item:last-child {
+    border-bottom: none;
+}
+
+.sancion-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.sancion-item.leve .sancion-badge {
+    background: rgba(196,167,71,0.2);
+    color: var(--dorado-suave);
+}
+
+.sancion-item.media .sancion-badge {
+    background: rgba(255,165,0,0.2);
+    color: orange;
+}
+
+.sancion-item.grave .sancion-badge {
+    background: rgba(181,59,59,0.2);
+    color: var(--rojo-advertencia);
+}
+
+/* ==================== ADVERTENCIAS ==================== */
+.advertencia-dorada {
+    background: rgba(196,167,71,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    border: 1px solid var(--dorado-suave);
+}
+
+.advertencia-icono {
+    font-size: 2.5rem;
+}
+
+.advertencia-contenido h2 {
+    color: var(--dorado-suave);
+    font-family: var(--font-subtitulos);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.advertencia-contenido p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.advertencia-final {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.advertencia-linea {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dorado-suave), transparent);
+}
+
+.texto-dorado {
+    color: var(--dorado-suave);
+    font-weight: 700;
+}
+
+/* ==================== INDICADOR STICKY ==================== */
+.indicador-scroll {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(transparent, var(--negro-elevado) 30%);
+    padding: 25px 15px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.flecha-animada {
+    animation: bounce 2s infinite;
+    opacity: 0.7;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+.indicador-texto {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
+
+/* ==================== ÁREA DE ACEPTACIÓN ==================== */
+.area-aceptacion {
+    background: var(--negro-elevado);
+    padding: 25px 20px;
+    border-top: 2px solid var(--dorado-suave);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+}
+
+/* Checkbox personalizado */
+.checkbox-premium {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkbox-custom {
+    min-width: 24px;
+    height: 24px;
+    background: transparent;
+    border: 2px solid var(--dorado-suave);
     border-radius: 6px;
-    margin-right: 12px;
     position: relative;
-    flex-shrink: 0;
+    transition: all 0.2s;
 }
 
-.checkbox-container input:checked ~ .checkmark {
-    background: #22c55e;
-    border-color: #22c55e;
+.checkbox-input:checked + .checkbox-custom {
+    background: var(--dorado-suave);
 }
 
-.checkbox-container input:checked ~ .checkmark:after {
+.checkbox-input:checked + .checkbox-custom::after {
     content: '✓';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
+    color: var(--negro-fondo);
+    font-weight: 700;
+    font-size: 1rem;
 }
 
-.texto-checkbox {
-    color: #e0e0e0;
-    font-size: 14px;
-    line-height: 1.4;
+.checkbox-texto {
+    font-size: 0.95rem;
+    line-height: 1.3;
+    flex: 1;
 }
 
-/* BOTÓN ACEPTO (base) */
-.btn-acepto {
+/* Botón de aceptar */
+.boton-aceptar {
     width: 100%;
-    color: white;
-    padding: 18px;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: bold;
+    background: var(--dorado-suave);
+    border: none;
+    border-radius: 50px;
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
     cursor: pointer;
     transition: all 0.3s;
-    border: 3px solid transparent;
-}
-
-/* BOTÓN DESHABILITADO */
-.btn-acepto:disabled {
-    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
-    border-color: #6b7280;
-    cursor: not-allowed;
-    opacity: 0.5;
-    box-shadow: none;
-}
-
-/* BOTÓN HABILITADO (base) */
-.btn-acepto:not(:disabled) {
-    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
-    border: 3px solid #22c55e;
     opacity: 1;
-    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
-    cursor: pointer;
 }
 
-/* BOTÓN HABILITADO (hover) */
-.btn-acepto:not(:disabled):hover {
+.boton-aceptar:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    filter: grayscale(0.5);
+    transform: none;
+}
+
+.boton-aceptar:not(:disabled):hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+    box-shadow: var(--sombra-dorada);
 }
 
-/* BOTÓN HABILITADO (active/click) */
-.btn-acepto:not(:disabled):active {
-    transform: translateY(0);
+.boton-texto {
+    color: var(--negro-fondo);
+    font-family: var(--font-subtitulos);
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-/* ==================== PIE DE PÁGINA ==================== */
-.pie-pagina {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 15px;
+.boton-icono {
+    background: var(--negro-fondo);
+    color: var(--dorado-suave);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+/* ==================== FOOTER ==================== */
+.footer-premium {
+    padding: 15px 20px 20px;
     text-align: center;
-    border-top: 2px solid #d4af37;
 }
 
-.pie-pagina p {
-    color: #aaa;
-    font-size: 11px;
-    margin: 3px 0;
+.footer-linea {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--dorado-suave), transparent);
+    margin-bottom: 15px;
 }
 
-/* ==================== RESPONSIVE PARA IPHONE ==================== */
-@media (max-width: 480px) {
+.footer-contenido {
+    opacity: 0.6;
+    font-size: 0.75rem;
+}
+
+.footer-version {
+    font-family: var(--font-subtitulos);
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+@media (max-width: 380px) {
+    .contenido-scroll {
+        max-height: 40vh;
+        padding: 15px;
+    }
+    
+    .grid-2-columnas {
+        grid-template-columns: 1fr;
+    }
+    
+    .reglas-conducta {
+        grid-template-columns: 1fr;
+    }
+    
+    .badge-sistema {
+        flex-wrap: wrap;
+    }
+    
+    .checkbox-texto {
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 768px) {
     .contenedor {
-        border-width: 4px;
-        border-radius: 15px;
+        max-width: 600px;
     }
-
-    .header h1 {
-        font-size: 20px;
-    }
-
-    .seccion h2 {
-        font-size: 18px;
-    }
-
-    .seccion h3 {
-        font-size: 15px;
-    }
-
-    .seccion p,
-    .seccion li {
-        font-size: 13px;
-    }
-
-    .btn-acepto {
-        font-size: 16px;
-        padding: 16px;
-    }
-
-    .contenido-terminos {
-        max-height: calc(100vh - 300px);
+    
+    .contenido-scroll {
+        max-height: 50vh;
+        padding: 25px;
     }
 }
