@@ -115,10 +115,6 @@ class MesaDuelo {
         }
 
         // 3) Actualizar estado interno
-        this.coronaActual = coronaNueva;
-        this.retadorActual = retadorNuevo;
-        this.manoEnDuelo = manoEnDueloNueva;
-        this.dueloActivo = !!(this.coronaActual && this.retadorActual);
 
         // 4) Devolver resumen para UI / apuestas / emojis de reacción
        // 3) Actualizar estado interno
