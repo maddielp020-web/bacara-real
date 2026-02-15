@@ -18,18 +18,18 @@
 
             <!-- CENTRAL -->
             <div class="area-central">
-<div class="mano-jugador" id="mano-corona">
-    <div class="icono-fijo corona">👑</div>
-    <div class="carta-placeholder" id="carta1-corona">?</div>
-    <div class="carta-placeholder" id="carta2-corona">?</div>
-    <div class="puntuacion" id="puntuacion-corona">0</div>
-</div>
-<div class="mano-jugador" id="mano-retador">
-    <div class="icono-fijo retador">⚔️</div>
-    <div class="carta-placeholder" id="carta1-retador">?</div>
-    <div class="carta-placeholder" id="carta2-retador">?</div>
-    <div class="puntuacion" id="puntuacion-retador">0</div>
-</div>
+                <div class="mano-jugador" id="mano-corona">
+                    <div class="icono-fijo corona">👑</div>
+                    <div class="carta-placeholder" id="carta1-corona">?</div>
+                    <div class="carta-placeholder" id="carta2-corona">?</div>
+                    <div class="puntuacion" id="puntuacion-corona">0</div>
+                </div>
+                <div class="mano-jugador" id="mano-retador">
+                    <div class="icono-fijo retador">⚔️</div>
+                    <div class="carta-placeholder" id="carta1-retador">?</div>
+                    <div class="carta-placeholder" id="carta2-retador">?</div>
+                    <div class="puntuacion" id="puntuacion-retador">0</div>
+                </div>
             </div>
 
             <!-- APUESTAS -->
@@ -40,36 +40,92 @@
 
             <!-- ALERTAS -->
             <div class="comision-alert" id="comision-alert">-5% COMISIÓN</div>
-            
         </div>
     </div>
 
- <!-- JS MÓDULOS -->
-<script src="js/mesa-cartas.js"></script>
-<script src="js/mesa-apuestas.js"></script>
-<script src="js/mesa-historial.js"></script>
-<script src="js/mesa-duelo.js"></script>
-<script src="js/mesa-ui.js"></script>
+    <!-- JS MÓDULOS -->
+    <script src="js/mesa-cartas.js"></script>
+    <script src="js/mesa-apuestas.js"></script>
+    <script src="js/mesa-historial.js"></script>
+    <script src="js/mesa-duelo.js"></script>
+    <script src="js/mesa-ui.js"></script>
        
     <script>
-    // 🔧 Fixes críticos primero
-    window.mesaCartas = window.mesaCartas || { nuevaMano: () => {}, obtenerEstado: () => ({}), obtenerColorPalo: (p) => '#000' };
-    window.mesaApuestas = window.mesaApuestas || { procesarResultado: (w) => {}, apostar: (d,c) => {} };
-    window.mesaDuelo = window.mesaDuelo || { obtenerEstadoDuelo: () => ({coronaActual: 'leon', retadorActual: 'dragon'}) };
-    window.procesarResultado = window.procesarResultado || ((w) => {});
+        // 🔧 Fixes críticos primero
+        window.mesaCartas = window.mesaCartas || { 
+            nuevaMano: () => {}, 
+            obtenerEstado: () => ({}), 
+            obtenerColorPalo: (p) => '#000' 
+        };
+        window.mesaApuestas = window.mesaApuestas || { 
+            procesarResultado: (w) => {}, 
+            apostar: (d,c) => {} 
+        };
+        window.mesaDuelo = window.mesaDuelo || { 
+            obtenerEstadoDuelo: () => ({coronaActual: 'leon', retadorActual: 'dragon'}),
+            iniciarDueloInicial: () => {}
+        };
+        window.procesarResultado = window.procesarResultado || ((w) => {});
+        window.actualizarUICompleta = window.actualizarUICompleta || (() => {});
 
-    // 🚀 INICIALIZAR (espera 100ms que todos los JS carguen)
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            crearJugadores();
-            window.mesaDuelo?.iniciarDueloInicial?.('leon', 'aguila');
-            simularPartida();
-            console.log('🎮 FASE 4 COMPLETA ✅');
-        }, 100);
-    });
+        // 🐾 FUNCIÓN crearJugadores() RESTAURADA
+        function crearJugadores() {
+            const overlay = document.getElementById('mesa-overlay');
+            const jugadores = [
+                {clase: 'jugador-leon', id: 'leon', avatar: '🦁', nombre: 'León'},
+                {clase: 'jugador-dragon', id: 'dragon', avatar: '🐉', nombre: 'Dragón'},
+                {clase: 'jugador-conejo', id: 'conejo', avatar: '🐰', nombre: 'Conejo'},
+                {clase: 'jugador-aguila', id: 'aguila', avatar: '🦅', nombre: 'Águila'},
+                {clase: 'jugador-cobra', id: 'cobra', avatar: '🐍', nombre: 'Cobra'},
+                {clase: 'jugador-buho', id: 'buho', avatar: '🦉', nombre: 'Búho'}
+            ];
+            
+            jugadores.forEach(j => {
+                const div = document.createElement('div');
+                div.className = `jugador ${j.clase}`;
+                div.innerHTML = `
+                    <span class="corona-badge" id="corona-${j.id}">👑 CORONA</span>
+                    <span class="retador-badge" id="retador-${j.id}">⚔️ RETADOR</span>
+                    <span class="jugador-avatar">${j.avatar}</span>
+                    <div class="jugador-nombre">${j.nombre}</div>
+                    <div class="jugador-fichas">
+                        <span class="ficha-casino">🪙</span>
+                        <span class="fichas-numero" data-jugador="${j.id}">1,250</span>
+                    </div>
+                `;
+                overlay.appendChild(div);
+            });
+        }
 
-    // resto de tus funciones crearJugadores() y simularPartida() IGUALES
-</script>
+        // 🎮 FUNCIÓN simularPartida() RESTAURADA
+        function simularPartida() {
+            setInterval(() => {
+                if (window.mesaCartas) window.mesaCartas.nuevaMano();
+                if (window.mesaApuestas) {
+                    const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
+                    window.procesarResultado(ganador);
+                    if (window.mesaUI && window.mesaUI.mostrarReaccionesPorMano) {
+                        window.mesaUI.mostrarReaccionesPorMano(ganador);
+                    }
+                }
+                window.actualizarUICompleta();
+            }, 5000);
+        }
 
+        // 💰 FUNCIÓN apostar() RESTAURADA
+        function apostar(destino, cantidad) {
+            window.apostar(destino, cantidad);
+        }
+
+        // 🚀 INICIALIZAR (espera 100ms que todos los JS carguen)
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                crearJugadores();
+                window.mesaDuelo?.iniciarDueloInicial?.('leon', 'aguila');
+                simularPartida();
+                console.log('🎮 FASE 4 COMPLETA ✅ - Todos los animales restaurados');
+            }, 100);
+        });
+    </script>
 </body>
 </html>
