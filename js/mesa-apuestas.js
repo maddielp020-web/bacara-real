@@ -88,6 +88,7 @@ class MesaApuestas {
         const apuesta = Math.floor(Math.random() * 100) + 50;
         const destino = Math.random() > 0.5 ? 'corona' : 'retador';
         return this.apostarEspectador(destino, apuesta);
+    }
     
     // 🧮 REGISTRAR RESULTADO PARA RACHA Y COMISIÓN
 // info: { ganador: 'corona'|'retador', coronaActual, retadorActual, coronaAnterior, retadorAnterior }
