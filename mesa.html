@@ -1,56 +1,131 @@
-<!-- Reemplaza TODO desde <script src="js/mesa-orquestador.js"> hasta </body> -->
-<script src="js/mesa-orquestador.js"></script>
-<script src="js/mesa-cartas.js"></script>
-<script src="js/mesa-apuestas.js"></script>
-<script src="js/mesa-duelo.js"></script>
-<script src="js/mesa-ui.js"></script>
-<script src="js/mesa-historial.js"></script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mesa de Bacará Cubano - TRONCO VISUAL</title>
+    <link rel="stylesheet" href="css/mesa.css">
+</head>
+<body>
+    <div class="mesa-wrapper">
+        <img src="img/mesa-fondo.png.jpg" alt="Mesa de Bacará" class="mesa-imagen">
+        <div class="mesa-overlay" id="mesa-overlay">
 
-<script>
-// ==================== MESA.HTML - SCRIPT FINAL COMPLETO ====================
-// ========== 1. FUNCIÓN crearJugadores() ==========
-function crearJugadores() {
-    console.log('🦁 Iniciando creación de 6 jugadores...');
-    
-    const jugadores = [
-        {clase: 'jugador-leon', id: 'leon', avatar: '🦁', nombre: 'León'},
-        {clase: 'jugador-dragon', id: 'dragon', avatar: '🐉', nombre: 'Dragón'},
-        {clase: 'jugador-conejo', id: 'conejo', avatar: '🐰', nombre: 'Conejo'},
-        {clase: 'jugador-aguila', id: 'aguila', avatar: '🦅', nombre: 'Águila'},
-        {clase: 'jugador-cobra', id: 'cobra', avatar: '🐍', nombre: 'Cobra'},
-        {clase: 'jugador-buho', id: 'buho', avatar: '🦉', nombre: 'Búho'}
-    ];
+            <!-- ==================== ANIMALES (JUGADORES) ==================== -->
+            <!-- León -->
+            <div class="jugador jugador-leon">
+                <span class="corona-badge" id="corona-leon" style="display: none;">👑 CORONA</span>
+                <span class="retador-badge" id="retador-leon" style="display: none;">⚔️ RETADOR</span>
+                <span class="jugador-avatar">🦁</span>
+                <div class="jugador-nombre">León</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero" data-jugador="leon">1,250</span>
+                </div>
+            </div>
 
-    jugadores.forEach(jugador => {
-        const elemento = document.querySelector(`.${jugador.clase}`);
-        if (elemento) {
-            console.log(`✅ ${jugador.nombre} encontrado y configurado`);
-        }
-    });
-    
-    console.log('✅ 6 animales creados correctamente');
-}
+            <!-- Dragón -->
+            <div class="jugador jugador-dragon">
+                <span class="corona-badge" id="corona-dragon" style="display: none;">👑 CORONA</span>
+                <span class="retador-badge" id="retador-dragon" style="display: none;">⚔️ RETADOR</span>
+                <span class="jugador-avatar">🐉</span>
+                <div class="jugador-nombre">Dragón</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero" data-jugador="dragon">1,250</span>
+                </div>
+            </div>
 
-// ========== 2. INICIALIZACIÓN CENTRAL ==========
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Inicializando Bacará Real...');
-    
-    // Paso 1: Crear jugadores visuales
-    crearJugadores();
-    
-    // Paso 2: Verificar módulos cargados
-    setTimeout(() => {
-        console.log('✅ Módulos JS cargados correctamente');
-        console.log('✅ 416 cartas inicializadas');
-        console.log('✅ Simulador 7s listo');
-        console.log('🚀 ¡SIMULADOR ACTIVADO! 🎮');
-        
-        // Paso 3: Iniciar orquestador (si existe)
-        if (typeof window.iniciarSimulador === 'function') {
-            window.iniciarSimulador();
-        }
-    }, 200);
-});
-</script>
+            <!-- Conejo -->
+            <div class="jugador jugador-conejo">
+                <span class="corona-badge" id="corona-conejo" style="display: none;">👑 CORONA</span>
+                <span class="retador-badge" id="retador-conejo" style="display: none;">⚔️ RETADOR</span>
+                <span class="jugador-avatar">🐰</span>
+                <div class="jugador-nombre">Conejo</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero" data-jugador="conejo">1,250</span>
+                </div>
+            </div>
+
+            <!-- Águila -->
+            <div class="jugador jugador-aguila">
+                <span class="corona-badge" id="corona-aguila" style="display: none;">👑 CORONA</span>
+                <span class="retador-badge" id="retador-aguila" style="display: none;">⚔️ RETADOR</span>
+                <span class="jugador-avatar">🦅</span>
+                <div class="jugador-nombre">Águila</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero" data-jugador="aguila">1,250</span>
+                </div>
+            </div>
+
+            <!-- Cobra -->
+            <div class="jugador jugador-cobra">
+                <span class="corona-badge" id="corona-cobra" style="display: none;">👑 CORONA</span>
+                <span class="retador-badge" id="retador-cobra" style="display: none;">⚔️ RETADOR</span>
+                <span class="jugador-avatar">🐍</span>
+                <div class="jugador-nombre">Cobra</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero" data-jugador="cobra">1,250</span>
+                </div>
+            </div>
+
+            <!-- Búho -->
+            <div class="jugador jugador-buho">
+                <span class="corona-badge" id="corona-buho" style="display: none;">👑 CORONA</span>
+                <span class="retador-badge" id="retador-buho" style="display: none;">⚔️ RETADOR</span>
+                <span class="jugador-avatar">🦉</span>
+                <div class="jugador-nombre">Búho</div>
+                <div class="jugador-fichas">
+                    <span class="ficha-casino">🪙</span>
+                    <span class="fichas-numero" data-jugador="buho">1,250</span>
+                </div>
+            </div>
+
+            <!-- ==================== VENTANAS DE CARTAS ==================== -->
+            <div class="ventanas-cartas">
+                <!-- Mano Corona (izquierda) -->
+                <div class="mano-corona" id="mano-corona">
+                    <div class="icono-fijo corona">👑</div>
+                    <div class="carta-placeholder">?</div>
+                    <div class="carta-placeholder">?</div>
+                </div>
+
+                <!-- Mano Retador (derecha) -->
+                <div class="mano-retador" id="mano-retador">
+                    <div class="icono-fijo retador">⚔️</div>
+                    <div class="carta-placeholder">?</div>
+                    <div class="carta-placeholder">?</div>
+                </div>
+            </div>
+
+            <!-- ==================== CAJÓN DE CARTAS ==================== -->
+            <div class="cajon-cartas" id="cajon-cartas">
+                <div class="cajon-icono">🎴</div>
+                <div class="contador-cartas" id="contador-cartas">312</div>
+                <div class="cajon-label">Cartas</div>
+            </div>
+
+            <!-- ==================== BOTONES DE APUESTA ==================== -->
+            <div class="apuestas-zone">
+                <button class="apostar-btn" id="btn-corona">Apostar 👑</button>
+                <button class="apostar-btn" id="btn-retador">Apostar ⚔️</button>
+            </div>
+
+            <!-- ==================== ALERTAS ==================== -->
+            <div class="comision-alert" id="comision-alert">-5% COMISIÓN</div>
+
+        </div> <!-- Fin mesa-overlay -->
+    </div> <!-- Fin mesa-wrapper -->
+
+    <!-- SCRIPTS - Solo para carga, sin funcionalidad en el HTML -->
+    <script src="js/mesa-orquestador.js"></script>
+    <script src="js/mesa-cartas.js"></script>
+    <script src="js/mesa-apuestas.js"></script>
+    <script src="js/mesa-duelo.js"></script>
+    <script src="js/mesa-ui.js"></script>
+    <script src="js/mesa-historial.js"></script>
 </body>
 </html>
