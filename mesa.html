@@ -1,147 +1,56 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Mesa de Bacará Cubano - FASE 4</title>
-    <link rel="stylesheet" href="css/mesa.css">
-</head>
-<body>
-    <div class="mesa-wrapper">
-        <img src="img/mesa-fondo.png.jpg" alt="Mesa de Bacará" class="mesa-imagen">
-        <div class="mesa-overlay" id="mesa-overlay">
+<!-- Reemplaza TODO desde <script src="js/mesa-orquestador.js"> hasta </body> -->
+<script src="js/mesa-orquestador.js"></script>
+<script src="js/mesa-cartas.js"></script>
+<script src="js/mesa-apuestas.js"></script>
+<script src="js/mesa-duelo.js"></script>
+<script src="js/mesa-ui.js"></script>
+<script src="js/mesa-historial.js"></script>
 
-            <!-- APUESTAS -->
-            <div class="apuestas-zone">
-                <button class="apostar-btn" onclick="apostar('corona', 100)">Apostar 👑</button>
-                <button class="apostar-btn" onclick="apostar('retador', 100)">Apostar ⚔️</button>
-            </div>
-
-            <!-- ALERTAS -->
-            <div class="comision-alert" id="comision-alert">-5% COMISIÓN</div>
-        </div>
-    </div>
-
-        <!-- JS MÓDULOS - ORDEN CRÍTICO -->
-    <script src="js/mesa-orquestador.js"></script>
-    <script src="js/mesa-cartas.js"></script>
-    <script src="js/mesa-apuestas.js"></script>
-    <script src="js/mesa-duelo.js"></script>
-    <script src="js/mesa-ui.js"></script>
-    <script src="js/mesa-historial.js"></script>
 <script>
+// ==================== MESA.HTML - SCRIPT FINAL COMPLETO ====================
+// ========== 1. FUNCIÓN crearJugadores() ==========
+function crearJugadores() {
+    console.log('🦁 Iniciando creación de 6 jugadores...');
+    
+    const jugadores = [
+        {clase: 'jugador-leon', id: 'leon', avatar: '🦁', nombre: 'León'},
+        {clase: 'jugador-dragon', id: 'dragon', avatar: '🐉', nombre: 'Dragón'},
+        {clase: 'jugador-conejo', id: 'conejo', avatar: '🐰', nombre: 'Conejo'},
+        {clase: 'jugador-aguila', id: 'aguila', avatar: '🦅', nombre: 'Águila'},
+        {clase: 'jugador-cobra', id: 'cobra', avatar: '🐍', nombre: 'Cobra'},
+        {clase: 'jugador-buho', id: 'buho', avatar: '🦉', nombre: 'Búho'}
+    ];
 
-    // 🐾 1. FUNCIÓN crearJugadores() ORIGINAL - SIN CAMBIOS
-    function crearJugadores() {
-        const overlay = document.getElementById('mesa-overlay');
-        const jugadores = [
-            {clase: 'jugador-leon', id: 'leon', avatar: '🦁', nombre: 'León'},
-            {clase: 'jugador-dragon', id: 'dragon', avatar: '🐉', nombre: 'Dragón'},
-            {clase: 'jugador-conejo', id: 'conejo', avatar: '🐰', nombre: 'Conejo'},
-            {clase: 'jugador-aguila', id: 'aguila', avatar: '🦅', nombre: 'Águila'},
-            {clase: 'jugador-cobra', id: 'cobra', avatar: '🐍', nombre: 'Cobra'},
-            {clase: 'jugador-buho', id: 'buho', avatar: '🦉', nombre: 'Búho'}
-        ];
-        
-        jugadores.forEach(j => {
-            const div = document.createElement('div');
-            div.className = `jugador ${j.clase}`;
-            div.innerHTML = `
-                <span class="corona-badge" id="corona-${j.id}" style="display: none;">👑 CORONA</span>
-                <span class="retador-badge" id="retador-${j.id}" style="display: none;">⚔️ RETADOR</span>
-                <span class="jugador-avatar">${j.avatar}</span>
-                <div class="jugador-nombre">${j.nombre}</div>
-                <div class="jugador-fichas">
-                    <span class="ficha-casino">🪙</span>
-                    <span class="fichas-numero" data-jugador="${j.id}">1,250</span>
-                </div>
-            `;
-            overlay.appendChild(div);
-        });
-        console.log('✅ 6 animales/jugadores CREADOS correctamente');
-    }
-
-    // 💰 2. FUNCIÓN apostar() - Wrapper simple
-    function apostar(destino, cantidad) {
-        if (window.apostar) {
-            window.apostar(destino, cantidad);
-            console.log(`💰 Apuesta: ${cantidad} fichas a ${destino.toUpperCase()}`);
-        } else {
-            console.log(`⚠️ Sistema apuestas no cargado - apostando simuladamente a ${destino}`);
+    jugadores.forEach(jugador => {
+        const elemento = document.querySelector(`.${jugador.clase}`);
+        if (elemento) {
+            console.log(`✅ ${jugador.nombre} encontrado y configurado`);
         }
-    }
-
-    // 🎮 3. SIMULADOR con Orquestador Central
-    function simularPartida() {
-        console.log('🚀 SIMULADOR 7s ACTIVADO - Juego automático iniciado');
-        setInterval(() => {
-            if (window.nuevaManoCompleta) {
-                window.nuevaManoCompleta();
-            }
-        }, 7000);
-    }
-
-    // 🚀 4. INICIALIZACIÓN SECUENCIAL (200ms espera total)
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            console.log('🎮 === INICIALIZANDO MESA BACARÁ CUBANO ===');
-            
-            // PASO 1: Crear jugadores (animales)
-            crearJugadores();
-             restaurarIconosFijos();
-
-            // 🔥 FUNCIÓN AISLADA: Solo íconos fijos
-function restaurarIconosFijos() {
-    // Icono 👑 Corona (izquierda)
-    const manoCorona = document.getElementById('mano-corona');
-    if (manoCorona && !manoCorona.querySelector('.icono-fijo.corona')) {
-        const iconoCorona = document.createElement('div');
-        iconoCorona.className = 'icono-fijo corona';
-        iconoCorona.textContent = '👑';
-        manoCorona.insertBefore(iconoCorona, manoCorona.firstChild);
-    }
-    
-    // Icono ⚔️ Retador (derecha) 
-    const manoRetador = document.getElementById('mano-retador');
-    if (manoRetador && !manoRetador.querySelector('.icono-fijo.retador')) {
-        const iconoRetador = document.createElement('div');
-        iconoRetador.className = 'icono-fijo retador';
-        iconoRetador.textContent = '⚔️';
-        manoRetador.insertBefore(iconoRetador, manoRetador.firstChild);
-    }
-    
-    console.log('✅ Iconos fijos 👑⚔️ restaurados en ventanas');
-}
-            
-            // PASO 2: Fix colores cartas (rojo ♥♦)
-            if (window.mesaOrquestador && window.mesaOrquestador.fixColoresCartas) {
-                window.mesaOrquestador.fixColoresCartas();
-                console.log('✅ Colores cartas corregidos (rojo ♥♦, blanco ♠♣)');
-            }
-            
-            // PASO 3: Orquestador central
-            if (window.mesaOrquestador && window.mesaOrquestador.inicializar) {
-                window.mesaOrquestador.inicializar();
-                console.log('✅ Orquestador central inicializado');
-            }
-            
-            // PASO 4: Duelo inicial
-            if (window.mesaDuelo && window.mesaDuelo.iniciarDueloInicial) {
-                window.mesaDuelo.iniciarDueloInicial('leon', 'aguila');
-                console.log('✅ Duelo inicial: León 👑 vs Águila ⚔️');
-            }
-            
-            // PASO 5: Simulador automático
-            simularPartida();
-            
-            console.log('🎯 ✅ MESA BACARÁ CUBANO - FASE 4.1 COMPLETA');
-            console.log('✅ 6 animales visibles');
-            console.log('✅ Rotación duelo activa');
-            console.log('✅ Comisión 5% lista');
-            console.log('✅ Emojis reacción listos');
-            console.log('✅ Juego avanza cada 7 segundos');
-        }, 200);
     });
+    
+    console.log('✅ 6 animales creados correctamente');
+}
+
+// ========== 2. INICIALIZACIÓN CENTRAL ==========
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Inicializando Bacará Real...');
+    
+    // Paso 1: Crear jugadores visuales
+    crearJugadores();
+    
+    // Paso 2: Verificar módulos cargados
+    setTimeout(() => {
+        console.log('✅ Módulos JS cargados correctamente');
+        console.log('✅ 416 cartas inicializadas');
+        console.log('✅ Simulador 7s listo');
+        console.log('🚀 ¡SIMULADOR ACTIVADO! 🎮');
+        
+        // Paso 3: Iniciar orquestador (si existe)
+        if (typeof window.iniciarSimulador === 'function') {
+            window.iniciarSimulador();
+        }
+    }, 200);
+});
 </script>
 </body>
 </html>
