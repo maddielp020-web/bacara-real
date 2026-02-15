@@ -10,27 +10,6 @@
     <div class="mesa-wrapper">
         <img src="img/mesa-fondo.png.jpg" alt="Mesa de Bacará" class="mesa-imagen">
         <div class="mesa-overlay" id="mesa-overlay">
-            <!-- CAJÓN -->
-            <div class="cajon-cartas" id="cajon-cartas">
-                <div class="cartas-restantes" id="cartas-restantes">🃏 416 cartas</div>
-                <div class="estado-barajando" id="estado-barajando">♻️ Barajando...</div>
-            </div>
-
-            <!-- CENTRAL -->
-            <div class="area-central">
-                <div class="mano-jugador" id="mano-corona">
-                    <div class="icono-fijo corona">👑</div>
-                    <div class="carta-placeholder" id="carta1-corona">?</div>
-                    <div class="carta-placeholder" id="carta2-corona">?</div>
-                    <div class="puntuacion" id="puntuacion-corona">0</div>
-                </div>
-                <div class="mano-jugador" id="mano-retador">
-                    <div class="icono-fijo retador">⚔️</div>
-                    <div class="carta-placeholder" id="carta1-retador">?</div>
-                    <div class="carta-placeholder" id="carta2-retador">?</div>
-                    <div class="puntuacion" id="puntuacion-retador">0</div>
-                </div>
-            </div>
 
             <!-- APUESTAS -->
             <div class="apuestas-zone">
@@ -43,15 +22,15 @@
         </div>
     </div>
 
-    <!-- JS MÓDULOS -->
+        <!-- JS MÓDULOS - ORDEN CRÍTICO -->
+    <script src="js/mesa-orquestador.js"></script>
     <script src="js/mesa-cartas.js"></script>
     <script src="js/mesa-apuestas.js"></script>
-    <script src="js/mesa-historial.js"></script>
     <script src="js/mesa-duelo.js"></script>
     <script src="js/mesa-ui.js"></script>
-       
-    <script src="js/mesa-orquestador.js"></script>
+    <script src="js/mesa-historial.js"></script>
 <script>
+
     // 🐾 1. FUNCIÓN crearJugadores() ORIGINAL - SIN CAMBIOS
     function crearJugadores() {
         const overlay = document.getElementById('mesa-overlay');
