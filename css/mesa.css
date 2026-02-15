@@ -134,36 +134,33 @@ body {
 .jugador-cobra { top: 58%; right: 2%; transform: translateY(-50%); }
 .jugador-buho { top: 70%; right: 2%; transform: translateY(0%); }
 
-/* ==================== ÍCONOS FIJOS EN VENTANAS ==================== */
-.mano-jugador {
-    position: relative; /* ← CAMBIO CLAVE: permite posicionar íconos absolutos */
-}
-
+/* ==================== ÍCONOS FIJOS CORREGIDOS ==================== */
 .icono-fijo {
     position: absolute;
-    top: 5px;
-    font-size: 20px;
+    top: 50%;           /* ← CENTRO VERTICAL */
+    transform: translateY(-50%); /* ← AJUSTE PERFECTO */
+    font-size: 18px;    /* ← MÁS PEQUEÑO */
     font-weight: bold;
     z-index: 15;
     pointer-events: none;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .icono-fijo.corona {
-    left: 8px;
+    left: 5px;         /* ← MENOS PEGADO AL BORDE */
     color: #ffd700;
     animation: corona-brillo-fijo 2s infinite;
 }
 
 .icono-fijo.retador {
-    right: 8px;
+    right: 5px;        /* ← MÁS PEGADO AL BORDE DERECHO */
     color: #ff4444;
     animation: retador-pulso 2s infinite;
-}
-
-@keyframes corona-brillo-fijo {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.1); }
 }
 
 /* ==================== RESPONSIVE ==================== */
