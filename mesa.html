@@ -88,6 +88,30 @@
             
             // PASO 1: Crear jugadores (animales)
             crearJugadores();
+             restaurarIconosFijos();
+
+            // 🔥 FUNCIÓN AISLADA: Solo íconos fijos
+function restaurarIconosFijos() {
+    // Icono 👑 Corona (izquierda)
+    const manoCorona = document.getElementById('mano-corona');
+    if (manoCorona && !manoCorona.querySelector('.icono-fijo.corona')) {
+        const iconoCorona = document.createElement('div');
+        iconoCorona.className = 'icono-fijo corona';
+        iconoCorona.textContent = '👑';
+        manoCorona.insertBefore(iconoCorona, manoCorona.firstChild);
+    }
+    
+    // Icono ⚔️ Retador (derecha) 
+    const manoRetador = document.getElementById('mano-retador');
+    if (manoRetador && !manoRetador.querySelector('.icono-fijo.retador')) {
+        const iconoRetador = document.createElement('div');
+        iconoRetador.className = 'icono-fijo retador';
+        iconoRetador.textContent = '⚔️';
+        manoRetador.insertBefore(iconoRetador, manoRetador.firstChild);
+    }
+    
+    console.log('✅ Iconos fijos 👑⚔️ restaurados en ventanas');
+}
             
             // PASO 2: Fix colores cartas (rojo ♥♦)
             if (window.mesaOrquestador && window.mesaOrquestador.fixColoresCartas) {
