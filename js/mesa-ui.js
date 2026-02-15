@@ -95,13 +95,21 @@ class MesaUI {
     }
 
     mostrarReaccionesPorMano(ganador) {
-        const duelo = window.mesaDuelo?.obtenerEstadoDuelo?.() || {};
-        if (!duelo.coronaActual || !duelo.retadorActual) return;
-        const coronaEmoji = ganador === 'corona' ? '🥳' : '🥵';
-        this.mostrarEmojiReaccion(duelo.coronaActual, coronaEmoji);
-        const retadorEmoji = ganador === 'retador' ? '🥳' : '🥵';
-        this.mostrarEmojiReaccion(duelo.retadorActual, retadorEmoji);
+    const duelo = window.mesaDuelo?.obtenerEstadoDuelo?.() || {};
+    if (!duelo.coronaActual || !duelo.retadorActual) {
+        console.log('❌ Duelo no disponible:', duelo);
+        return;
     }
+    
+    console.log('🎯 Emojis para:', ganador, 'duelo:', duelo);
+    
+    // Corona
+    const coronaEmoji = ganador === 'corona' ? '🥳' : '🥵';
+    this.mostrarEmojiReaccion(duelo.coronaActual, coronaEmoji);
+    
+    // Retador  
+    const retadorEmoji = ganador === 'retador' ? '🥳' : '🥵';
+    this.mostrarEmojiReaccion(duelo.retadorActual, retadorEmoji);
 }
 
 window.mesaUI = new MesaUI();
