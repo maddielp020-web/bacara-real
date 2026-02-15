@@ -89,20 +89,20 @@ class MesaCartas {
 
     // ♻️ BARAJADO AUTOMÁTICO ≤16
     verificarBarajado() {
-        if (this.cartasRestantes <= 16 && !this.barajando && this.mazo.length > 0) {
-            this.barajando = true;
-            console.log(`♻️ Iniciando barajado automático (${this.cartasRestantes} restantes)`);
-            
-            // UI inmediata
-            const barajandoEl = document.getElementById('estado-barajando');
-            if (barajandoEl) barajandoEl.style.display = 'block';
-            
-            setTimeout(() => {
-                this.barajar();
-                if (barajandoEl) barajandoEl.style.display = 'none';
-            }, 2000);
-        }
+    // ✅ FIX: Solo barajar si mazo REALMENTE vacío
+    if (this.mazo.length <= 16 && !this.barajando) {
+        this.barajando = true;
+        console.log(`♻️ Barajando (${this.mazo.length} cartas)`);
+        
+        const barajandoEl = document.getElementById('estado-barajando');
+        if (barajandoEl) barajandoEl.style.display = 'block';
+        
+        setTimeout(() => {
+            this.barajar();
+            if (barajandoEl) barajandoEl.style.display = 'none';
+        }, 2000);
     }
+}
 
     nuevaMano() {
         this.manoActual = { corona: { cartas: [], puntuacion: 0 }, retador: { cartas: [], puntuacion: 0 } };
