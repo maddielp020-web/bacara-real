@@ -99,18 +99,24 @@
 
         // 🎮 FUNCIÓN simularPartida() RESTAURADA
         function simularPartida() {
-            setInterval(() => {
-                if (window.mesaCartas) window.mesaCartas.nuevaMano();
-                if (window.mesaApuestas) {
-                    const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
-                    window.procesarResultado(ganador);
-                    if (window.mesaUI && window.mesaUI.mostrarReaccionesPorMano) {
-                        window.mesaUI.mostrarReaccionesPorMano(ganador);
-                    }
-                }
-                window.actualizarUICompleta();
-            }, 5000);
+    setInterval(() => {
+        console.log('🎮 Simulando partida...'); // DEBUG
+        
+        // ✅ FORZAR CARTAS VISIBLES
+        if (window.mesaCartas) {
+            const mano = window.mesaCartas.nuevaMano();
+            console.log('🃏 Mano:', mano);
         }
+        
+        const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
+        window.procesarResultado(ganador);
+        
+        if (window.mesaUI) {
+            window.mesaUI.mostrarReaccionesPorMano(ganador);
+            window.actualizarUICompleta(); // ← CRÍTICO
+        }
+    }, 5000);
+}
 
         // 💰 FUNCIÓN apostar() RESTAURADA
         function apostar(destino, cantidad) {
