@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Mesa de Bacará Cubano - TRONCO VISUAL</title>
     <link rel="stylesheet" href="css/mesa.css">
+    
+    <!-- Fuentes (para consistencia) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="mesa-wrapper">
@@ -12,123 +17,121 @@
         <div class="mesa-overlay" id="mesa-overlay">
 
             <!-- ==================== ANIMALES (JUGADORES) ==================== -->
-            <!-- León -->
-            <div class="jugador jugador-leon">
-                <span class="corona-badge" id="corona-leon" style="display: none;">👑 CORONA</span>
-                <span class="retador-badge" id="retador-leon" style="display: none;">⚔️ RETADOR</span>
-                <span class="jugador-avatar">🦁</span>
-                <div class="jugador-nombre">León</div>
-                <div class="jugador-fichas">
-                    <span class="ficha-casino">🪙</span>
-                    <span class="fichas-numero" data-jugador="leon">1,250</span>
+            <!-- Fila superior: León, Dragón, Conejo -->
+            <div class="fila-jugadores superior">
+                <!-- León -->
+                <div class="jugador jugador-leon" id="jugador-leon">
+                    <span class="corona-badge" id="corona-leon" style="display: none;">👑 CORONA</span>
+                    <span class="retador-badge" id="retador-leon" style="display: none;">⚔️ RETADOR</span>
+                    <span class="jugador-avatar">🦁</span>
+                    <div class="jugador-nombre">León</div>
+                    <div class="jugador-fichas">
+                        <span class="ficha-casino">🪙</span>
+                        <span class="fichas-numero" data-jugador="leon">1,250</span>
+                    </div>
+                </div>
+
+                <!-- Dragón (con icono corona fijo) -->
+                <div class="jugador jugador-dragon" id="jugador-dragon">
+                    <span class="icono-corona-fijo" id="icono-corona-dragon">👑</span>
+                    <span class="corona-badge" id="corona-dragon" style="display: none;">👑 CORONA</span>
+                    <span class="retador-badge" id="retador-dragon" style="display: none;">⚔️ RETADOR</span>
+                    <span class="jugador-avatar">🐉</span>
+                    <div class="jugador-nombre">Dragón</div>
+                    <div class="jugador-fichas">
+                        <span class="ficha-casino">🪙</span>
+                        <span class="fichas-numero" data-jugador="dragon">1,250</span>
+                    </div>
+                </div>
+
+                <!-- Conejo -->
+                <div class="jugador jugador-conejo" id="jugador-conejo">
+                    <span class="corona-badge" id="corona-conejo" style="display: none;">👑 CORONA</span>
+                    <span class="retador-badge" id="retador-conejo" style="display: none;">⚔️ RETADOR</span>
+                    <span class="jugador-avatar">🐰</span>
+                    <div class="jugador-nombre">Conejo</div>
+                    <div class="jugador-fichas">
+                        <span class="ficha-casino">🪙</span>
+                        <span class="fichas-numero" data-jugador="conejo">1,250</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Dragón -->
-            <div class="jugador jugador-dragon">
-                <span class="corona-badge" id="corona-dragon" style="display: none;">👑 CORONA</span>
-                <span class="retador-badge" id="retador-dragon" style="display: none;">⚔️ RETADOR</span>
-                <span class="jugador-avatar">🐉</span>
-                <div class="jugador-nombre">Dragón</div>
-                <div class="jugador-fichas">
-                    <span class="ficha-casino">🪙</span>
-                    <span class="fichas-numero" data-jugador="dragon">1,250</span>
+            <!-- ==================== ZONA CENTRAL (CARTAS Y MAZO) ==================== -->
+            <div class="zona-central">
+                <!-- GRUPO IZQUIERDO (Corona) - 3 cartas -->
+                <div class="grupo-cartas grupo-izquierdo" id="grupo-corona">
+                    <div class="carta-dorso carta-3" id="carta-corona-3">
+                        <div class="dorso-interno"></div>
+                    </div>
+                    <div class="carta-dorso carta-2" id="carta-corona-2">
+                        <div class="dorso-interno"></div>
+                    </div>
+                    <div class="carta-dorso carta-1" id="carta-corona-1">
+                        <div class="dorso-interno"></div>
+                    </div>
+                </div>
+
+                <!-- MAZO CENTRAL -->
+                <div class="mazo-central" id="mazo-central">
+                    <div class="mazo-dorso"></div>
+                    <div class="mazo-dorso segundo"></div>
+                    <div class="mazo-dorso tercero"></div>
+                    <div class="contador-cartas" id="contador-cartas">416</div>
+                </div>
+
+                <!-- GRUPO DERECHO (Retador) - 3 cartas -->
+                <div class="grupo-cartas grupo-derecho" id="grupo-retador">
+                    <div class="carta-dorso carta-1" id="carta-retador-1">
+                        <div class="dorso-interno"></div>
+                    </div>
+                    <div class="carta-dorso carta-2" id="carta-retador-2">
+                        <div class="dorso-interno"></div>
+                    </div>
+                    <div class="carta-dorso carta-3" id="carta-retador-3">
+                        <div class="dorso-interno"></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Conejo -->
-            <div class="jugador jugador-conejo">
-                <span class="corona-badge" id="corona-conejo" style="display: none;">👑 CORONA</span>
-                <span class="retador-badge" id="retador-conejo" style="display: none;">⚔️ RETADOR</span>
-                <span class="jugador-avatar">🐰</span>
-                <div class="jugador-nombre">Conejo</div>
-                <div class="jugador-fichas">
-                    <span class="ficha-casino">🪙</span>
-                    <span class="fichas-numero" data-jugador="conejo">1,250</span>
+            <!-- ==================== ANIMALES (JUGADORES) - FILA INFERIOR ==================== -->
+            <div class="fila-jugadores inferior">
+                <!-- Águila -->
+                <div class="jugador jugador-aguila" id="jugador-aguila">
+                    <span class="corona-badge" id="corona-aguila" style="display: none;">👑 CORONA</span>
+                    <span class="retador-badge" id="retador-aguila" style="display: none;">⚔️ RETADOR</span>
+                    <span class="jugador-avatar">🦅</span>
+                    <div class="jugador-nombre">Águila</div>
+                    <div class="jugador-fichas">
+                        <span class="ficha-casino">🪙</span>
+                        <span class="fichas-numero" data-jugador="aguila">1,250</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Águila -->
-            <div class="jugador jugador-aguila">
-                <span class="corona-badge" id="corona-aguila" style="display: none;">👑 CORONA</span>
-                <span class="retador-badge" id="retador-aguila" style="display: none;">⚔️ RETADOR</span>
-                <span class="jugador-avatar">🦅</span>
-                <div class="jugador-nombre">Águila</div>
-                <div class="jugador-fichas">
-                    <span class="ficha-casino">🪙</span>
-                    <span class="fichas-numero" data-jugador="aguila">1,250</span>
+                <!-- Cobra (con icono espadas fijo) -->
+                <div class="jugador jugador-cobra" id="jugador-cobra">
+                    <span class="icono-espadas-fijo" id="icono-espadas-cobra">⚔️</span>
+                    <span class="corona-badge" id="corona-cobra" style="display: none;">👑 CORONA</span>
+                    <span class="retador-badge" id="retador-cobra" style="display: none;">⚔️ RETADOR</span>
+                    <span class="jugador-avatar">🐍</span>
+                    <div class="jugador-nombre">Cobra</div>
+                    <div class="jugador-fichas">
+                        <span class="ficha-casino">🪙</span>
+                        <span class="fichas-numero" data-jugador="cobra">1,250</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Cobra -->
-            <div class="jugador jugador-cobra">
-                <span class="corona-badge" id="corona-cobra" style="display: none;">👑 CORONA</span>
-                <span class="retador-badge" id="retador-cobra" style="display: none;">⚔️ RETADOR</span>
-                <span class="jugador-avatar">🐍</span>
-                <div class="jugador-nombre">Cobra</div>
-                <div class="jugador-fichas">
-                    <span class="ficha-casino">🪙</span>
-                    <span class="fichas-numero" data-jugador="cobra">1,250</span>
+                <!-- Búho -->
+                <div class="jugador jugador-buho" id="jugador-buho">
+                    <span class="corona-badge" id="corona-buho" style="display: none;">👑 CORONA</span>
+                    <span class="retador-badge" id="retador-buho" style="display: none;">⚔️ RETADOR</span>
+                    <span class="jugador-avatar">🦉</span>
+                    <div class="jugador-nombre">Búho</div>
+                    <div class="jugador-fichas">
+                        <span class="ficha-casino">🪙</span>
+                        <span class="fichas-numero" data-jugador="buho">1,250</span>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Búho -->
-            <div class="jugador jugador-buho">
-                <span class="corona-badge" id="corona-buho" style="display: none;">👑 CORONA</span>
-                <span class="retador-badge" id="retador-buho" style="display: none;">⚔️ RETADOR</span>
-                <span class="jugador-avatar">🦉</span>
-                <div class="jugador-nombre">Búho</div>
-                <div class="jugador-fichas">
-                    <span class="ficha-casino">🪙</span>
-                    <span class="fichas-numero" data-jugador="buho">1,250</span>
-                </div>
-            </div>
-
-            <!-- ==================== VENTANAS DE CARTAS ==================== -->
-<div class="ventanas-cartas">
-    <!-- GRUPO IZQUIERDO (Corona) - 3 cartas -->
-    <div class="grupo-cartas grupo-izquierdo" id="grupo-corona">
-        <div class="carta-dorso carta-3" id="carta-corona-3">
-            <div class="dorso-interno"></div>
-        </div>
-        <div class="carta-dorso carta-2" id="carta-corona-2">
-            <div class="dorso-interno"></div>
-        </div>
-        <div class="carta-dorso carta-1" id="carta-corona-1">
-            <div class="dorso-interno"></div>
-        </div>
-        <div class="grupo-label">👑 CORONA</div>
-    </div>
-
-    <!-- MAZO CENTRAL -->
-    <div class="mazo-central" id="mazo-central">
-        <div class="mazo-dorso"></div>
-        <div class="mazo-dorso segundo"></div>
-        <div class="mazo-dorso tercero"></div>
-        <div class="contador-cartas" id="contador-cartas">416</div>
-        <div class="mazo-label">MAZO</div>
-    </div>
-
-    <!-- GRUPO DERECHO (Retador) - 3 cartas -->
-    <div class="grupo-cartas grupo-derecho" id="grupo-retador">
-        <div class="carta-dorso carta-3" id="carta-retador-3">
-            <div class="dorso-interno"></div>
-        </div>
-        <div class="carta-dorso carta-2" id="carta-retador-2">
-            <div class="dorso-interno"></div>
-        </div>
-        <div class="carta-dorso carta-1" id="carta-retador-1">
-            <div class="dorso-interno"></div>
-        </div>
-        <div class="grupo-label">⚔️ RETADOR</div>
-    </div>
-</div>
-
-            <!-- ==================== CAJÓN DE CARTAS ==================== -->
-            <div class="cajon-cartas" id="cajon-cartas">
-                <div class="cajon-icono">🎴</div>
-                <div class="contador-cartas" id="contador-cartas">312</div>
-                <div class="cajon-label">Cartas</div>
             </div>
 
             <!-- ==================== BOTONES DE APUESTA ==================== -->
