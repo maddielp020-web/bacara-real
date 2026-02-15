@@ -92,9 +92,9 @@
         if (window.mesaApuestas) {
             const ganador = Math.random() > 0.5 ? 'corona' : 'retador';
             window.procesarResultado(ganador);
-            if (window.mesaUI?.mostrarReaccionesPorMano) {
-                window.mesaUI.mostrarReaccionesPorMano(ganador);
-            }
+            if (window.mesaUI && window.mesaUI.mostrarReaccionesPorMano) {
+    window.mesaUI.mostrarReaccionesPorMano(ganador);  // ✅ CORRECTO
+}
         }
         window.actualizarUICompleta();
     }, 5000);
