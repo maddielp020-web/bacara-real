@@ -663,3 +663,270 @@ body {
         padding: 25px;
     }
 }
+
+/* ==================== MESA - ESTILOS VISUALES ==================== */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: #0a3d2a;
+    touch-action: none;
+}
+
+.mesa-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.mesa-imagen {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.mesa-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* POSICIONES JUGADORES (según diagrama) */
+.jugador {
+    position: absolute;
+    width: 85px;
+    background: rgba(0,0,0,0.8);
+    border: 2px solid var(--dorado-suave);
+    border-radius: 15px;
+    padding: 8px 6px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--blanco-hueso);
+    z-index: 20;
+    pointer-events: auto;
+    backdrop-filter: blur(10px);
+}
+
+.jugador-leon { top: 12%; left: 8%; }
+.jugador-dragon { top: 8%; left: 38%; }
+.jugador-conejo { top: 12%; right: 8%; }
+.jugador-aguila { bottom: 18%; left: 8%; }
+.jugador-cobra { bottom: 14%; left: 38%; }
+.jugador-buho { bottom: 18%; right: 8%; }
+
+.jugador-avatar {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 4px;
+}
+
+.jugador-nombre {
+    font-size: 9px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.jugador-fichas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--dorado-suave);
+}
+
+.ficha-casino {
+    font-size: 12px;
+}
+
+/* VENTANAS CARTAS */
+.ventanas-cartas {
+    position: absolute;
+    top: 35%;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 25;
+}
+
+.mano-corona, .mano-retador {
+    width: 120px;
+    height: 80px;
+    background: rgba(196,167,71,0.1);
+    border: 2px solid var(--dorado-suave);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    backdrop-filter: blur(5px);
+}
+
+.icono-fijo {
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.carta-placeholder {
+    width: 35px;
+    height: 50px;
+    background: rgba(139,0,0,0.8);
+    border: 1px solid var(--dorado-suave);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dorado-suave);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* CAJÓN CARTAS */
+.cajon-cartas {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 110px;
+    background: linear-gradient(145deg, #8B0000, #660000);
+    border: 3px solid var(--dorado-suave);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    z-index: 30;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+}
+
+.cajon-icono {
+    font-size: 32px;
+}
+
+.contador-cartas {
+    background: var(--negro-fondo);
+    color: var(--dorado-suave);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--dorado-suave);
+}
+
+.cajon-label {
+    font-size: 9px;
+    color: var(--blanco-hueso);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* BOTONES */
+.apuestas-zone {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    z-index: 35;
+}
+
+.apostar-btn {
+    background: var(--dorado-suave);
+    color: var(--negro-fondo);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(196,167,71,0.4);
+    transition: all 0.2s;
+    pointer-events: auto;
+    touch-action: manipulation;
+}
+
+.apostar-btn:hover, .apostar-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(196,167,71,0.6);
+}
+
+/* ALERTA */
+.comision-alert {
+    position: absolute;
+    top: 6%;
+    right: 6%;
+    background: rgba(196,167,71,0.2);
+    color: var(--dorado-suave);
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: 2px solid var(--dorado-suave);
+    font-weight: 700;
+    font-size: 12px;
+    backdrop-filter: blur(10px);
+    z-index: 40;
+}
+
+/* BADGES */
+.corona-badge, .retador-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dorado-suave);
+    color: var(--negro-fondo);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 9px;
+    font-weight: 700;
+    z-index: 25;
+}
+
+/* ==================== MESA - MEDIA QUERIES ==================== */
+@media (max-width: 380px) {
+    .jugador {
+        width: 75px;
+        font-size: 10px;
+    }
+    
+    .jugador-avatar {
+        font-size: 24px;
+    }
+    
+    .mano-corona, .mano-retador {
+        width: 100px;
+        height: 70px;
+    }
+    
+    .cajon-cartas {
+        width: 80px;
+        height: 100px;
+    }
+    
+    .cajon-icono {
+        font-size: 28px;
+    }
+    
+    .apostar-btn {
+        padding: 12px 24px;
+        font-size: 13px;
+    }
+}
+
