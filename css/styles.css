@@ -701,52 +701,52 @@ html, body {
     pointer-events: none;
 }
 
-/* POSICIONES JUGADORES - COLUMNAS CENTRADAS (según diagrama) */
+/* POSICIONES JUGADORES - COLUMNAS VERTICALES (según diagrama) */
 .jugador {
     position: absolute;
-    width: 85px;
+    width: 75px;                    /* 🔽 reducido */
     background: rgba(0,0,0,0.8);
     border: 2px solid var(--dorado-suave);
     border-radius: 15px;
-    padding: 8px 6px;
+    padding: 6px 4px;               /* 🔽 reducido */
     text-align: center;
-    font-size: 11px;
+    font-size: 10px;                /* 🔽 reducido */
     color: var(--blanco-hueso);
     z-index: 20;
     pointer-events: auto;
     backdrop-filter: blur(10px);
 }
 
-/* COLUMNA IZQUIERDA (debajo del historial) */
+/* COLUMNA IZQUIERDA */
 .jugador-leon {
-    top: 18%;
-    left: 10%;
+    top: 33%;
+    left: 5%;
 }
 
 .jugador-dragon {
-    top: 33%;
-    left: 7%;
+    top: 48%;
+    left: 5%;
 }
 
 .jugador-conejo {
-    top: 48%;
-    left: 10%;
+    top: 63%;
+    left: 5%;
 }
 
-/* COLUMNA DERECHA (debajo de comisión/contador) */
+/* COLUMNA DERECHA */
 .jugador-aguila {
-    top: 18%;
-    right: 10%;
+    top: 33%;
+    right: 5%;
 }
 
 .jugador-cobra {
-    top: 33%;
-    right: 7%;
+    top: 48%;
+    right: 5%;
 }
 
 .jugador-buho {
-    top: 48%;
-    right: 10%;
+    top: 63%;
+    right: 5%;
 }
 
 .jugador-avatar {
