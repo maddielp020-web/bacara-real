@@ -1,2 +1,6 @@
-// ==================== MESA-HISTORIAL.JS (PLACEHOLDER) ====================
-console.log('📝 mesa-historial.js cargado (modo placeholder). Historial avanzado se implementará en fases futuras.');
+// ==================== ARCHIVO INHABILITADO ====================
+// Este archivo está VACÍO INTENCIONALMENTE
+// El código original se guarda en Bloc de notas como respaldo
+// Para restaurar: copiar código desde bloc y pegarlo aquí
+
+console.log('⏸️ Archivo JS inhabilitado: js/mesa-orquestador.js');
