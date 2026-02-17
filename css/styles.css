@@ -803,84 +803,73 @@ html, body {
 /* ==================== MARCAS DE POSICIÓN PARA CARTAS (3 POR LADO - VERTICAL) ==================== */
 .ventanas-cartas {
     position: absolute;
-    top: 30%;
+    top: 30%;                     /* ← no se toca la altura */
     left: 0;
     right: 0;
     display: flex;
-    justify-content: space-between;
-    padding: 0 30px;
+    justify-content: center;      /* ← centra los grupos horizontalmente */
+    gap: 80px;                    /* separación entre grupo izquierdo y derecho */
     z-index: 25;
     pointer-events: none;
+    padding: 0 20px;
 }
 
 .mano-corona, .mano-retador {
     display: flex;
-    flex-direction: column;  /* ← AHORA VERTICAL */
+    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     gap: 5px;
     width: 60px;
 }
 
-/* Iconos fijos (👑 y ⚔️) */
+/* Iconos fijos (👑 y ⚔️) con nuevo dorado */
 .icono-fijo {
     font-size: 24px;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     margin-bottom: 8px;
-    color: var(--dorado-suave);
+    color: var(--oro-puro);       /* ← actualizado */
 }
 
-/* Marcas de cartas (color rojo natural) */
+/* Marcas de cartas con nuevo rojo baraja */
 .carta-marca {
     width: 45px;
     height: 65px;
-    background: #8B1E1E;        /* Rojo vino (como botones) */
-    border: 2px solid var(--dorado-suave);
+    background: var(--rojo-baraja);   /* ← actualizado */
+    border: 2px solid var(--oro-puro);
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--blanco-texto);
     font-size: 24px;
     font-weight: bold;
     opacity: 0.9;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    margin: -15px 0 0 0;        /* superposición vertical */
+    margin: -15px 0 0 0;
 }
 
-/* Efecto superposición vertical */
-.mano-corona .carta-marca:nth-child(2) {
-    margin-top: -25px;
-    z-index: 3;
-}
-
-.mano-corona .carta-marca:nth-child(3) {
-    margin-top: -25px;
-    z-index: 2;
-}
-
-.mano-corona .carta-marca:nth-child(4) {
-    margin-top: -25px;
-    z-index: 1;
-}
-
+/* Efecto superposición vertical (se mantiene igual) */
+.mano-corona .carta-marca:nth-child(2),
 .mano-retador .carta-marca:nth-child(2) {
     margin-top: -25px;
     z-index: 3;
 }
 
+.mano-corona .carta-marca:nth-child(3),
 .mano-retador .carta-marca:nth-child(3) {
     margin-top: -25px;
     z-index: 2;
 }
 
+.mano-corona .carta-marca:nth-child(4),
 .mano-retador .carta-marca:nth-child(4) {
     margin-top: -25px;
     z-index: 1;
 }
 
-/* Primera carta (la de arriba) sin margen negativo */
+/* Primera carta sin margen negativo */
 .mano-corona .carta-marca:first-of-type,
 .mano-retador .carta-marca:first-of-type {
     margin-top: 0;
