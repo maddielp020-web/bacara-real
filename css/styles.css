@@ -999,29 +999,17 @@ html, body {
     transform: translateX(-50%);
 }
 
-/* COLUMNA DERECHA - mantener simetría (opcional, ajustar si es necesario) */
+/* COLUMNA DERECHA - SIMÉTRICA A LA IZQUIERDA */
 .jugador-aguila .corona-badge,
-.jugador-aguila .retador-badge {
-    top: -22px;
-    right: 50%;
-    left: auto;
-    transform: translateX(50%);
-}
-
+.jugador-aguila .retador-badge,
 .jugador-cobra .corona-badge,
-.jugador-cobra .retador-badge {
-    top: -22px;
-    right: 50%;
-    left: auto;
-    transform: translateX(50%);
-}
-
+.jugador-cobra .retador-badge,
 .jugador-buho .corona-badge,
 .jugador-buho .retador-badge {
-    top: -22px;
-    right: 50%;
+    top: -10px;              /* mismo que izquierda */
+    right: 70%;              /* simétrico a left:70% */
     left: auto;
-    transform: translateX(50%);
+    transform: translateX(50%); /* simétrico a -50% */
 }
 
 /* ==================== CAJÓN DE CARTAS (SELLO ÚNICO) ==================== */
