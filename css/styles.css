@@ -832,11 +832,11 @@ html, body {
     color: var(--oro-puro);       /* ← actualizado */
 }
 
-/* Marcas de cartas con nuevo rojo baraja */
+/* Marcas de cartas - FANTASMA (transparente + sombra fuerte) */
 .carta-marca {
     width: 45px;
     height: 65px;
-    background: var(--rojo-baraja);   /* ← actualizado */
+    background: var(--rojo-baraja);
     border: 2px solid var(--oro-puro);
     border-radius: 6px;
     display: flex;
@@ -845,16 +845,10 @@ html, body {
     color: var(--blanco-texto);
     font-size: 24px;
     font-weight: bold;
-    opacity: 0.9;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    opacity: 0.3;                       /* ← transparente tipo fantasma */
+    box-shadow: 0 0 15px 5px rgba(0,0,0,0.7); /* ← sombra exterior fuerte */
     margin: -15px 0 0 0;
-}
-
-/* Efecto superposición vertical (se mantiene igual) */
-.mano-corona .carta-marca:nth-child(2),
-.mano-retador .carta-marca:nth-child(2) {
-    margin-top: -25px;
-    z-index: 3;
+    backdrop-filter: blur(1px);          /* pequeño difuminado */
 }
 
 .mano-corona .carta-marca:nth-child(3),
