@@ -931,21 +931,21 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0,0,0,0.9);
-    border: 2px solid var(--dorado-suave);  /* Borde más fino */
-    border-radius: 20px;                    /* Menos redondeado */
-    padding: 8px 15px;                       /* 🔽 MUCHO MÁS PEQUEÑO */
+    border: 2px solid var(--dorado-suave);
+    border-radius: 20px;
+    padding: 2px 15px;           /* 🔽 vertical reducido a 2px (antes 8px) */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2px;                                 /* 🔽 Menos espacio entre líneas */
+    gap: 2px;
     z-index: 45;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.6);   /* Sombra más suave */
-    min-width: 110px;                         /* 🔽 Más angosto */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.6);
+    min-width: 110px;
 }
 
 .cajon-linea {
-    font-size: 14px;          /* IGUAL */
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 1px;
     color: var(--dorado-suave);
@@ -954,30 +954,32 @@ html, body {
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
     width: 100%;
+    margin: 0;                    /* asegurar cero margen extra */
 }
 
 .cajon-icono {
-    font-size: 42px;          /* Un poquito más pequeño */
-    margin: 2px 0 0px;
+    font-size: 42px;
+    margin: 0px 0 0px;            /* reducido */
     filter: drop-shadow(0 3px 4px rgba(0,0,0,0.6));
     text-align: center;
     line-height: 1;
 }
 
 .cajon-numero {
-    font-size: 32px;          /* Un poquito más pequeño */
+    font-size: 21px;               /* 🔽 32px → 21px (2/3 del original) */
     font-weight: 800;
     color: white;
     background: #4169E1;
-    padding: 4px 15px;         /* 🔽 Mucho menos padding */
+    padding: 1px 15px;             /* 🔽 vertical 4px → 1px, horizontal igual */
     border-radius: 30px;
     border: 2px solid var(--dorado-suave);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     text-align: center;
-    min-width: 65px;           /* 🔽 Más angosto */
+    min-width: 55px;               /* 🔽 reducido para que se ajuste */
     box-shadow: 0 3px 8px rgba(65,105,225,0.4);
-    margin-top: 3px;            /* 🔽 Menos espacio arriba */
+    margin-top: 2px;                /* pequeño espacio, pero integrado */
     display: inline-block;
+    line-height: 1.2;
 }
 
 /* ==================== MESA - MEDIA QUERIES ==================== */
