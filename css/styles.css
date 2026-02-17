@@ -803,12 +803,12 @@ html, body {
 /* ==================== MARCAS DE POSICIÓN PARA CARTAS (3 POR LADO - VERTICAL) ==================== */
 .ventanas-cartas {
     position: absolute;
-    top: 30%;                     /* ← no se toca la altura */
+    top: 30%;
     left: 0;
     right: 0;
     display: flex;
-    justify-content: center;      /* ← centra los grupos horizontalmente */
-    gap: 80px;                    /* separación entre grupo izquierdo y derecho */
+    justify-content: center;
+    gap: 40px;                    /* ← más centrado (antes 80px, después 60px, ahora 40px) */
     z-index: 25;
     pointer-events: none;
     padding: 0 20px;
@@ -823,32 +823,55 @@ html, body {
     width: 60px;
 }
 
-/* Iconos fijos (👑 y ⚔️) con nuevo dorado */
+/* Iconos fijos (👑 y ⚔️) - se quedan donde están */
 .icono-fijo {
     font-size: 24px;
     font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     margin-bottom: 8px;
-    color: var(--oro-puro);       /* ← actualizado */
+    color: var(--oro-puro);
 }
 
-/* Marcas de cartas - FANTASMA (transparente + sombra fuerte) */
+/* ==================== EFECTO FANTASMA REFINADO ==================== */
 .carta-marca {
     width: 45px;
     height: 65px;
-    background: var(--rojo-baraja);
-    border: 2px solid var(--oro-puro);
-    border-radius: 6px;
+    background: transparent;                 /* ← completamente transparente */
+    border: 1px solid var(--oro-puro);        /* ← borde dorado finísimo */
+    border-radius: 4px;                       /* un poco menos redondeado */
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--blanco-texto);
     font-size: 24px;
     font-weight: bold;
-    opacity: 0.3;                       /* ← transparente tipo fantasma */
-    box-shadow: 0 0 15px 5px rgba(0,0,0,0.7); /* ← sombra exterior fuerte */
+    opacity: 0.2;                              /* velo muy sutil */
+    box-shadow: 
+        4px 4px 8px rgba(0,0,0,0.3),          /* sombra derecha + abajo */
+        -4px 4px 8px rgba(0,0,0,0.3);         /* sombra izquierda + abajo */
     margin: -15px 0 0 0;
-    backdrop-filter: blur(1px);          /* pequeño difuminado */
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(0);                  /* sin desenfoque extra */
+}
+
+/* Quitar cualquier sombra superior */
+.carta-marca::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    height: 2px;
+    background: transparent;                    /* bloquea sombra superior */
+    z-index: 3;
+}
+
+/* Superposición entre cartas (se mantiene) */
+.mano-corona .carta-marca:nth-child(2),
+.mano-retador .carta-marca:nth-child(2) {
+    margin-top: -25px;
+    z-index: 3;
 }
 
 .mano-corona .carta-marca:nth-child(3),
@@ -863,7 +886,6 @@ html, body {
     z-index: 1;
 }
 
-/* Primera carta sin margen negativo */
 .mano-corona .carta-marca:first-of-type,
 .mano-retador .carta-marca:first-of-type {
     margin-top: 0;
