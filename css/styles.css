@@ -931,53 +931,52 @@ html, body {
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0,0,0,0.9);
-    border: 3px solid var(--dorado-suave);
-    border-radius: 30px;
-    padding: 15px 25px;
+    border: 2px solid var(--dorado-suave);  /* Borde más fino */
+    border-radius: 20px;                    /* Menos redondeado */
+    padding: 8px 15px;                       /* 🔽 MUCHO MÁS PEQUEÑO */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 2px;                                 /* 🔽 Menos espacio entre líneas */
     z-index: 45;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-    min-width: 140px;
-    backdrop-filter: blur(2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.6);   /* Sombra más suave */
+    min-width: 110px;                         /* 🔽 Más angosto */
 }
 
 .cajon-linea {
-    font-size: 14px;
+    font-size: 14px;          /* IGUAL */
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     color: var(--dorado-suave);
     text-transform: uppercase;
-    line-height: 1.3;
+    line-height: 1.2;
     text-align: center;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
     width: 100%;
 }
 
 .cajon-icono {
-    font-size: 48px;
-    margin: 5px 0 5px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+    font-size: 42px;          /* Un poquito más pequeño */
+    margin: 2px 0 0px;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.6));
     text-align: center;
     line-height: 1;
 }
 
 .cajon-numero {
-    font-size: 36px;
+    font-size: 32px;          /* Un poquito más pequeño */
     font-weight: 800;
     color: white;
     background: #4169E1;
-    padding: 8px 20px;
-    border-radius: 40px;
+    padding: 4px 15px;         /* 🔽 Mucho menos padding */
+    border-radius: 30px;
     border: 2px solid var(--dorado-suave);
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
     text-align: center;
-    min-width: 80px;
-    box-shadow: 0 4px 10px rgba(65,105,225,0.4);
-    margin-top: 5px;
+    min-width: 65px;           /* 🔽 Más angosto */
+    box-shadow: 0 3px 8px rgba(65,105,225,0.4);
+    margin-top: 3px;            /* 🔽 Menos espacio arriba */
     display: inline-block;
 }
 
