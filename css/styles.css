@@ -928,18 +928,54 @@ html, body {
 }
 
 /* ==================== BADGES CORONA/RETADOR ==================== */
+@keyframes latido {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.15); }
+    100% { transform: translateX(-50%) scale(1); }
+}
+
 .corona-badge, .retador-badge {
     position: absolute;
-    top: -12px;
+    top: -22px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--dorado-suave);
-    color: var(--negro-fondo);
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 9px;
-    font-weight: 700;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     z-index: 25;
+    animation: latido 1.8s ease-in-out infinite;
+}
+
+/* Corona: verde oscuro + borde dorado + brillo */
+.corona-badge {
+    background: #0B4F37;
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 15px rgba(255,215,0,0.3);
+}
+
+/* Retador: rojo vibrante */
+.retador-badge {
+    background: #C41E3A;
+    border: 2px solid #FFD700;
+}
+
+/* Emojis grandes */
+.corona-badge::before {
+    content: "👑";
+    font-size: 22px;
+    line-height: 1;
+    transform: translateY(-2px);
+}
+
+.retador-badge::before {
+    content: "⚔️";
+    font-size: 20px;
+    line-height: 1;
 }
 
 /* ==================== CAJÓN DE CARTAS (SELLO ÚNICO) ==================== */
