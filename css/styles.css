@@ -929,16 +929,13 @@ html, body {
 
 /* ==================== BADGES CORONA/RETADOR ==================== */
 @keyframes latido {
-    0% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.15); }
-    100% { transform: translateX(-50%) scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 
 .corona-badge, .retador-badge {
     position: absolute;
-    top: -22px;
-    left: 50%;
-    transform: translateX(-50%);
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -951,7 +948,7 @@ html, body {
     animation: latido 1.8s ease-in-out infinite;
 }
 
-/* Corona: verde oscuro + borde dorado + brillo */
+/* Corona: verde oscuro + borde dorado */
 .corona-badge {
     background: #0B4F37;
     border: 2px solid #FFD700;
@@ -964,7 +961,7 @@ html, body {
     border: 2px solid #FFD700;
 }
 
-/* Emojis grandes */
+/* Emojis */
 .corona-badge::before {
     content: "👑";
     font-size: 22px;
@@ -976,6 +973,55 @@ html, body {
     content: "⚔️";
     font-size: 20px;
     line-height: 1;
+}
+
+/* ==================== POSICIONES ESPECÍFICAS POR JUGADOR ==================== */
+
+/* COLUMNA IZQUIERDA - todos desplazados abajo + derecha */
+.jugador-leon .corona-badge,
+.jugador-leon .retador-badge {
+    top: -10px;        /* antes -22px, ahora más abajo */
+    left: 70%;         /* antes 50%, ahora más a la derecha */
+    transform: translateX(-50%);
+}
+
+.jugador-dragon .corona-badge,
+.jugador-dragon .retador-badge {
+    top: -10px;        /* igual para consistencia vertical */
+    left: 70%;
+    transform: translateX(-50%);
+}
+
+.jugador-conejo .corona-badge,
+.jugador-conejo .retador-badge {
+    top: -10px;
+    left: 70%;
+    transform: translateX(-50%);
+}
+
+/* COLUMNA DERECHA - mantener simetría (opcional, ajustar si es necesario) */
+.jugador-aguila .corona-badge,
+.jugador-aguila .retador-badge {
+    top: -22px;
+    right: 50%;
+    left: auto;
+    transform: translateX(50%);
+}
+
+.jugador-cobra .corona-badge,
+.jugador-cobra .retador-badge {
+    top: -22px;
+    right: 50%;
+    left: auto;
+    transform: translateX(50%);
+}
+
+.jugador-buho .corona-badge,
+.jugador-buho .retador-badge {
+    top: -22px;
+    right: 50%;
+    left: auto;
+    transform: translateX(50%);
 }
 
 /* ==================== CAJÓN DE CARTAS (SELLO ÚNICO) ==================== */
