@@ -347,13 +347,13 @@ body {
     background: #0047AB;
     color: white;
     border: none;
-    border-radius: 30px;        /* un poco más redondeado */
-    padding: 8px 16px;           /* 🔽 menos ancho, misma altura */
-    font-size: 13px;             /* 🔼 un poco más grande */
+    border-radius: 40px;        /* más ovalado pero más pequeño */
+    padding: 4px 12px;           /* 🔽 MUCHO MÁS PEQUEÑO vertical y horizontal */
+    font-size: 13px;             /* texto igual */
     font-weight: 700;
     letter-spacing: 0.3px;
     text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
     z-index: 50;
     cursor: pointer;
     pointer-events: auto;
@@ -363,34 +363,30 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;                    /* espacio entre emoji y texto */
+    gap: 4px;
     line-height: 1;
+    min-width: auto;             /* que se ajuste al contenido */
 }
 
 /* Emojis más grandes que el texto */
 .boton-superior .emoji {
-    font-size: 18px;              /* 🔼 más grande */
+    font-size: 18px;
     display: inline-block;
-    transform: translateY(-1px);  /* pequeño ajuste visual */
 }
 
-/* Versión sin clase emoji (por si los emojis van directo) */
-.boton-superior span,
-.boton-superior::first-line {
-    /* los emojis se heredan, pero aseguro tamaño */
-}
-
+/* BOTÓN IZQUIERDO (HISTORIAL) - MÁS PEGADO A LA ESQUINA */
 .boton-superior.izquierdo {
-    left: 4%;
+    left: 2%;                    /* antes 4%, ahora más a la izquierda */
 }
 
+/* BOTÓN DERECHO (COMISIÓN) - MÁS PEGADO A LA ESQUINA */
 .boton-superior.derecho {
-    right: 4%;
+    right: 2%;                   /* antes 4%, ahora más a la derecha */
 }
 
 .boton-superior:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.5);
     background: #0055C0;
 }
 
