@@ -924,62 +924,59 @@ html, body {
     z-index: 25;
 }
 
-/* ==================== CAJÓN DE CARTAS MODERNO ==================== */
-.cajon-cartas-moderno {
+/* ==================== CAJÓN DE CARTAS ==================== */
+.cajon-cartas {
     position: absolute;
-    top: 12%;           /* Centrado vertical cerca de botones superiores */
+    top: 12%;
     left: 50%;
     transform: translateX(-50%);
-    width: 110px;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(8px);
-    border: 2px solid var(--dorado-suave);
-    border-radius: 20px;
-    padding: 12px 8px;
+    width: 140px;
+    background: rgba(0,0,0,0.85);
+    border: 3px solid var(--dorado-suave);
+    border-radius: 25px;
+    padding: 15px 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;        /* ← CENTRA TODO HORIZONTALMENTE */
     justify-content: center;
     z-index: 45;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
-.cajon-icono-grande {
-    font-size: 42px;
-    margin-bottom: 5px;
-    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.5));
-}
-
-.cajon-texto-superior {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
+.cajon-linea {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     color: var(--dorado-suave);
     text-transform: uppercase;
-    line-height: 1.2;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    text-align: center;          /* ← CENTRA CADA LÍNEA */
+    width: 100%;                 /* ← OCUPA TODO EL ANCHO */
 }
 
-.cajon-texto-medio {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--dorado-suave);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    line-height: 1.2;
+.cajon-icono {
+    font-size: 48px;
+    margin: 8px 0 5px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+    display: block;              /* ← ASEGURA CENTRADO */
+    text-align: center;
 }
 
 .cajon-numero {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 800;
     color: white;
-    background: rgba(65,105,225,0.3);  /* Azul royal con transparencia */
-    padding: 5px 15px;
-    border-radius: 30px;
+    background: #4169E1;
+    padding: 8px 20px;
+    border-radius: 40px;
     border: 2px solid var(--dorado-suave);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    min-width: 70px;
-    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    min-width: 80px;
+    text-align: center;          /* ← CENTRA EL 416 */
+    margin-top: 5px;
+    box-shadow: 0 4px 10px rgba(65,105,225,0.4);
+    display: inline-block;       /* ← SE AJUSTA AL CONTENIDO */
 }
 
 /* ==================== MESA - MEDIA QUERIES ==================== */
