@@ -886,7 +886,7 @@ html, body {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
-/* BOTONES */
+/* ==================== BOTONES DE APUESTA (INFERIORES) ==================== */
 .apuestas-zone {
     position: absolute;
     bottom: 8%;
@@ -898,26 +898,36 @@ html, body {
 }
 
 .apostar-btn {
-    background: var(--dorado-suave);
-    color: var(--negro-fondo);
-    border: none;
+    background: #8B1E1E;        /* 🔽 Rojo vino (bordó) - el color de las cartas */
+    color: white;                /* texto blanco para contraste */
+    border: 2px solid var(--dorado-suave);
     padding: 14px 28px;
-    border-radius: 30px;
+    border-radius: 40px;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(196,167,71,0.4);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
     transition: all 0.2s;
     pointer-events: auto;
     touch-action: manipulation;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.apostar-btn:hover, .apostar-btn:active {
+.apostar-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(196,167,71,0.6);
+    box-shadow: 0 10px 20px rgba(139,30,30,0.5);
+    background: #9B2E2E;        /* un tono más claro al hover */
 }
 
-/* BADGES */
+.apostar-btn:active {
+    transform: translateY(0);
+}
+
+/* ==================== BADGES CORONA/RETADOR ==================== */
 .corona-badge, .retador-badge {
     position: absolute;
     top: -12px;
