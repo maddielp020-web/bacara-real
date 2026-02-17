@@ -803,12 +803,12 @@ html, body {
 /* ==================== MARCAS DE POSICIÓN PARA CARTAS (3 POR LADO - VERTICAL) ==================== */
 .ventanas-cartas {
     position: absolute;
-    top: 35%;                         /* ← antes 30%, ahora más abajo */
+    top: 35%;
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
-    gap: 25px;                         /* ← antes 40px, ahora más centrado */
+    gap: 25px;
     z-index: 25;
     pointer-events: none;
     padding: 0 20px;
@@ -823,7 +823,7 @@ html, body {
     width: 60px;
 }
 
-/* Iconos fijos (👑 y ⚔️) - NO SE MUEVEN */
+/* Iconos fijos (👑 y ⚔️) - se quedan donde están */
 .icono-fijo {
     font-size: 24px;
     font-weight: bold;
@@ -832,7 +832,7 @@ html, body {
     color: var(--oro-puro);
 }
 
-/* ==================== EFECTO FANTASMA REFINADO (AJUSTES FINALES) ==================== */
+/* ==================== EFECTO FANTASMA CON PRESENCIA ==================== */
 .carta-marca {
     width: 45px;
     height: 65px;
@@ -845,11 +845,15 @@ html, body {
     color: var(--blanco-texto);
     font-size: 24px;
     font-weight: bold;
-    opacity: 0.25;                       /* ← ajustado a 0.25 (más visible) */
-    box-shadow: 0 12px 18px -5px rgba(0,0,0,0.6); /* ← sombra más clara y definida */
+    opacity: 0.3;                               /* ← más visible */
+    box-shadow: 
+        6px 8px 12px -4px rgba(0,0,0,0.7),      /* ← sombra más fuerte y presente */
+        -6px 8px 12px -4px rgba(0,0,0,0.7),
+        0 4px 8px -2px rgba(0,0,0,0.5) inset;    /* sombra interna sutil para dar volumen */
     margin: -15px 0 0 0;
     position: relative;
     z-index: 2;
+    backdrop-filter: blur(0);
 }
 
 /* Superposición entre cartas (se mantiene) */
