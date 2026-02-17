@@ -903,22 +903,6 @@ html, body {
     box-shadow: 0 8px 25px rgba(196,167,71,0.6);
 }
 
-/* ALERTA */
-.comision-alert {
-    position: absolute;
-    top: 6%;
-    right: 6%;
-    background: rgba(196,167,71,0.2);
-    color: var(--dorado-suave);
-    padding: 10px 18px;
-    border-radius: 25px;
-    border: 2px solid var(--dorado-suave);
-    font-weight: 700;
-    font-size: 12px;
-    backdrop-filter: blur(10px);
-    z-index: 40;
-}
-
 /* BADGES */
 .corona-badge, .retador-badge {
     position: absolute;
