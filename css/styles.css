@@ -344,22 +344,40 @@ body {
 .boton-superior {
     position: absolute;
     top: 4%;
-    background: #0047AB;        /* 🔽 Azul Cobalto (más oscuro) */
+    background: #0047AB;
     color: white;
     border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
-    font-size: 12px;
+    border-radius: 30px;        /* un poco más redondeado */
+    padding: 8px 16px;           /* 🔽 menos ancho, misma altura */
+    font-size: 13px;             /* 🔼 un poco más grande */
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     text-transform: uppercase;
     box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     z-index: 50;
     cursor: pointer;
     pointer-events: auto;
-    border: 1px solid rgba(255,215,0,0.3);  /* Borde dorado suave */
+    border: 1px solid rgba(255,215,0,0.3);
     backdrop-filter: blur(2px);
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;                    /* espacio entre emoji y texto */
+    line-height: 1;
+}
+
+/* Emojis más grandes que el texto */
+.boton-superior .emoji {
+    font-size: 18px;              /* 🔼 más grande */
+    display: inline-block;
+    transform: translateY(-1px);  /* pequeño ajuste visual */
+}
+
+/* Versión sin clase emoji (por si los emojis van directo) */
+.boton-superior span,
+.boton-superior::first-line {
+    /* los emojis se heredan, pero aseguro tamaño */
 }
 
 .boton-superior.izquierdo {
@@ -373,7 +391,7 @@ body {
 .boton-superior:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-    background: #0055C0;        /* Un tono más claro al hover */
+    background: #0055C0;
 }
 
 /* ==================== CONDUCTA ==================== */
