@@ -803,12 +803,12 @@ html, body {
 /* ==================== MARCAS DE POSICIÓN PARA CARTAS (3 POR LADO - VERTICAL) ==================== */
 .ventanas-cartas {
     position: absolute;
-    top: 30%;
+    top: 35%;                         /* ← antes 30%, ahora más abajo */
     left: 0;
     right: 0;
     display: flex;
     justify-content: center;
-    gap: 40px;                    /* ← más centrado (antes 80px, después 60px, ahora 40px) */
+    gap: 25px;                         /* ← antes 40px, ahora más centrado */
     z-index: 25;
     pointer-events: none;
     padding: 0 20px;
@@ -823,7 +823,7 @@ html, body {
     width: 60px;
 }
 
-/* Iconos fijos (👑 y ⚔️) - se quedan donde están */
+/* Iconos fijos (👑 y ⚔️) - NO SE MUEVEN */
 .icono-fijo {
     font-size: 24px;
     font-weight: bold;
@@ -832,39 +832,24 @@ html, body {
     color: var(--oro-puro);
 }
 
-/* ==================== EFECTO FANTASMA REFINADO ==================== */
+/* ==================== EFECTO FANTASMA REFINADO (AJUSTES FINALES) ==================== */
 .carta-marca {
     width: 45px;
     height: 65px;
-    background: transparent;                 /* ← completamente transparente */
-    border: 1px solid var(--oro-puro);        /* ← borde dorado finísimo */
-    border-radius: 4px;                       /* un poco menos redondeado */
+    background: transparent;
+    border: 1px solid var(--oro-puro);
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--blanco-texto);
     font-size: 24px;
     font-weight: bold;
-    opacity: 0.2;                              /* velo muy sutil */
-    box-shadow: 
-        4px 4px 8px rgba(0,0,0,0.3),          /* sombra derecha + abajo */
-        -4px 4px 8px rgba(0,0,0,0.3);         /* sombra izquierda + abajo */
+    opacity: 0.25;                       /* ← ajustado a 0.25 (más visible) */
+    box-shadow: 0 12px 18px -5px rgba(0,0,0,0.6); /* ← sombra más clara y definida */
     margin: -15px 0 0 0;
     position: relative;
     z-index: 2;
-    backdrop-filter: blur(0);                  /* sin desenfoque extra */
-}
-
-/* Quitar cualquier sombra superior */
-.carta-marca::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    height: 2px;
-    background: transparent;                    /* bloquea sombra superior */
-    z-index: 3;
 }
 
 /* Superposición entre cartas (se mantiene) */
