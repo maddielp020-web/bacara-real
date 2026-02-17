@@ -800,7 +800,7 @@ html, body {
     font-size: 12px;
 }
 
-/* ==================== BARAJAS DE CARTAS CENTRALES (CORONA VS RETADOR) ==================== */
+/* ==================== MARCAS DE POSICIÓN PARA CARTAS (3 POR LADO) ==================== */
 .ventanas-cartas {
     position: absolute;
     top: 35%;
@@ -808,98 +808,55 @@ html, body {
     right: 0;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 15px;
     z-index: 25;
+    pointer-events: none;
 }
 
 .mano-corona, .mano-retador {
-    width: 140px;                    /* un poco más ancho para 3 cartas */
-    height: 100px;                   /* más alto para cartas grandes */
-    background: rgba(196,167,71,0.1);
-    border: 2px solid var(--dorado-suave);
-    border-radius: 16px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    backdrop-filter: blur(5px);
-    padding: 10px 5px;
-}
-
-.icono-fijo {
-    font-size: 24px;                 /* un poco más grande */
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
-
-/* Cartas con el MISMO TAMAÑO que el ícono 🃏 del cajón */
-.carta-placeholder {
-    width: 55px;                     /* antes 35px */
-    height: 70px;                    /* antes 50px */
-    background: rgba(139,0,0,0.8);
-    border: 2px solid var(--dorado-suave);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--dorado-suave);
-    font-weight: bold;
-    font-size: 42px;                 /* ← IGUAL QUE EL ÍCONO 🃏 */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-    margin: 0 2px;
-}
-
-/* Para que las cartas se vean superpuestas si son 3 */
-.mano-corona .carta-placeholder,
-.mano-retador .carta-placeholder {
-    display: inline-block;
-    margin-left: -10px;
-}
-
-.mano-corona .carta-placeholder:first-of-type,
-.mano-retador .carta-placeholder:first-of-type {
-    margin-left: 0;
-}
-
-/* ==================== CAJÓN DE CARTAS (SELLO ÚNICO) ==================== */
-.cajon-cartas {
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90px;
-    height: 110px;
-    background: linear-gradient(145deg, #8B0000, #660000);
-    border: 3px solid var(--dorado-suave);
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 5px;
-    z-index: 30;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+    /* SIN FONDO, SIN BORDE, SOLO POSICIÓN */
 }
 
-.cajon-icono {
-    font-size: 42px;                 /* ← tamaño de referencia para cartas */
-}
-
-.contador-cartas {
-    background: var(--negro-fondo);
+.carta-marca {
+    width: 40px;
+    height: 65px;
+    background: transparent;
+    border: 2px dashed var(--dorado-suave);  /* línea discontinua dorada */
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--dorado-suave);
-    font-size: 14px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--dorado-suave);
+    font-size: 24px;
+    font-weight: bold;
+    opacity: 0.6;
+    box-shadow: none;
+    margin: 0 -5px;  /* superposición */
 }
 
-.cajon-label {
-    font-size: 9px;
-    color: var(--blanco-hueso);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+/* Superposición tipo abanico */
+.mano-corona .carta-marca:nth-child(2) {
+    transform: translateX(-5px) rotate(-2deg);
+    z-index: 2;
+}
+
+.mano-corona .carta-marca:nth-child(3) {
+    transform: translateX(-10px) rotate(-4deg);
+    z-index: 1;
+}
+
+.mano-retador .carta-marca:nth-child(2) {
+    transform: translateX(5px) rotate(2deg);
+    z-index: 2;
+}
+
+.mano-retador .carta-marca:nth-child(3) {
+    transform: translateX(10px) rotate(4deg);
+    z-index: 1;
 }
 
 /* ==================== BOTONES DE APUESTA (INFERIORES) ==================== */
