@@ -927,7 +927,7 @@ html, body {
 /* ==================== CAJÓN DE CARTAS (SELLO ÚNICO) ==================== */
 .cajon-unico {
     position: absolute;
-    top: 4%;
+    top: 2%;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0,0,0,0.9);
