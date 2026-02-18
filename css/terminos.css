@@ -256,3 +256,132 @@
     margin-bottom: 10px;
     color: var(--blanco-texto);
 }
+
+/* ==================== INDICADOR LEER ==================== */
+.indicador-leer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0 30px;
+    padding: 10px;
+    background: rgba(255,215,0,0.1);
+    border-radius: 50px;
+    border: 1px solid var(--oro-puro);
+}
+
+.mano {
+    font-size: 24px;
+    animation: bounce 1s infinite;
+}
+
+.texto-leer {
+    color: var(--oro-puro);
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+/* ==================== TARJETAS DE SECCIÓN (ROJO INTENSO) ==================== */
+.secciones-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.seccion-card {
+    background: #8B1A1A;  /* Rojo intenso */
+    border-radius: 12px;
+    border: 1px solid var(--oro-puro);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.seccion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    background: #8B1A1A;
+    transition: background 0.2s;
+}
+
+.seccion-header:hover {
+    background: #9B2A2A;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-left .numero {
+    color: var(--oro-puro);
+    font-weight: 700;
+    font-size: 1.5rem;
+    min-width: 40px;
+}
+
+.header-left h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.boton-acordeon {
+    color: var(--oro-puro);
+    font-size: 24px;
+    transition: transform 0.3s;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seccion-header.active .boton-acordeon {
+    transform: rotate(180deg);
+}
+
+.seccion-contenido {
+    padding: 20px;
+    background: #6B0A0A;  /* Rojo más oscuro para contraste */
+    border-top: 1px solid var(--oro-puro);
+    display: none;
+}
+
+.seccion-contenido .lista-terminos {
+    margin: 0;
+    padding: 0;
+}
+
+.seccion-contenido .lista-terminos li {
+    color: white;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+/* Sanciones dentro de tarjeta */
+.sanciones-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sancion-item {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--oro-puro);
+    border-radius: 8px;
+    padding: 12px;
+    color: white;
+    text-align: center;
+}
+
+.sancion-item.grave {
+    border-color: var(--rojo-baraja);
+    background: rgba(255,0,0,0.2);
+}
