@@ -2,260 +2,64 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Términos y Condiciones | Bacará Real</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bienvenido | Bacará Real</title>
+    
+    <!-- GLOBAL (base) -->
+    <link rel="stylesheet" href="global.css">
+    
+    <!-- ESPECÍFICO DE BIENVENIDA -->
+    <link rel="stylesheet" href="css/bienvenida.css">
     
     <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="contenedor">
-        <!-- ==================== HEADER ==================== -->
-        <header class="header-terminos">
-            <h1 class="titulo-principal-terminos">♠️ BACARÁ REAL ♣️</h1>
-            <p class="subtitulo-elegante-terminos">Términos y Condiciones</p>
-            <div class="header-decorador-terminos"></div>
-        </header>
-
-        <!-- ==================== CONTENIDO CON SCROLL ==================== -->
-        <div class="contenido-scroll-terminos" id="contenido-scroll">
+    <div class="contenedor bienvenida-container">
+        
+        <!-- ==================== OVERLAY DORADO ==================== -->
+        <div class="bienvenida-overlay fade-in"></div>
+        
+        <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+        <div class="bienvenida-contenido slide-up">
             
-            <!-- ==================== ADVERTENCIA PRINCIPAL ==================== -->
-            <div class="advertencia-terminos">
-                <div class="advertencia-icono-terminos">⚠️</div>
-                <div class="advertencia-contenido">
-                    <h2>JUEGO RESPONSABLE</h2>
-                    <p>Mayores de 18 años. El juego puede ser adictivo. Juega con responsabilidad.</p>
-                </div>
+            <!-- Logo o emblema -->
+            <div class="bienvenida-emblema">
+                <span class="emblema-carta">♠️</span>
+                <span class="emblema-carta">♣️</span>
+                <span class="emblema-carta">♥️</span>
+                <span class="emblema-carta">♦️</span>
             </div>
-
-            <!-- ==================== SECCIÓN 1 - REQUISITOS ==================== -->
-            <section class="seccion-premium-terminos">
-                <h2 class="seccion-titulo-terminos">
-                    <span class="titulo-numero-terminos">01</span>
-                    <span class="titulo-texto-terminos">REQUISITOS DE ENTRADA</span>
-                    <div class="seccion-divisor"></div>
-                </h2>
-                
-                <div class="tarjeta-requisito-terminos">
-                    <h3>Edad y Capacidad Legal</h3>
-                    <ul class="lista-elegante-terminos">
-                        <li><span class="bullet-dorado-terminos">•</span> Debes tener <strong>18 años o más</strong> para jugar</li>
-                        <li><span class="bullet-dorado-terminos">•</span> Capacidad legal para realizar transacciones financieras</li>
-                        <li><span class="bullet-dorado-terminos">•</span> Al aceptar, confirmas cumplir estos requisitos</li>
-                    </ul>
-                </div>
-
-                <div class="tarjeta-importante-terminos">
-                    <div class="importante-icono-terminos">🔐</div>
-                    <div class="importante-contenido-terminos">
-                        <h3>Verificación de Identidad</h3>
-                        <p>Tu <strong>nombre en Telegram</strong> debe coincidir EXACTAMENTE con tu <strong>nombre en tu cuenta bancaria</strong>. No se aceptan apodos o alias.</p>
-                    </div>
-                </div>
-
-                <div class="tarjeta-requisito-terminos">
-                    <h3>Sistema de Invitaciones</h3>
-                    <ul class="lista-elegante-terminos">
-                        <li><span class="bullet-dorado-terminos">•</span> Acceso solo por invitación de Administrador</li>
-                        <li><span class="bullet-dorado-terminos">•</span> Prohibido compartir enlaces públicamente</li>
-                        <li><span class="bullet-rojo-terminos">✕</span> Invitar desconocidos sin autorización</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- ==================== SECCIÓN 2 - FICHAS Y PAGOS ==================== -->
-            <section class="seccion-premium-terminos">
-                <h2 class="seccion-titulo-terminos">
-                    <span class="titulo-numero-terminos">02</span>
-                    <span class="titulo-texto-terminos">FICHAS Y PAGOS</span>
-                    <div class="seccion-divisor"></div>
-                </h2>
-                
-                <div class="grid-2-columnas-terminos">
-                    <div class="tarjeta-pago-terminos">
-                        <div class="pago-icono-terminos">💰</div>
-                        <h3>Depósito Mínimo</h3>
-                        <p class="pago-cantidad-terminos">200 ₽</p>
-                        <p class="pago-detalle-terminos">= 200 fichas</p>
-                    </div>
-                    
-                    <div class="tarjeta-pago-destacada-terminos">
-                        <div class="pago-icono-terminos">🎁</div>
-                        <h3>Bono Bienvenida</h3>
-                        <p class="pago-cantidad-terminos">+20</p>
-                        <p class="pago-detalle-terminos">fichas extra</p>
-                    </div>
-                </div>
-
-                <div class="proceso-compra-terminos">
-                    <h3>Proceso de Compra</h3>
-                    <ol class="lista-numerada-terminos">
-                        <li><span class="numero-terminos">1</span> <span>Contacta a tu Administrador</span></li>
-                        <li><span class="numero-terminos">2</span> <span>Transfiere a cuenta bancaria</span></li>
-                        <li><span class="numero-terminos">3</span> <span>Incluye tu ID de Telegram</span></li>
-                        <li><span class="numero-terminos">4</span> <span>Fichas acreditadas en 10 min</span></li>
-                    </ol>
-                </div>
-
-                <div class="tarjeta-retiro-terminos">
-                    <h3>Retiro de Ganancias</h3>
-                    <div class="retiro-info-terminos">
-                        <span class="retiro-minimo-terminos">Mínimo <span>200₽</span></span>
-                        <span class="retiro-plazo-terminos">⏱️ <span>24h</span> máximo</span>
-                    </div>
-                    <code class="comando-terminos">/retirar [cantidad]</code>
-                </div>
-            </section>
-
-            <!-- ==================== SECCIÓN 3 - REGLAS DEL JUEGO ==================== -->
-            <section class="seccion-premium-terminos">
-                <h2 class="seccion-titulo-terminos">
-                    <span class="titulo-numero-terminos">03</span>
-                    <span class="titulo-texto-terminos">REGLAS DEL JUEGO</span>
-                    <div class="seccion-divisor"></div>
-                </h2>
-                
-                <div class="badge-sistema-terminos">
-                    <span class="badge-corona-terminos">👑 Corona</span>
-                    <span class="badge-vs-terminos">VS</span>
-                    <span class="badge-retador-terminos">⚔️ Retador</span>
-                </div>
-
-                <div class="stats-juego-terminos">
-                    <div class="stat-item-terminos">
-                        <span class="stat-valor-terminos">6</span>
-                        <span class="stat-label-terminos">Jugadores</span>
-                    </div>
-                    <div class="stat-item-terminos">
-                        <span class="stat-valor-terminos">416</span>
-                        <span class="stat-label-terminos">Cartas</span>
-                    </div>
-                    <div class="stat-item-terminos">
-                        <span class="stat-valor-terminos">8</span>
-                        <span class="stat-label-terminos">Mazos</span>
-                    </div>
-                </div>
-
-                <div class="comision-explicacion-terminos">
-                    <h3>Sistema de Comisión</h3>
-                    <div class="comision-grafica-terminos">
-                        <div class="comision-item-ganado-terminos">+100</div>
-                        <div class="comision-item-ganado-terminos">+95</div>
-                        <div class="comision-item-perdido-terminos">Pierdes</div>
-                        <div class="comision-item-ganado-terminos">+100</div>
-                    </div>
-                    <p class="comision-nota-terminos">5% solo desde la 2ª victoria consecutiva</p>
-                </div>
-            </section>
-
-            <!-- ==================== SECCIÓN 4 - CONDUCTA ==================== -->
-            <section class="seccion-premium-terminos">
-                <h2 class="seccion-titulo-terminos">
-                    <span class="titulo-numero-terminos">04</span>
-                    <span class="titulo-texto-terminos">CONDUCTA</span>
-                    <div class="seccion-divisor"></div>
-                </h2>
-                
-                <div class="reglas-conducta-terminos">
-                    <div class="regla-prohibida-terminos">
-                        <span class="icono-prohibido-terminos">❌</span>
-                        <span>Múltiples cuentas</span>
-                    </div>
-                    <div class="regla-prohibida-terminos">
-                        <span class="icono-prohibido-terminos">❌</span>
-                        <span>Compartir cuenta</span>
-                    </div>
-                    <div class="regla-prohibida-terminos">
-                        <span class="icono-prohibido-terminos">❌</span>
-                        <span>Bots o automatización</span>
-                    </div>
-                    <div class="regla-prohibida-terminos">
-                        <span class="icono-prohibido-terminos">❌</span>
-                        <span>Insultos o acoso</span>
-                    </div>
-                </div>
-
-                <div class="escala-sanciones-terminos">
-                    <div class="sancion-item-leve-terminos">
-                        <span class="sancion-badge-terminos sancion-badge-1-terminos">1ª</span>
-                        <span class="sancion-texto-terminos">Advertencia</span>
-                    </div>
-                    <div class="sancion-item-media-terminos">
-                        <span class="sancion-badge-terminos sancion-badge-2-terminos">2ª</span>
-                        <span class="sancion-texto-terminos">Suspensión 7d</span>
-                    </div>
-                    <div class="sancion-item-grave-terminos">
-                        <span class="sancion-badge-terminos sancion-badge-3-terminos">3ª</span>
-                        <span class="sancion-texto-terminos">Expulsión permanente</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ==================== SECCIÓN 5 - RESPONSABILIDAD ==================== -->
-            <section class="seccion-premium-terminos">
-                <h2 class="seccion-titulo-terminos">
-                    <span class="titulo-numero-terminos">05</span>
-                    <span class="titulo-texto-terminos">RESPONSABILIDAD</span>
-                    <div class="seccion-divisor"></div>
-                </h2>
-                
-                <div class="tarjeta-riesgo-terminos">
-                    <p class="riesgo-texto-terminos">Solo juega con dinero que puedas permitirte perder</p>
-                    <p class="riesgo-fuerte-terminos">Puedes perder TODO tu dinero</p>
-                </div>
-
-                <div class="reclamos-info-terminos">
-                    <h3>Reclamos y Disputas</h3>
-                    <p>Plazo máximo: <strong>24 horas</strong> con evidencia</p>
-                </div>
-            </section>
-
-            <!-- ==================== ADVERTENCIA FINAL ==================== -->
-            <div class="advertencia-final-terminos">
-                <div class="advertencia-linea-terminos"></div>
-                <p class="advertencia-texto-terminos">Si tienes dudas, <span class="texto-dorado-terminos">NO JUEGUES</span></p>
-                <div class="advertencia-linea-terminos"></div>
-            </div>
-
-        </div> <!-- Fin contenido-scroll -->
-
-        <!-- ==================== INDICADOR STICKY ==================== -->
-        <div class="indicador-scroll-terminos" id="indicador-scroll">
-            <span class="flecha-animada-terminos">⬇️</span>
-            <span class="indicador-texto-terminos">Desliza para continuar</span>
-            <span class="flecha-animada-terminos">⬇️</span>
+            
+            <!-- Título principal -->
+            <h1 class="bienvenida-titulo">
+                <span class="titulo-linea">BACARÁ</span>
+                <span class="titulo-linea dorado">REAL</span>
+            </h1>
+            
+            <!-- Línea decorativa -->
+            <div class="bienvenida-divisor"></div>
+            
+            <!-- Descripción -->
+            <p class="bienvenida-descripcion">
+                Club privado de Bacará.<br>
+                Solo por invitación.
+            </p>
+            
+            <!-- Advertencia sutil -->
+            <p class="bienvenida-legal">
+                ⚠️ Mayores de 18 años. Juego responsable.
+            </p>
+            
+            <!-- Botón de entrada -->
+            <a href="terminos.html" class="btn btn-primary bienvenida-btn">
+                ENTRAR AL CLUB
+                <span class="btn-flecha">→</span>
+            </a>
+            
+            <!-- Versión -->
+            <p class="bienvenida-version">v1.0 · exclusivo</p>
         </div>
-
-        <!-- ==================== ÁREA DE ACEPTACIÓN ==================== -->
-        <div class="area-aceptacion-terminos">
-            <label class="checkbox-premium-terminos">
-                <input type="checkbox" id="checkbox-acepto" class="checkbox-input-terminos">
-                <span class="checkbox-custom-terminos"></span>
-                <span class="checkbox-texto-terminos">He leído y acepto los términos y condiciones</span>
-            </label>
-
-            <button class="boton-aceptar-terminos" id="btn-acepto" disabled>
-                <span class="boton-texto">ACEPTAR Y CONTINUAR</span>
-                <span class="boton-icono-terminos">✓</span>
-            </button>
-        </div>
-
-        <!-- ==================== FOOTER ==================== -->
-        <footer class="footer-premium-terminos">
-            <div class="footer-linea-terminos"></div>
-            <div class="footer-contenido">
-                <p class="footer-version-terminos">VERSIÓN 1.0 · FEB 2026</p>
-                <p class="footer-copyright-terminos">© 2026 Bacará Real · Todos los derechos reservados</p>
-            </div>
-        </footer>
     </div>
-
-    <script src="js/script.js"></script>
 </body>
 </html>
