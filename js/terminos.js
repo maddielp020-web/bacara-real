@@ -27,15 +27,29 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('📌 Checkbox:', checkbox.checked ? 'marcado' : 'desmarcado');
     });
     
-    // Navegar a lobby
-    btnAceptar.addEventListener('click', function() {
-        if (checkbox.checked && haLlegadoAlFinal) {
-            console.log('🚀 Navegando a lobby.html');
-            window.location.href = 'lobby.html';
-        } else {
-            console.warn('⚠️ No se cumplen condiciones para navegar');
-        }
-    });
+    // ==================== CORREGIR BOTÓN ACEPTAR ====================
+btnAceptar.addEventListener('click', function(e) {
+    e.preventDefault();  // Prevenir comportamiento por defecto
+    
+    console.log('Botón clickeado');
+    
+    // Verificaciones
+    if (!checkbox.checked) {
+        console.warn('Checkbox no marcado');
+        return;
+    }
+    
+    if (!haLlegadoAlFinal) {
+        console.warn('No llegó al final');
+        alert('Por favor, lee todos los términos antes de aceptar.');
+        return;
+    }
+    
+    console.log('Navegando a lobby.html');
+    
+    // Forzar navegación
+    window.location.href = 'lobby.html';
+});
     
     console.log('✅ terminos.js cargado correctamente');
 });
