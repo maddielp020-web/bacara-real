@@ -787,115 +787,35 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
 }
 
 /* ==================== MESA - ESTILOS VISUALES ==================== */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    background: #0a3d2a;
-    touch-action: none;
+html.mesa-activa body,
+html.mesa-activa .mesa-wrapper,
+html.mesa-activa .mesa-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
 }
 
-.mesa-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+html.mesa-activa .mesa-imagen {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
 }
 
-.mesa-imagen {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-}
-
-.mesa-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-/* POSICIONES JUGADORES - COLUMNAS VERTICALES (según diagrama) */
-.jugador {
-    position: absolute;
-    width: 75px;                    /* 🔽 reducido */
-    background: rgba(0,0,0,0.8);
-    border: 2px solid var(--dorado-suave);
-    border-radius: 15px;
-    padding: 6px 4px;               /* 🔽 reducido */
-    text-align: center;
-    font-size: 10px;                /* 🔽 reducido */
-    color: var(--blanco-hueso);
-    z-index: 20;
-    pointer-events: auto;
-    backdrop-filter: blur(10px);
-}
-
-/* COLUMNA IZQUIERDA */
-.jugador-leon {
-    top: 33%;
-    left: 5%;
-}
-
-.jugador-dragon {
-    top: 48%;
-    left: 5%;
-}
-
-.jugador-conejo {
-    top: 63%;
-    left: 5%;
-}
-
-/* COLUMNA DERECHA */
-.jugador-aguila {
-    top: 33%;
-    right: 5%;
-}
-
-.jugador-cobra {
-    top: 48%;
-    right: 5%;
-}
-
-.jugador-buho {
-    top: 63%;
-    right: 5%;
-}
-
-.jugador-avatar {
-    display: block;
-    font-size: 28px;
-    margin-bottom: 4px;
-}
-
-.jugador-nombre {
-    font-size: 9px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-}
-
-.jugador-fichas {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    font-size: 9px;
-    font-weight: 700;
-    color: var(--dorado-suave);
-}
-
-.ficha-casino {
-    font-size: 12px;
+html.mesa-activa .jugador,
+html.mesa-activa .ventanas-cartas,
+html.mesa-activa .cajon-unico,
+html.mesa-activa .apuestas-zone,
+html.mesa-activa .boton-superior {
+    position: absolute !important;
+    z-index: 10 !important;
 }
 
 /* ==================== MARCAS DE POSICIÓN PARA CARTAS (3 POR LADO - VERTICAL) ==================== */
