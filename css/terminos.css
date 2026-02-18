@@ -1,0 +1,209 @@
+/* ==================== TÉRMINOS Y CONDICIONES ==================== */
+/* Fondo rojo institucional - seriedad, atención, legal */
+
+.terminos-container {
+    background: linear-gradient(145deg, #8B0000 0%, #EF3340 100%);
+}
+
+/* ==================== HEADER ==================== */
+.terminos-header {
+    padding: 30px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid var(--oro-puro);
+}
+
+.terminos-titulo {
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.terminos-subtitulo {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+/* ==================== CONTENIDO CON SCROLL ==================== */
+.terminos-contenido {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px;
+    scroll-behavior: smooth;
+}
+
+/* ==================== ADVERTENCIA PRINCIPAL ==================== */
+.terminos-advertencia {
+    background: rgba(0,0,0,0.2);
+    border-left: 4px solid var(--oro-puro);
+    padding: 15px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 15px;
+}
+
+.advertencia-icono {
+    font-size: 24px;
+}
+
+.advertencia-texto strong {
+    color: var(--oro-puro);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.advertencia-texto p {
+    color: white;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* ==================== SECCIONES ==================== */
+.terminos-seccion {
+    margin-bottom: 30px;
+}
+
+.seccion-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: white;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--oro-puro);
+    padding-bottom: 8px;
+}
+
+.titulo-numero {
+    color: var(--oro-puro);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* ==================== TARJETAS ==================== */
+.tarjeta {
+    background: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid var(--oro-puro);
+}
+
+.lista-terminos {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.lista-terminos li {
+    color: white;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.bullet {
+    color: var(--oro-puro);
+    font-weight: bold;
+}
+
+.bullet-prohibido {
+    color: var(--rojo-baraja);
+    font-weight: bold;
+}
+
+/* ==================== SANCIONES ==================== */
+.sanciones {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.sancion {
+    flex: 1;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid var(--oro-puro);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.sancion.grave {
+    border-color: var(--rojo-baraja);
+    background: rgba(255,0,0,0.1);
+}
+
+/* ==================== ADVERTENCIA FINAL ==================== */
+.terminos-final {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0 20px;
+}
+
+.linea-dorada {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--oro-puro), transparent);
+}
+
+.terminos-final p {
+    color: white;
+    margin: 0;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+/* ==================== ÁREA DE ACEPTACIÓN ==================== */
+.terminos-aceptacion {
+    padding: 20px;
+    border-top: 1px solid var(--oro-puro);
+    background: rgba(0,0,0,0.3);
+}
+
+/* Checkbox (hereda de global, pero ajustamos colores) */
+.checkbox-container .checkbox-custom {
+    border-color: var(--oro-puro);
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
+    background: var(--oro-puro);
+}
+
+/* ==================== FOOTER ==================== */
+.terminos-footer {
+    padding: 15px 20px;
+    text-align: center;
+    border-top: 1px solid var(--oro-puro);
+    background: rgba(0,0,0,0.2);
+}
+
+.footer-version {
+    color: var(--oro-puro);
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.footer-copyright {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.7rem;
+}
+
+/* ==================== SCROLL PERSONALIZADO ==================== */
+.terminos-contenido::-webkit-scrollbar {
+    width: 4px;
+}
+
+.terminos-contenido::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+}
+
+.terminos-contenido::-webkit-scrollbar-thumb {
+    background: var(--oro-puro);
+    border-radius: 4px;
+}
