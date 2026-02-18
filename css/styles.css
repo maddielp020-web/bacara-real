@@ -58,7 +58,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
 
 /* ==================== ESTILOS DE TÉRMINOS Y CONDICIONES ==================== */
 
-/* Header */
+/* -------------------- HEADER -------------------- */
 .header-terminos {
     padding: 20px 20px 20px;
     text-align: center;
@@ -88,14 +88,16 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     margin: 0 auto;
 }
 
-/* Contenido con scroll */
+/* -------------------- CONTENEDOR SCROLL -------------------- */
 .contenido-scroll-terminos {
     flex: 1;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* ← MEJORA SCROLL EN iOS */
     padding: 0 20px 20px;
+    height: 100%;
 }
 
-/* Advertencia principal */
+/* -------------------- ADVERTENCIA PRINCIPAL -------------------- */
 .advertencia-terminos {
     background-color: var(--rojo-suave);
     border-left: 4px solid var(--rojo-baraja);
@@ -124,7 +126,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 14px;
 }
 
-/* Secciones premium */
+/* -------------------- SECCIONES PREMIUM -------------------- */
 .seccion-premium-terminos {
     margin-bottom: 30px;
 }
@@ -161,7 +163,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     opacity: 0.3;
 }
 
-/* Tarjetas de requisito */
+/* -------------------- TARJETAS DE REQUISITO -------------------- */
 .tarjeta-requisito-terminos {
     background-color: #1A1A1A;
     border: 1px solid rgba(255, 215, 0, 0.2);
@@ -177,7 +179,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Listas elegantes */
+/* -------------------- LISTAS ELEGANTES -------------------- */
 .lista-elegante-terminos {
     list-style: none;
     padding: 0;
@@ -198,7 +200,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     color: var(--rojo-baraja);
 }
 
-/* Tarjeta importante */
+/* -------------------- TARJETA IMPORTANTE -------------------- */
 .tarjeta-importante-terminos {
     background-color: var(--rojo-suave);
     border-left: 4px solid var(--rojo-baraja);
@@ -227,7 +229,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 14px;
 }
 
-/* Grid de pagos */
+/* -------------------- GRID DE PAGOS -------------------- */
 .grid-2-columnas-terminos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -270,7 +272,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 12px;
 }
 
-/* Proceso de compra */
+/* -------------------- PROCESO DE COMPRA -------------------- */
 .proceso-compra-terminos {
     background-color: #1A1A1A;
     border: 1px solid rgba(255, 215, 0, 0.2);
@@ -316,7 +318,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     color: var(--blanco-texto);
 }
 
-/* Tarjeta de retiro */
+/* -------------------- TARJETA DE RETIRO -------------------- */
 .tarjeta-retiro-terminos {
     background-color: #1A1A1A;
     border: 2px solid var(--oro-puro);
@@ -365,7 +367,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-family: monospace;
 }
 
-/* Badges de juego */
+/* -------------------- BADGES DE JUEGO -------------------- */
 .badge-sistema-terminos {
     display: flex;
     align-items: center;
@@ -397,7 +399,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* Stats */
+/* -------------------- STATS -------------------- */
 .stats-juego-terminos {
     display: flex;
     justify-content: space-around;
@@ -424,7 +426,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 12px;
 }
 
-/* Comisión */
+/* -------------------- COMISIÓN -------------------- */
 .comision-explicacion-terminos {
     background-color: #1A1A1A;
     border: 1px solid rgba(255, 215, 0, 0.2);
@@ -471,7 +473,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     margin: 0;
 }
 
-/* Reglas de conducta */
+/* -------------------- REGLAS DE CONDUCTA -------------------- */
 .reglas-conducta-terminos {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -499,7 +501,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 13px;
 }
 
-/* Escala de sanciones */
+/* -------------------- ESCALA DE SANCIONES -------------------- */
 .escala-sanciones-terminos {
     display: flex;
     gap: 10px;
@@ -563,7 +565,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     display: block;
 }
 
-/* Tarjeta de riesgo */
+/* -------------------- TARJETA DE RIESGO -------------------- */
 .tarjeta-riesgo-terminos {
     background-color: var(--rojo-suave);
     border: 1px solid var(--rojo-baraja);
@@ -585,7 +587,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     margin: 0;
 }
 
-/* Reclamos */
+/* -------------------- RECLAMOS -------------------- */
 .reclamos-info-terminos {
     background-color: #1A1A1A;
     border: 1px solid rgba(255, 215, 0, 0.2);
@@ -609,7 +611,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     color: var(--oro-puro);
 }
 
-/* Advertencia final */
+/* -------------------- ADVERTENCIA FINAL -------------------- */
 .advertencia-final-terminos {
     display: flex;
     align-items: center;
@@ -634,7 +636,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-weight: 700;
 }
 
-/* Indicador scroll */
+/* -------------------- INDICADOR SCROLL -------------------- */
 .indicador-scroll-terminos {
     display: flex;
     align-items: center;
@@ -655,7 +657,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 14px;
 }
 
-/* Área de aceptación */
+/* -------------------- ÁREA DE ACEPTACIÓN -------------------- */
 .area-aceptacion-terminos {
     padding: 20px;
     background: var(--negro-fondo);
@@ -688,7 +690,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 14px;
 }
 
-/* Botón aceptar */
+/* -------------------- BOTÓN ACEPTAR -------------------- */
 .boton-aceptar-terminos {
     width: 100%;
     background: #3A3A3A;
@@ -710,7 +712,7 @@ p, li, .subtitulo-elegante, .checkbox-texto, .footer-contenido {
     font-size: 20px;
 }
 
-/* Footer */
+/* -------------------- FOOTER -------------------- */
 .footer-premium-terminos {
     padding: 20px;
     text-align: center;
