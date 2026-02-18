@@ -23,100 +23,104 @@
             <p class="terminos-subtitulo">Club Privado · Bacará Real</p>
         </header>
         
-        <!-- ==================== SECCIONES CON ACORDEÓN (NUEVO) ==================== -->
-<section class="terminos-seccion">
-    <div class="seccion-header" onclick="toggleSeccion(this)">
-        <h2 class="seccion-titulo">
-            <span class="titulo-numero">01</span>
-            <span>REQUISITOS DE ACCESO</span>
-        </h2>
-        <span class="seccion-flecha">⌄</span>
-    </div>
-    
-    <div class="seccion-contenido">
-        <ul class="lista-terminos">
-            <li>• Ser mayor de 18 años</li>
-            <li>• Tener cuenta en Telegram</li>
-            <li>• Ser invitado por un administrador</li>
-            <li>• Aceptar estos términos</li>
-        </ul>
-    </div>
-</section>
+  <!-- ==================== SECCIONES CON ACORDEÓN ==================== -->
+<div class="secciones-container">
 
-<section class="terminos-seccion">
-    <div class="seccion-header" onclick="toggleSeccion(this)">
-        <h2 class="seccion-titulo">
-            <span class="titulo-numero">02</span>
-            <span>REGLAS DEL JUEGO</span>
-        </h2>
-        <span class="seccion-flecha">⌄</span>
+    <!-- SECCIÓN 01 -->
+    <div class="seccion-card">
+        <div class="seccion-header" onclick="toggleSeccion(this)">
+            <div class="header-left">
+                <span class="numero">01</span>
+                <h3>REQUISITOS DE ACCESO</h3>
+            </div>
+            <span class="boton-acordeon">🔽</span>
+        </div>
+        <div class="seccion-contenido">
+            <ul class="lista-terminos">
+                <li>• Ser mayor de 18 años</li>
+                <li>• Tener cuenta en Telegram</li>
+                <li>• Ser invitado por un administrador</li>
+                <li>• Aceptar estos términos</li>
+            </ul>
+        </div>
     </div>
-    
-    <div class="seccion-contenido">
-        <ul class="lista-terminos">
-            <li>• Bacará Cubano - 6 jugadores por mesa</li>
-            <li>• Corona 👑 vs Retador ⚔️</li>
-            <li>• Comisión 5% desde 2da victoria</li>
-            <li>• 8 mazos · 416 cartas</li>
-        </ul>
-    </div>
-</section>
 
-<section class="terminos-seccion">
-    <div class="seccion-header" onclick="toggleSeccion(this)">
-        <h2 class="seccion-titulo">
-            <span class="titulo-numero">03</span>
-            <span>CONDUCTA</span>
-        </h2>
-        <span class="seccion-flecha">⌄</span>
+    <!-- SECCIÓN 02 -->
+    <div class="seccion-card">
+        <div class="seccion-header" onclick="toggleSeccion(this)">
+            <div class="header-left">
+                <span class="numero">02</span>
+                <h3>REGLAS DEL JUEGO</h3>
+            </div>
+            <span class="boton-acordeon">🔽</span>
+        </div>
+        <div class="seccion-contenido">
+            <ul class="lista-terminos">
+                <li>• Bacará Cubano - 6 jugadores</li>
+                <li>• Corona 👑 vs Retador ⚔️</li>
+                <li>• Comisión 5% desde 2da victoria</li>
+                <li>• 8 mazos · 416 cartas</li>
+            </ul>
+        </div>
     </div>
-    
-    <div class="seccion-contenido">
-        <ul class="lista-terminos">
-            <li>• Múltiples cuentas (prohibido)</li>
-            <li>• Compartir acceso (prohibido)</li>
-            <li>• Bots o automatización (prohibido)</li>
-            <li>• Insultos o acoso (prohibido)</li>
-        </ul>
-    </div>
-</section>
 
-<section class="terminos-seccion">
-    <div class="seccion-header" onclick="toggleSeccion(this)">
-        <h2 class="seccion-titulo">
-            <span class="titulo-numero">04</span>
-            <span>SANCIONES</span>
-        </h2>
-        <span class="seccion-flecha">⌄</span>
+    <!-- SECCIÓN 03 -->
+    <div class="seccion-card">
+        <div class="seccion-header" onclick="toggleSeccion(this)">
+            <div class="header-left">
+                <span class="numero">03</span>
+                <h3>CONDUCTA</h3>
+            </div>
+            <span class="boton-acordeon">🔽</span>
+        </div>
+        <div class="seccion-contenido">
+            <ul class="lista-terminos">
+                <li><span class="bullet-prohibido">✕</span> Múltiples cuentas</li>
+                <li><span class="bullet-prohibido">✕</span> Compartir acceso</li>
+                <li><span class="bullet-prohibido">✕</span> Bots o automatización</li>
+                <li><span class="bullet-prohibido">✕</span> Insultos o acoso</li>
+            </ul>
+        </div>
     </div>
-    
-    <div class="seccion-contenido">
-        <ul class="lista-terminos">
-            <li>• 1ª falta: Advertencia</li>
-            <li>• 2ª falta: Suspensión 7 días</li>
-            <li>• 3ª falta: Expulsión permanente</li>
-        </ul>
-    </div>
-</section>
 
-<section class="terminos-seccion">
-    <div class="seccion-header" onclick="toggleSeccion(this)">
-        <h2 class="seccion-titulo">
-            <span class="titulo-numero">05</span>
-            <span>RESPONSABILIDAD</span>
-        </h2>
-        <span class="seccion-flecha">⌄</span>
+    <!-- SECCIÓN 04 (SANCIONES) -->
+    <div class="seccion-card">
+        <div class="seccion-header" onclick="toggleSeccion(this)">
+            <div class="header-left">
+                <span class="numero">04</span>
+                <h3>SANCIONES</h3>
+            </div>
+            <span class="boton-acordeon">🔽</span>
+        </div>
+        <div class="seccion-contenido">
+            <div class="sanciones-grid">
+                <div class="sancion-item">1ª falta: Advertencia</div>
+                <div class="sancion-item">2ª falta: Suspensión 7d</div>
+                <div class="sancion-item grave">3ª falta: Expulsión permanente</div>
+            </div>
+        </div>
     </div>
-    
-    <div class="seccion-contenido">
-        <ul class="lista-terminos">
-            <li>• Juega con responsabilidad</li>
-            <li>• Solo dinero que puedas perder</li>
-            <li>• Puedes perder todo tu dinero</li>
-            <li>• No hay reembolsos</li>
-        </ul>
+
+    <!-- SECCIÓN 05 (RESPONSABILIDAD) -->
+    <div class="seccion-card">
+        <div class="seccion-header" onclick="toggleSeccion(this)">
+            <div class="header-left">
+                <span class="numero">05</span>
+                <h3>RESPONSABILIDAD</h3>
+            </div>
+            <span class="boton-acordeon">🔽</span>
+        </div>
+        <div class="seccion-contenido">
+            <ul class="lista-terminos">
+                <li>• Juega con dinero que puedas perder</li>
+                <li>• El juego puede ser adictivo</li>
+                <li>• Puedes perder TODO tu dinero</li>
+                <li>• No hay reembolsos</li>
+            </ul>
+        </div>
     </div>
-</section>
+
+</div>
         
         <!-- ==================== CONTENIDO CON SCROLL ==================== -->
         <div class="terminos-contenido" id="terminos-contenido">
@@ -195,6 +199,13 @@
             </div>
 
         </div> <!-- Fin contenido -->
+
+<!-- ==================== INDICADOR LEER ==================== -->
+<div class="indicador-leer">
+    <span class="mano">👇🏻</span>
+    <span class="texto-leer">LEE ATENTAMENTE</span>
+    <span class="mano">👇🏻</span>
+</div>
 
         <!-- ==================== ÁREA DE ACEPTACIÓN ==================== -->
         <div class="terminos-aceptacion">
