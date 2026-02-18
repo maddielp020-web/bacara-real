@@ -1,0 +1,184 @@
+/* ==================== BIENVENIDA - ESTILOS ESPECÍFICOS ==================== */
+/* Este archivo SOLO afecta a index.html */
+/* Fondo verde elegante + overlay dorado - APROBADO POR DIRECTOR */
+
+.bienvenida-container {
+    position: relative;
+    background: linear-gradient(145deg, #006633 0%, #009A44 100%);
+    overflow: hidden;
+}
+
+/* ==================== OVERLAY DORADO ==================== */
+.bienvenida-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, 
+                rgba(255, 215, 0, 0.15) 0%, 
+                transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ==================== CONTENIDO PRINCIPAL ==================== */
+.bienvenida-contenido {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+/* ==================== EMBLEMA ==================== */
+.bienvenida-emblema {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.emblema-carta {
+    font-size: 3rem;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+    animation: float 3s ease-in-out infinite;
+    opacity: 0.9;
+}
+
+.emblema-carta:nth-child(1) { animation-delay: 0s; }
+.emblema-carta:nth-child(2) { animation-delay: 0.2s; }
+.emblema-carta:nth-child(3) { animation-delay: 0.4s; }
+.emblema-carta:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ==================== TÍTULO ==================== */
+.bienvenida-titulo {
+    margin-bottom: 20px;
+}
+
+.titulo-linea {
+    display: block;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.titulo-linea.dorado {
+    color: var(--oro-puro);
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    font-size: 3.5rem;
+}
+
+/* ==================== DIVISOR ==================== */
+.bienvenida-divisor {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+                transparent, 
+                var(--oro-puro), 
+                transparent);
+    margin: 20px auto;
+    opacity: 0.8;
+}
+
+/* ==================== DESCRIPCIÓN ==================== */
+.bienvenida-descripcion {
+    font-size: 1.2rem;
+    color: white;
+    opacity: 0.95;
+    margin-bottom: 15px;
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* ==================== LEGAL ==================== */
+.bienvenida-legal {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+}
+
+/* ==================== BOTÓN ==================== */
+.bienvenida-btn {
+    width: auto;
+    min-width: 250px;
+    padding: 16px 32px;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.bienvenida-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 1;
+}
+
+.bienvenida-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.bienvenida-btn span {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-flecha {
+    margin-left: 10px;
+    transition: transform 0.3s;
+}
+
+.bienvenida-btn:hover .btn-flecha {
+    transform: translateX(5px);
+}
+
+/* ==================== VERSIÓN ==================== */
+.bienvenida-version {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 380px) {
+    .titulo-linea {
+        font-size: 2.5rem;
+    }
+    
+    .titulo-linea.dorado {
+        font-size: 3rem;
+    }
+    
+    .emblema-carta {
+        font-size: 2.5rem;
+    }
+    
+    .bienvenida-btn {
+        min-width: 220px;
+        padding: 14px 24px;
+        font-size: 1.1rem;
+    }
+}
