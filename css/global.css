@@ -1,0 +1,280 @@
+/* ==================== GLOBAL - BACARÁ REAL ====================
+   Este archivo contiene los estilos base de TODA la aplicación.
+   NO MODIFICAR sin aprobación del director de diseño.
+   Versión: 1.0 - Definitiva
+/* ==================== 1. VARIABLES (PALETA OFICIAL) ==================== */
+:root {
+    /* Colores principales - NO CAMBIAR */
+    --rojo-baraja: #EF3340;      /* Pantone 185 C - Energía, acción */
+    --oro-puro: #FFD700;          /* Pantone 012 C - Lujo, exclusividad */
+    --azul-casino: #005EB8;       /* Pantone 300 C - Confianza, estabilidad */
+    --verde-bacara: #009A44;      /* Pantone 348 C - Mesa de juego, tradición */
+    --negro-fondo: #181818;       /* Elegancia, profundidad */
+    --blanco-texto: #F0F0E6;      /* Legibilidad, limpieza */
+    
+    /* Colores secundarios - Derivados */
+    --gris-oscuro: #2A2A2A;       /* Tarjetas, fondos secundarios */
+    --gris-medio: #3A3A3A;         /* Bordes, separadores */
+    --gris-transparente: rgba(240, 240, 230, 0.6);  /* Textos secundarios */
+    --rojo-suave: rgba(239, 51, 64, 0.1);           /* Fondos de advertencia */
+    --oro-transparente: rgba(255, 215, 0, 0.3);     /* Bordes sutiles */
+    --dorado-suave: #D4AF37;       /* Variante oro para hover */
+}
+
+/* ==================== 2. RESET UNIVERSAL ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;  /* Quita el flash gris en iPhone */
+}
+
+/* ==================== 3. ESTRUCTURA BASE ==================== */
+html {
+    height: 100%;
+    font-size: 16px;  /* Base para rem */
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--negro-fondo);
+    color: var(--blanco-texto);
+    height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    position: relative;
+}
+
+/* ==================== 4. TIPOGRAFÍAS ==================== */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+h1 { font-size: 2rem; }      /* 32px */
+h2 { font-size: 1.5rem; }     /* 24px */
+h3 { font-size: 1.25rem; }    /* 20px */
+h4 { font-size: 1.125rem; }   /* 18px */
+
+p {
+    margin-bottom: 1rem;
+    font-weight: 300;
+}
+
+.texto-dorado {
+    color: var(--oro-puro);
+}
+
+.texto-rojo {
+    color: var(--rojo-baraja);
+}
+
+.texto-azul {
+    color: var(--azul-casino);
+}
+
+.texto-verde {
+    color: var(--verde-bacara);
+}
+
+/* ==================== 5. BOTONES GLOBALES ==================== */
+.btn {
+    border: none;
+    border-radius: 40px;        /* Botones redondeados estilo casino */
+    padding: 14px 28px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    touch-action: manipulation;  /* Mejora tacto en iPhone */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.btn-primary {
+    background: var(--oro-puro);
+    color: var(--negro-fondo);
+}
+
+.btn-primary:hover {
+    background: var(--dorado-suave);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+.btn-secondary {
+    background: var(--azul-casino);
+    color: var(--blanco-texto);
+}
+
+.btn-secondary:hover {
+    background: #1a6bc9;  /* Azul más brillante */
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: var(--rojo-baraja);
+    color: var(--blanco-texto);
+}
+
+.btn-danger:hover {
+    background: #ff4d5a;
+    transform: translateY(-2px);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ==================== 6. CONTENEDORES ==================== */
+.contenedor {
+    max-width: 480px;           /* Ancho máximo tipo iPhone */
+    width: 100%;
+    margin: 0 auto;
+    background: var(--negro-fondo);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Scroll personalizado (solo visible en desktop, en iPhone se ve nativo) */
+.contenido-scroll {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;  /* Scroll suave en iOS */
+    padding: 0 20px 20px;
+    height: 100%;
+}
+
+/* ==================== 7. FORMULARIOS ==================== */
+input, textarea {
+    background: var(--gris-oscuro);
+    border: 1px solid var(--oro-transparente);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--blanco-texto);
+    font-size: 16px;
+    width: 100%;
+    transition: border 0.2s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--oro-puro);
+}
+
+input::placeholder {
+    color: var(--gris-transparente);
+}
+
+/* Checkbox personalizado */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-custom {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--oro-puro);
+    border-radius: 6px;
+    background: transparent;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom {
+    background: var(--oro-puro);
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkbox-custom::after {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--negro-fondo);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.checkbox-label {
+    color: var(--blanco-texto);
+    font-size: 14px;
+}
+
+/* ==================== 8. UTILIDADES ==================== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+
+/* ==================== 9. ANIMACIONES GLOBALES ==================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+.slide-up {
+    animation: slideUp 0.4s ease;
+}
+
+/* ==================== 10. TELEGRAM MINI APP FIXES ==================== */
+#telegram-webapp {
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Scrollbar personalizada (opcional, solo desktop) */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gris-oscuro);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--oro-puro);
+    border-radius: 4px;
+}
