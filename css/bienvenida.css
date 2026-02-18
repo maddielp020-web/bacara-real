@@ -76,8 +76,8 @@
 }
 
  .titulo-linea.dorado {
-    color: var(--oro-puro);
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    color: var(--oro-puro) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
     font-size: 3.5rem;
 }
 
