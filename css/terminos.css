@@ -207,3 +207,52 @@
     background: var(--oro-puro);
     border-radius: 4px;
 }
+
+/* ==================== ACORDEÓN (NUEVO) ==================== */
+.seccion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--oro-puro);
+    background: transparent;
+}
+
+.seccion-header:hover {
+    background: rgba(255,215,0,0.05);
+}
+
+.seccion-flecha {
+    font-size: 24px;
+    color: var(--oro-puro);
+    transition: transform 0.3s;
+    font-weight: bold;
+}
+
+.seccion-header.active .seccion-flecha {
+    transform: rotate(180deg);
+}
+
+.seccion-contenido {
+    padding: 15px 0 10px 20px;
+    animation: slideDown 0.3s ease;
+    border-left: 2px solid var(--oro-puro);
+    margin-left: 10px;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Asegurar que las listas se vean bien */
+.seccion-contenido .lista-terminos {
+    margin: 0;
+    padding: 0;
+}
+
+.seccion-contenido .lista-terminos li {
+    margin-bottom: 10px;
+    color: var(--blanco-texto);
+}
