@@ -473,13 +473,13 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
-    font-size: 70px;
-    opacity: 0.12;
+    font-size: 90px;
+    opacity: 0.3;
     transform: rotate(-8deg);
     pointer-events: none;
     z-index: 0;
-    filter: blur(1px);
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    filter: blur(0.5px);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
     animation: sello-respiro 6s infinite alternate;
 }
 
