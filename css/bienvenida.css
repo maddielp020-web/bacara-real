@@ -408,7 +408,7 @@
     100% { text-shadow: 0 0 25px #FFD700, 0 0 45px rgba(255,215,0,0.9), 0 0 60px rgba(255,215,0,0.6); }
 }
 
-/* ==================== 2. NEBLINA DORADA EN BORDES (+35% más visible) ==================== */
+/* ==================== 2. NEBLINA DORADA EN BORDES (VERSIÓN SUAVE) ==================== */
 .bienvenida-container {
     position: relative;
     overflow: hidden;
@@ -428,16 +428,16 @@
 .bienvenida-container .borde-neblina::before {
     content: '';
     position: absolute;
-    top: -15px;
-    left: -15px;
-    right: -15px;
-    height: 120px;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    height: 80px;
     background: radial-gradient(ellipse at 50% 0%, 
-        rgba(255, 215, 0, 0.5) 0%, 
-        rgba(255, 215, 0, 0.25) 30%, 
-        rgba(255, 215, 0, 0.1) 50%,
+        rgba(255, 215, 0, 0.25) 0%, 
+        rgba(255, 215, 0, 0.12) 30%, 
+        rgba(255, 215, 0, 0.05) 50%,
         transparent 80%);
-    filter: blur(20px);
+    filter: blur(15px);
     animation: neblina-superior 8s infinite alternate;
 }
 
@@ -445,69 +445,69 @@
 .bienvenida-container .borde-neblina::after {
     content: '';
     position: absolute;
-    bottom: -15px;
-    left: -15px;
-    right: -15px;
-    height: 120px;
+    bottom: -10px;
+    left: -10px;
+    right: -10px;
+    height: 80px;
     background: radial-gradient(ellipse at 50% 100%, 
-        rgba(255, 215, 0, 0.5) 0%, 
-        rgba(255, 215, 0, 0.25) 30%, 
-        rgba(255, 215, 0, 0.1) 50%,
+        rgba(255, 215, 0, 0.25) 0%, 
+        rgba(255, 215, 0, 0.12) 30%, 
+        rgba(255, 215, 0, 0.05) 50%,
         transparent 80%);
-    filter: blur(20px);
+    filter: blur(15px);
     animation: neblina-inferior 8s infinite alternate;
 }
 
 /* Neblina en borde izquierdo */
 .bienvenida-container .borde-neblina .izquierdo {
     position: absolute;
-    top: -15px;
-    left: -15px;
-    bottom: -15px;
-    width: 120px;
+    top: -10px;
+    left: -10px;
+    bottom: -10px;
+    width: 80px;
     background: radial-gradient(ellipse at 0% 50%, 
-        rgba(255, 215, 0, 0.4) 0%, 
-        rgba(255, 215, 0, 0.2) 30%, 
-        rgba(255, 215, 0, 0.08) 50%,
+        rgba(255, 215, 0, 0.2) 0%, 
+        rgba(255, 215, 0, 0.1) 30%, 
+        rgba(255, 215, 0, 0.04) 50%,
         transparent 80%);
-    filter: blur(20px);
+    filter: blur(15px);
     animation: neblina-izquierda 10s infinite alternate;
 }
 
 /* Neblina en borde derecho */
 .bienvenida-container .borde-neblina .derecho {
     position: absolute;
-    top: -15px;
-    right: -15px;
-    bottom: -15px;
-    width: 120px;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    width: 80px;
     background: radial-gradient(ellipse at 100% 50%, 
-        rgba(255, 215, 0, 0.4) 0%, 
-        rgba(255, 215, 0, 0.2) 30%, 
-        rgba(255, 215, 0, 0.08) 50%,
+        rgba(255, 215, 0, 0.2) 0%, 
+        rgba(255, 215, 0, 0.1) 30%, 
+        rgba(255, 215, 0, 0.04) 50%,
         transparent 80%);
-    filter: blur(20px);
+    filter: blur(15px);
     animation: neblina-derecha 10s infinite alternate;
 }
 
 @keyframes neblina-superior {
-    0% { opacity: 0.6; height: 100px; filter: blur(18px); }
-    100% { opacity: 1; height: 140px; filter: blur(25px); }
+    0% { opacity: 0.3; height: 70px; filter: blur(12px); }
+    100% { opacity: 0.6; height: 90px; filter: blur(18px); }
 }
 
 @keyframes neblina-inferior {
-    0% { opacity: 0.6; height: 100px; filter: blur(18px); }
-    100% { opacity: 1; height: 140px; filter: blur(25px); }
+    0% { opacity: 0.3; height: 70px; filter: blur(12px); }
+    100% { opacity: 0.6; height: 90px; filter: blur(18px); }
 }
 
 @keyframes neblina-izquierda {
-    0% { opacity: 0.5; width: 100px; filter: blur(18px); }
-    100% { opacity: 0.9; width: 140px; filter: blur(25px); }
+    0% { opacity: 0.25; width: 70px; filter: blur(12px); }
+    100% { opacity: 0.5; width: 90px; filter: blur(18px); }
 }
 
 @keyframes neblina-derecha {
-    0% { opacity: 0.5; width: 100px; filter: blur(18px); }
-    100% { opacity: 0.9; width: 140px; filter: blur(25px); }
+    0% { opacity: 0.25; width: 70px; filter: blur(12px); }
+    100% { opacity: 0.5; width: 90px; filter: blur(18px); }
 }
 
 /* ==================== 3. NEBLINA NEGRA EN BOTÓN AZUL (+30% más notoria, azul más claro) ==================== */
