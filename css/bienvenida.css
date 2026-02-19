@@ -373,15 +373,15 @@
     box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
 }
 
-/* ==================== FASE 1 - EFECTOS NEBLINA ==================== */
+/* ==================== FASE 1.2 - EFECTOS NEBLINA MEJORADOS ==================== */
 
-/* ==================== 1. NEBLINA NEGRA PARA "REAL" ==================== */
+/* ==================== 1. NEBLINA NEGRA PARA "REAL" (+25% más notoria) ==================== */
 .titulo-linea.dorado {
     position: relative;
     color: #FFD700 !important;
     text-shadow: 
-        0 0 10px rgba(255, 215, 0, 0.7),
-        0 0 20px rgba(255, 215, 0, 0.4) !important;
+        0 0 15px rgba(255, 215, 0, 0.9),
+        0 0 30px rgba(255, 215, 0, 0.6) !important;
     animation: brillo-letras 3s infinite alternate;
 }
 
@@ -394,21 +394,21 @@
     height: 100%;
     color: transparent;
     text-shadow: 
-        0 0 5px rgba(0, 0, 0, 0.8),
-        0 5px 15px rgba(0, 0, 0, 0.5),
-        0 10px 25px rgba(0, 0, 0, 0.3),
-        0 15px 35px rgba(0, 0, 0, 0.2);
-    opacity: 0.7;
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 25px 45px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
     pointer-events: none;
     z-index: -1;
 }
 
 @keyframes brillo-letras {
-    0% { text-shadow: 0 0 10px #FFD700, 0 0 20px rgba(255,215,0,0.4); }
-    100% { text-shadow: 0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.7), 0 0 40px rgba(255,215,0,0.4); }
+    0% { text-shadow: 0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.6); }
+    100% { text-shadow: 0 0 25px #FFD700, 0 0 45px rgba(255,215,0,0.9), 0 0 60px rgba(255,215,0,0.6); }
 }
 
-/* ==================== 2. NEBLINA DORADA EN BORDES ==================== */
+/* ==================== 2. NEBLINA DORADA EN BORDES (+35% más visible) ==================== */
 .bienvenida-container {
     position: relative;
     overflow: hidden;
@@ -428,15 +428,16 @@
 .bienvenida-container .borde-neblina::before {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    height: 80px;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    height: 120px;
     background: radial-gradient(ellipse at 50% 0%, 
-        rgba(255, 215, 0, 0.3) 0%, 
-        rgba(255, 215, 0, 0.1) 30%, 
-        transparent 70%);
-    filter: blur(15px);
+        rgba(255, 215, 0, 0.5) 0%, 
+        rgba(255, 215, 0, 0.25) 30%, 
+        rgba(255, 215, 0, 0.1) 50%,
+        transparent 80%);
+    filter: blur(20px);
     animation: neblina-superior 8s infinite alternate;
 }
 
@@ -444,76 +445,79 @@
 .bienvenida-container .borde-neblina::after {
     content: '';
     position: absolute;
-    bottom: -10px;
-    left: -10px;
-    right: -10px;
-    height: 80px;
+    bottom: -15px;
+    left: -15px;
+    right: -15px;
+    height: 120px;
     background: radial-gradient(ellipse at 50% 100%, 
-        rgba(255, 215, 0, 0.3) 0%, 
-        rgba(255, 215, 0, 0.1) 30%, 
-        transparent 70%);
-    filter: blur(15px);
+        rgba(255, 215, 0, 0.5) 0%, 
+        rgba(255, 215, 0, 0.25) 30%, 
+        rgba(255, 215, 0, 0.1) 50%,
+        transparent 80%);
+    filter: blur(20px);
     animation: neblina-inferior 8s infinite alternate;
 }
 
 /* Neblina en borde izquierdo */
 .bienvenida-container .borde-neblina .izquierdo {
     position: absolute;
-    top: -10px;
-    left: -10px;
-    bottom: -10px;
-    width: 80px;
+    top: -15px;
+    left: -15px;
+    bottom: -15px;
+    width: 120px;
     background: radial-gradient(ellipse at 0% 50%, 
-        rgba(255, 215, 0, 0.2) 0%, 
-        rgba(255, 215, 0, 0.07) 30%, 
-        transparent 70%);
-    filter: blur(15px);
+        rgba(255, 215, 0, 0.4) 0%, 
+        rgba(255, 215, 0, 0.2) 30%, 
+        rgba(255, 215, 0, 0.08) 50%,
+        transparent 80%);
+    filter: blur(20px);
     animation: neblina-izquierda 10s infinite alternate;
 }
 
 /* Neblina en borde derecho */
 .bienvenida-container .borde-neblina .derecho {
     position: absolute;
-    top: -10px;
-    right: -10px;
-    bottom: -10px;
-    width: 80px;
+    top: -15px;
+    right: -15px;
+    bottom: -15px;
+    width: 120px;
     background: radial-gradient(ellipse at 100% 50%, 
-        rgba(255, 215, 0, 0.2) 0%, 
-        rgba(255, 215, 0, 0.07) 30%, 
-        transparent 70%);
-    filter: blur(15px);
+        rgba(255, 215, 0, 0.4) 0%, 
+        rgba(255, 215, 0, 0.2) 30%, 
+        rgba(255, 215, 0, 0.08) 50%,
+        transparent 80%);
+    filter: blur(20px);
     animation: neblina-derecha 10s infinite alternate;
 }
 
 @keyframes neblina-superior {
-    0% { opacity: 0.4; height: 60px; filter: blur(12px); }
-    100% { opacity: 0.8; height: 100px; filter: blur(20px); }
+    0% { opacity: 0.6; height: 100px; filter: blur(18px); }
+    100% { opacity: 1; height: 140px; filter: blur(25px); }
 }
 
 @keyframes neblina-inferior {
-    0% { opacity: 0.4; height: 60px; filter: blur(12px); }
-    100% { opacity: 0.8; height: 100px; filter: blur(20px); }
+    0% { opacity: 0.6; height: 100px; filter: blur(18px); }
+    100% { opacity: 1; height: 140px; filter: blur(25px); }
 }
 
 @keyframes neblina-izquierda {
-    0% { opacity: 0.3; width: 60px; filter: blur(12px); }
-    100% { opacity: 0.6; width: 100px; filter: blur(20px); }
+    0% { opacity: 0.5; width: 100px; filter: blur(18px); }
+    100% { opacity: 0.9; width: 140px; filter: blur(25px); }
 }
 
 @keyframes neblina-derecha {
-    0% { opacity: 0.3; width: 60px; filter: blur(12px); }
-    100% { opacity: 0.6; width: 100px; filter: blur(20px); }
+    0% { opacity: 0.5; width: 100px; filter: blur(18px); }
+    100% { opacity: 0.9; width: 140px; filter: blur(25px); }
 }
 
-/* ==================== 3. NEBLINA NEGRA EN BOTÓN AZUL ==================== */
+/* ==================== 3. NEBLINA NEGRA EN BOTÓN AZUL (+30% más notoria, azul más claro) ==================== */
 .bienvenida-btn {
     position: relative;
-    background: linear-gradient(145deg, #005EB8, #003d7a) !important;
-    border-radius: 50px !important; /* Redondeado */
+    background: linear-gradient(145deg, #2A7FFF, #1A5FD9) !important;
+    border-radius: 50px !important;
     box-shadow: 
-        0 5px 15px rgba(0,0,0,0.4),
-        0 0 0 1px rgba(255,215,0,0.2) inset !important;
+        0 8px 20px rgba(0,0,0,0.5),
+        0 0 0 2px rgba(255,215,0,0.3) inset !important;
     transition: all 0.3s ease;
 }
 
@@ -521,44 +525,47 @@
 .bienvenida-btn::after {
     content: '';
     position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
     background: radial-gradient(ellipse at 50% 50%, 
-        rgba(0, 0, 0, 0.4) 0%, 
-        rgba(0, 0, 0, 0.2) 30%, 
-        transparent 70%);
-    filter: blur(15px);
-    border-radius: 60px;
+        rgba(0, 0, 0, 0.6) 0%, 
+        rgba(0, 0, 0, 0.35) 30%, 
+        rgba(0, 0, 0, 0.15) 60%,
+        transparent 85%);
+    filter: blur(20px);
+    border-radius: 70px;
     z-index: -1;
-    opacity: 0.6;
+    opacity: 0.8;
     animation: neblina-boton 5s infinite alternate;
 }
 
 @keyframes neblina-boton {
-    0% { opacity: 0.4; filter: blur(12px); transform: scale(1); }
-    100% { opacity: 0.8; filter: blur(20px); transform: scale(1.05); }
+    0% { opacity: 0.6; filter: blur(18px); transform: scale(1); }
+    100% { opacity: 1; filter: blur(28px); transform: scale(1.08); }
 }
 
 .bienvenida-btn:hover::after {
-    opacity: 0.9;
-    filter: blur(25px);
+    opacity: 1;
+    filter: blur(32px);
     background: radial-gradient(ellipse at 50% 50%, 
-        rgba(0, 0, 0, 0.5) 0%, 
-        rgba(0, 0, 0, 0.3) 30%, 
-        transparent 70%);
+        rgba(0, 0, 0, 0.7) 0%, 
+        rgba(0, 0, 0, 0.45) 30%, 
+        rgba(0, 0, 0, 0.2) 60%,
+        transparent 85%);
 }
 
 /* Ajuste para el texto del botón */
 .bienvenida-btn span {
     position: relative;
     z-index: 2;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    font-weight: 600;
 }
 
 .btn-flecha {
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4));
 }
 
 /* ==================== PARCHE DE EMERGENCIA ==================== */
