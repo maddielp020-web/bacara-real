@@ -473,12 +473,19 @@
     position: absolute;
     bottom: 20px;
     right: 20px;
-    font-size: 60px;
-    opacity: 0.03;
-    transform: rotate(-10deg);
+    font-size: 70px;
+    opacity: 0.12;
+    transform: rotate(-8deg);
     pointer-events: none;
     z-index: 0;
-    filter: blur(2px);
+    filter: blur(1px);
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    animation: sello-respiro 6s infinite alternate;
+}
+
+@keyframes sello-respiro {
+    0% { opacity: 0.1; transform: rotate(-8deg) scale(1); }
+    100% { opacity: 0.2; transform: rotate(-6deg) scale(1.05); }
 }
 
 /* ==================== 5. MEJORA EN TARJETAS ==================== */
