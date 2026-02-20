@@ -64,25 +64,35 @@
                 Solo por invitación.
             </p>
             
-            <!-- ==================== NUEVO: FORMULARIO DE ACCESO ==================== -->
-        <div class="acceso-container">
-            <label>🔑 CÓDIGO DE INVITACIÓN</label>
-            <input type="text" id="codigo-input" placeholder="Ej: BAC123">
-            
-            <label>📱 TELÉFONO (solo para nuevos)</label>
-            <input type="tel" id="telefono-input" placeholder="+7 ___ ___ __ __">
-            
-            <button class="btn" id="btn-verificar" disabled>VERIFICAR Y CONTINUAR</button>
-            <button class="btn" id="btn-terminos">📜 TÉRMINOS Y CONDICIONES</button>
-        </div>
-            
-            <!-- Línea decorativa -->
-            <div class="bienvenida-divisor"></div>
-            
-            <!-- Advertencia sutil -->
-            <p class="bienvenida-legal">
-                ⚠️ Mayores de 18 años. Juego responsable.
-            </p>
+           <!-- ==================== NUEVO: FORMULARIO DE ACCESO ==================== -->
+<div class="acceso-container">
+    
+    <!-- Campo CÓDIGO (con estructura completa) -->
+    <div class="campo-container">
+        <label class="campo-label">🔑 CÓDIGO DE INVITACIÓN</label>
+        <input type="text" class="campo-input" id="codigo-input" placeholder="Ej: INV-123">
+        <div class="mensaje-error" id="codigo-error"></div>
+    </div>
+    
+    <!-- Campo TELÉFONO (con estructura completa) -->
+    <div class="campo-container" id="telefono-container">
+        <label class="campo-label">📱 TELÉFONO (mismo del banco)</label>
+        <input type="tel" class="campo-input" id="telefono-input" placeholder="+7 ___ ___ __ __">
+        <div class="campo-ayuda">Tu teléfono es solo para transferencias. Nunca se comparte.</div>
+        <div class="mensaje-error" id="telefono-error"></div>
+    </div>
+    
+    <!-- Botón principal -->
+    <button class="btn" id="btn-principal" disabled>
+        <span class="btn-texto" id="btn-texto">VERIFICAR Y CONTINUAR</span>
+    </button>
+    
+    <!-- Botón términos -->
+    <button class="btn" id="btn-terminos" disabled>
+        📜 TÉRMINOS Y CONDICIONES
+    </button>
+    
+</div>
             
             <!-- Versión -->
             <p class="bienvenida-version">v1.0 · exclusivo</p>
