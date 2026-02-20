@@ -1,3 +1,24 @@
+// ==================== TRUCO PARA VER ERRORES EN PANTALLA ====================
+window.onerror = function(mensaje, fuente, linea) {
+    alert("ERROR JS: " + mensaje + " en línea " + linea);
+    return true;
+};
+console.log = function(msg) {
+    // Mostrar logs importantes en un div flotante
+    const div = document.createElement('div');
+    div.style.position = 'fixed';
+    div.style.bottom = '10px';
+    div.style.left = '10px';
+    div.style.background = 'black';
+    div.style.color = 'white';
+    div.style.padding = '5px';
+    div.style.zIndex = '9999';
+    div.style.fontSize = '12px';
+    div.textContent = '📌 ' + msg;
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 3000);
+};
+
 // ==================== BIENVENIDA - FUNCIONALIDADES ====================
 // VERSIÓN PROFESIONAL CON SIMULACIÓN DE BOT
 // FASE 1 - Validación local con arrays simulados
