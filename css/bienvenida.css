@@ -183,51 +183,120 @@
     }
 }
 
-/* ==================== NUEVO: FORMULARIO DE ACCESO ==================== */
-.acceso-container {
-    margin-top: 30px;
+/* ==================== NUEVA ESTRUCTURA PROFESIONAL ==================== */
+
+/* Contenedor de cada campo */
+.campo-container {
+    margin-bottom: 20px;
+    text-align: left;
     width: 100%;
-    max-width: 380px;
 }
 
-.acceso-container label {
+/* Etiquetas de los campos */
+.campo-label {
+    display: block;
     color: var(--oro-puro);
     font-size: 0.8rem;
-    display: block;
-    margin: 15px 0 5px;
+    margin-bottom: 5px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.acceso-container input {
+/* Inputs con estilo profesional */
+.campo-input {
     width: 100%;
-    padding: 12px 15px;
+    padding: 14px 16px;
     background: #1A1A1A;
-    border: 1px solid var(--oro-puro);
-    border-radius: 8px;
+    border: 1px solid var(--oro-transparente);
+    border-radius: 12px;
     color: white;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-.acceso-container input:focus {
+.campo-input:focus {
     outline: none;
     border-color: var(--oro-puro);
-    box-shadow: 0 0 10px rgba(255,215,0,0.3);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
 }
 
+.campo-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
+}
+
+/* Texto de ayuda (para teléfono) */
+.campo-ayuda {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 5px;
+    padding-left: 5px;
+}
+
+/* Mensajes de error */
+.mensaje-error {
+    font-size: 0.75rem;
+    color: #ff6b6b;
+    margin-top: 5px;
+    min-height: 18px;
+    padding-left: 5px;
+    display: none;  /* Ocultos por defecto */
+}
+
+.mensaje-error.visible {
+    display: block;
+}
+
+/* Botones en el contenedor de acceso */
 .acceso-container .btn {
-    width: 100%;
     margin: 10px 0;
+    transition: all 0.3s ease;
 }
 
-#btn-verificar:disabled {
-    background: #333;
-    opacity: 0.5;
+/* Estado deshabilitado */
+.acceso-container .btn:disabled {
+    background: #2A2A2A;
+    color: #666;
+    opacity: 0.7;
     cursor: not-allowed;
+    border: 1px solid transparent;
 }
 
-#btn-verificar:enabled {
+/* Estado habilitado (dorado) */
+.acceso-container .btn:not(:disabled) {
     background: var(--oro-puro);
     color: var(--negro-fondo);
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+}
+
+/* Hover solo cuando está habilitado */
+.acceso-container .btn:not(:disabled):hover {
+    background: var(--dorado-suave);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Clase para ocultar teléfono (cuando jugador es recurrente) */
+body.recurrente #telefono-container {
+    display: none;
+}
+
+/* Clase para mostrar teléfono (por defecto) */
+body.nuevo #telefono-container {
+    display: block;
+}
+
+/* Ajustes responsive */
+@media (max-width: 380px) {
+    .campo-input {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+    
+    .campo-label {
+        font-size: 0.75rem;
+    }
 }
 
 /* ==================== CAPAS DE LUJO - AÑADIDO ==================== */
