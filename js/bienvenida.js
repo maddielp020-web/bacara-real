@@ -79,6 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Actualizar estado de los botones según validaciones
     function actualizarBotones() {
+        // Primero actualizar estilos de inputs
+        actualizarEstilosInputs();
+        
         // Caso 1: No hay código válido
         if (!codigoValidoActual) {
             btnPrincipal.disabled = true;
@@ -199,8 +202,28 @@ document.addEventListener('DOMContentLoaded', function() {
     telefonoInput.addEventListener('input', function() {
         if (telefonoInput.value.trim() !== '') {
             limpiarError(telefonoError);
+        } else {
+            // Si está vacío, quitar clase valido
+            telefonoInput.classList.remove('valido');
         }
     });
+    
+    // ==================== 5A. FUNCIÓN PARA ACTUALIZAR ESTILOS DE INPUTS ====================
+    function actualizarEstilosInputs() {
+        // Actualizar estilo del input código
+        if (codigoValidoActual) {
+            codigoInput.classList.add('valido');
+        } else {
+            codigoInput.classList.remove('valido');
+        }
+        
+        // Actualizar estilo del input teléfono (solo si es nuevo y válido)
+        if (tipoJugador === 'nuevo' && telefonoValidoActual) {
+            telefonoInput.classList.add('valido');
+        } else {
+            telefonoInput.classList.remove('valido');
+        }
+    }
     
     // ==================== 6. ACCIONES DE BOTONES ====================
     
