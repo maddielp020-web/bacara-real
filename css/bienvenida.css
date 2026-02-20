@@ -183,6 +183,53 @@
     }
 }
 
+/* ==================== NUEVO: FORMULARIO DE ACCESO ==================== */
+.acceso-container {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 380px;
+}
+
+.acceso-container label {
+    color: var(--oro-puro);
+    font-size: 0.8rem;
+    display: block;
+    margin: 15px 0 5px;
+    text-transform: uppercase;
+}
+
+.acceso-container input {
+    width: 100%;
+    padding: 12px 15px;
+    background: #1A1A1A;
+    border: 1px solid var(--oro-puro);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+}
+
+.acceso-container input:focus {
+    outline: none;
+    border-color: var(--oro-puro);
+    box-shadow: 0 0 10px rgba(255,215,0,0.3);
+}
+
+.acceso-container .btn {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#btn-verificar:disabled {
+    background: #333;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#btn-verificar:enabled {
+    background: var(--oro-puro);
+    color: var(--negro-fondo);
+}
+
 /* ==================== CAPAS DE LUJO - AÑADIDO ==================== */
 .bienvenida-container::before {
     content: '';
