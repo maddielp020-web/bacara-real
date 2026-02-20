@@ -299,6 +299,39 @@ body.nuevo #telefono-container {
     }
 }
 
+/* ==================== CORRECIONES VISUALES ==================== */
+
+/* Dar margen a los contenedores para que los inputs no lleguen al borde */
+.campo-container {
+    padding-left: 4px;
+    padding-right: 4px;
+    width: calc(100% - 8px);  /* Restar el padding para no desbordar */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Asegurar que los inputs respeten el border-radius completo */
+.campo-input {
+    border-radius: 12px !important;  /* Forzar redondeo en ambos lados */
+    width: 100%;
+    box-sizing: border-box;  /* Incluir padding y border en el ancho total */
+}
+
+/* Estilo para inputs válidos (se activará con JS) */
+.campo-input.valido {
+    border-color: var(--oro-puro) !important;
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3) !important;
+}
+
+/* Ajuste responsive para pantallas muy pequeñas */
+@media (max-width: 380px) {
+    .campo-container {
+        padding-left: 2px;
+        padding-right: 2px;
+        width: calc(100% - 4px);
+    }
+}
+
 /* ==================== CAPAS DE LUJO - AÑADIDO ==================== */
 .bienvenida-container::before {
     content: '';
