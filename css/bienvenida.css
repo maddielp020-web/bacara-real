@@ -1,34 +1,11 @@
 /* ==================== BIENVENIDA - ESTILOS ESPECÍFICOS ==================== */
-/* Fondo negro profundo con textura sutil - Versión definitiva */
+/* Este archivo SOLO afecta a index.html */
+/* Fondo verde elegante + overlay dorado - APROBADO POR DIRECTOR */
 
 .bienvenida-container {
     position: relative;
-    background: #0A0A0A;  /* Negro profundo */
+    background: linear-gradient(145deg, #006633 0%, #009A44 100%);
     overflow: hidden;
-}
-
-/* ==================== CAPAS DE PROFUNDIDAD ==================== */
-.bienvenida-container::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.12) 0%, transparent 35%),
-                radial-gradient(circle at 70% 60%, rgba(255, 215, 0, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 45%);
-    animation: luz-ambiental 20s infinite alternate ease-in-out;
-    pointer-events: none;
-    z-index: 1;
-    mix-blend-mode: overlay;
-}
-
-@keyframes luz-ambiental {
-    0% { transform: rotate(0deg) scale(1); opacity: 0.6; }
-    33% { transform: rotate(2deg) scale(1.03); opacity: 0.9; }
-    66% { transform: rotate(-2deg) scale(0.97); opacity: 0.7; }
-    100% { transform: rotate(1deg) scale(1.02); opacity: 0.8; }
 }
 
 /* ==================== OVERLAY DORADO ==================== */
@@ -38,80 +15,38 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.12) 0%, transparent 35%),
-        radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
-    animation: reflejo-movimiento 15s infinite alternate;
+    background: radial-gradient(circle at 50% 50%, 
+                rgba(255, 215, 0, 0.15) 0%, 
+                transparent 70%);
     pointer-events: none;
-    z-index: 2;
-    mix-blend-mode: overlay;
+    z-index: 1;
 }
-
-@keyframes reflejo-movimiento {
-    0% { background-position: 0% 0%; opacity: 0.8; }
-    50% { background-position: 5% 5%; opacity: 1; }
-    100% { background-position: 10% 10%; opacity: 0.9; }
-}
-
-/* ==================== PARTÍCULAS DE LUZ (OPCIONAL) ==================== */
-@keyframes particula-luz {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    10% { opacity: 0.8; }
-    80% { opacity: 0.8; }
-    100% { transform: translateY(-150px) translateX(30px); opacity: 0; }
-}
-
-.particula {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: #FFD700;
-    border-radius: 50%;
-    filter: blur(1px);
-    box-shadow: 0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.5);
-    z-index: 3;
-    pointer-events: none;
-    display: none; /* Activarlas solo si el rendimiento lo permite */
-}
-
-.particula:nth-child(1) { left: 10%; animation: particula-luz 7s infinite 0s; }
-.particula:nth-child(2) { left: 20%; animation: particula-luz 9s infinite 1s; }
-.particula:nth-child(3) { left: 30%; animation: particula-luz 8s infinite 2s; }
-.particula:nth-child(4) { left: 40%; animation: particula-luz 10s infinite 3s; }
-.particula:nth-child(5) { left: 50%; animation: particula-luz 7s infinite 4s; }
 
 /* ==================== CONTENIDO PRINCIPAL ==================== */
 .bienvenida-contenido {
     position: relative;
-    z-index: 10;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 30px 20px;
+    padding: 20px;
     text-align: center;
-    backdrop-filter: blur(2px);
 }
 
 /* ==================== EMBLEMA ==================== */
 .bienvenida-emblema {
     display: flex;
     gap: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .emblema-carta {
-    font-size: 2.5rem;
-    filter: drop-shadow(0 0 15px rgba(255,215,0,0.4));
-    animation: flotar-suave 3s infinite alternate ease-in-out;
-    opacity: 0.8;
-}
-
-@keyframes flotar-suave {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-8px); }
+    font-size: 3rem;
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+    animation: float 3s ease-in-out infinite;
+    opacity: 0.9;
 }
 
 .emblema-carta:nth-child(1) { animation-delay: 0s; }
@@ -119,200 +54,132 @@
 .emblema-carta:nth-child(3) { animation-delay: 0.4s; }
 .emblema-carta:nth-child(4) { animation-delay: 0.6s; }
 
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
 /* ==================== TÍTULO ==================== */
 .bienvenida-titulo {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .titulo-linea {
     display: block;
-    font-size: 2.8rem;
+    font-size: 3rem;
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: white;
-    text-shadow: 
-        0 1px 0 rgba(0,0,0,0.5),
-        0 2px 0 rgba(0,0,0,0.4),
-        0 3px 0 rgba(0,0,0,0.3),
-        0 4px 8px rgba(0,0,0,0.4),
-        0 0 20px rgba(255,215,0,0.3);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-.titulo-linea.dorado {
-    color: var(--oro-puro);
-    text-shadow: 
-        0 1px 0 rgba(0,0,0,0.5),
-        0 2px 0 rgba(0,0,0,0.4),
-        0 3px 0 rgba(0,0,0,0.3),
-        0 4px 10px rgba(0,0,0,0.4),
-        0 0 20px #FFD700,
-        0 0 40px rgba(255,215,0,0.4);
-    font-size: 3rem;
+ .titulo-linea.dorado {
+    color: var(--oro-puro) !important;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+    font-size: 3.5rem;
 }
 
-/* ==================== SUBTÍTULO ==================== */
-.bienvenida-subtitulo {
-    font-size: 1rem;
+/* ==================== DIVISOR ==================== */
+.bienvenida-divisor {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+                transparent, 
+                var(--oro-puro), 
+                transparent);
+    margin: 20px auto;
+    opacity: 0.8;
+}
+
+/* ==================== DESCRIPCIÓN ==================== */
+.bienvenida-descripcion {
+    font-size: 1.2rem;
+    color: white;
+    opacity: 0.95;
+    margin-bottom: 15px;
+    font-weight: 300;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* ==================== LEGAL ==================== */
+.bienvenida-legal {
+    font-size: 0.8rem;
     color: rgba(255,255,255,0.7);
     margin-bottom: 40px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(255,215,0,0.3);
-    padding-bottom: 15px;
-    width: 80%;
-}
-
-/* ==================== FORMULARIO DE ACCESO ==================== */
-.acceso-container {
-    width: 100%;
-    max-width: 380px;
-    margin: 0 auto 30px;
-}
-
-.campo-container {
-    margin-bottom: 25px;
-    text-align: left;
-    width: 100%;
-}
-
-.campo-label {
-    display: block;
-    font-size: 0.8rem;
-    color: var(--oro-puro);
-    margin-bottom: 8px;
     letter-spacing: 1px;
-    text-transform: uppercase;
 }
 
-/* ==================== INPUTS CORREGIDOS ==================== */
-.campo-input {
-    width: 100%;
-    background: #1A1A1A;
-    border: 1px solid var(--oro-puro);
-    border-radius: 30px;           /* ← Redondeado perfecto */
-    padding: 15px 20px;
-    color: #FFFFFF;                 /* ← Texto blanco visible */
-    font-size: 1rem;
-    transition: all 0.2s;
+/* ==================== BOTÓN ==================== */
+.bienvenida-btn {
+    width: auto;
+    min-width: 250px;
+    padding: 16px 32px;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-.campo-input:focus {
-    outline: none;
-    border-color: var(--oro-puro);
-    background: #2A2A2A;
-    box-shadow: 0 0 15px rgba(255,215,0,0.2);
+.bienvenida-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 1;
 }
 
-.campo-input::placeholder {
-    color: rgba(255,255,255,0.3);
-    font-size: 0.9rem;
+.bienvenida-btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
-.campo-ayuda {
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.4);
-    margin-top: 6px;
-    font-style: italic;
+.bienvenida-btn span {
+    position: relative;
+    z-index: 2;
 }
 
-/* ==================== BOTONES GEMELOS (MISMO TAMAÑO) ==================== */
-#btn-principal, #btn-terminos {
-    width: 95%;                     /* ← Más ancho */
-    max-width: 380px;               /* ← Mismo máximo */
-    height: 56px;                   /* ← Misma altura */
-    margin: 10px auto;              /* ← Centrados */
-    display: block;
-    border-radius: 30px;            /* ← Mismo redondeo */
-    font-size: 1rem;                /* ← Mismo texto */
-    transition: all 0.3s;
+.btn-flecha {
+    margin-left: 10px;
+    transition: transform 0.3s;
 }
 
-/* ==================== BOTONES DESACTIVADOS (MEJOR CONTRASTE) ==================== */
-#btn-principal:disabled, #btn-terminos:disabled {
-    background: #2A2A2A;
-    color: #666666;
-    border: 1px solid #444444;
-    opacity: 0.8;
-    cursor: not-allowed;
-}
-
-/* ==================== BOTONES ACTIVOS (DORADOS) ==================== */
-#btn-principal:enabled, #btn-terminos:enabled {
-    background: var(--oro-puro);
-    color: var(--negro-fondo);
-    border: none;
-    box-shadow: 0 4px 15px rgba(255,215,0,0.3);
-    cursor: pointer;
-}
-
-#btn-principal:enabled:hover, #btn-terminos:enabled:hover {
-    background: var(--dorado-suave);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255,215,0,0.4);
-}
-
-/* ==================== MANTENER ESTILOS EXISTENTES ==================== */
-/* El resto del archivo se conserva igual */
-
-/* ==================== MENSAJES DE ERROR ==================== */
-.mensaje-error {
-    font-size: 0.75rem;
-    color: #EF3340;
-    margin-top: 5px;
-    min-height: 18px;
-    display: none;
-}
-
-.mensaje-error.visible {
-    display: block;
-}
-
-/* ==================== BOTONES ==================== */
-#btn-principal, #btn-terminos {
-    width: 100%;
-    margin-bottom: 15px;
-    transition: all 0.3s;
-}
-
-#btn-principal {
-    margin-top: 10px;
-}
-
-#btn-terminos {
-    background: rgba(255,215,0,0.1);
-    border: 1px solid rgba(255,215,0,0.3);
-    color: rgba(255,255,255,0.7);
-}
-
-#btn-terminos:enabled,
-#btn-terminos.btn-activo {
-    background: var(--oro-puro);
-    color: var(--negro-fondo);
-    border: 1px solid var(--oro-puro);
-    box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+.bienvenida-btn:hover .btn-flecha {
+    transform: translateX(5px);
 }
 
 /* ==================== VERSIÓN ==================== */
 .bienvenida-version {
     font-size: 0.7rem;
-    color: rgba(255,255,255,0.3);
-    margin-top: 20px;
+    color: rgba(255,255,255,0.5);
 }
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 380px) {
     .titulo-linea {
-        font-size: 2.2rem;
-    }
-    
-    .titulo-linea.dorado {
         font-size: 2.5rem;
     }
     
+    .titulo-linea.dorado {
+        font-size: 3rem;
+    }
+    
     .emblema-carta {
-        font-size: 2rem;
+        font-size: 2.5rem;
+    }
+    
+    .bienvenida-btn {
+        min-width: 220px;
+        padding: 14px 24px;
+        font-size: 1.1rem;
     }
 }
 
