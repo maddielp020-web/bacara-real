@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bienvenido | Bacará Real</title>
     
-    <!-- GLOBAL (base) -->
+    <!-- GLOBAL -->
     <link rel="stylesheet" href="global.css">
     
     <!-- ESPECÍFICO DE BIENVENIDA -->
@@ -17,34 +17,36 @@
 <body>
     <div class="contenedor bienvenida-container">
         
+        <!-- ==================== TUS 15 PARTÍCULAS (MANTENIDAS) ==================== -->
         <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-        <!-- EFECTOS NEBLINA EN BORDES -->
-    <div class="borde-neblina">
-        <div class="izquierdo"></div>
-        <div class="derecho"></div>
-    </div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
         
-        <!-- ==================== OVERLAY DORADO ==================== -->
+        <!-- ==================== TU BORDE NEBLINA (MANTENIDO) ==================== -->
+        <div class="borde-neblina">
+            <div class="izquierdo"></div>
+            <div class="derecho"></div>
+        </div>
+        
+        <!-- ==================== TU OVERLAY DORADO (con fade-in) ==================== -->
         <div class="bienvenida-overlay fade-in"></div>
         
-        <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+        <!-- ==================== CONTENIDO PRINCIPAL (con slide-up) ==================== -->
         <div class="bienvenida-contenido slide-up">
             
-            <!-- Logo o emblema -->
+            <!-- Logo o emblema (NUEVO) -->
             <div class="bienvenida-emblema">
                 <span class="emblema-carta">♠️</span>
                 <span class="emblema-carta">♣️</span>
@@ -52,35 +54,51 @@
                 <span class="emblema-carta">♦️</span>
             </div>
             
-            <!-- Título principal -->
+            <!-- Título (NUEVO) -->
             <h1 class="bienvenida-titulo">
                 <span class="titulo-linea">BACARÁ</span>
                 <span class="titulo-linea dorado">REAL</span>
             </h1>
             
-            <!-- Línea decorativa -->
-            <div class="bienvenida-divisor"></div>
+            <!-- Subtítulo (NUEVO) -->
+            <p class="bienvenida-subtitulo">Club privado por invitación</p>
             
-            <!-- Descripción -->
-            <p class="bienvenida-descripcion">
-                Club privado de Bacará.<br>
-                Solo por invitación.
-            </p>
+            <!-- ==================== FORMULARIO DE ACCESO (NUEVO) ==================== -->
+            <div class="acceso-container">
+                
+                <!-- Campo CÓDIGO (siempre visible) -->
+                <div class="campo-container">
+                    <label class="campo-label">🔑 CÓDIGO DE INVITACIÓN</label>
+                    <input type="text" class="campo-input" id="codigo-input" placeholder="Ej: BAC123">
+                    <div class="mensaje-error" id="codigo-error"></div>
+                </div>
+                
+                <!-- Campo TELÉFONO (visible solo para nuevos) -->
+                <div class="campo-container" id="telefono-container">
+                    <label class="campo-label">📱 TELÉFONO (mismo del banco)</label>
+                    <input type="tel" class="campo-input" id="telefono-input" placeholder="+7 ___ ___ __ __">
+                    <div class="campo-ayuda">Tu teléfono es solo para transferencias. Nunca se comparte.</div>
+                    <div class="mensaje-error" id="telefono-error"></div>
+                </div>
+                
+                <!-- Botón principal VERIFICAR / ENTRAR -->
+                <button class="btn" id="btn-principal" disabled>
+                    <span class="btn-texto" id="btn-texto">VERIFICAR Y CONTINUAR</span>
+                </button>
+                
+                <!-- Botón secundario TÉRMINOS -->
+                <button class="btn" id="btn-terminos" disabled>
+                    📜 TÉRMINOS Y CONDICIONES
+                </button>
+                
+            </div>
             
-            <!-- Advertencia sutil -->
-            <p class="bienvenida-legal">
-                ⚠️ Mayores de 18 años. Juego responsable.
-            </p>
-            
-            <!-- Botón de entrada -->
-            <a href="terminos.html" class="btn btn-primary bienvenida-btn">
-                ENTRAR AL CLUB
-                <span class="btn-flecha">→</span>
-            </a>
-            
-            <!-- Versión -->
+            <!-- Versión (NUEVO) -->
             <p class="bienvenida-version">v1.0 · exclusivo</p>
+            
         </div>
     </div>
+    
+    <script src="js/bienvenida.js"></script>
 </body>
 </html>
