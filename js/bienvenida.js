@@ -1,3 +1,4 @@
+// ==================== BIENVENIDA - FUNCIONALIDADES ====================
 // ==================== TRUCO PARA VER ERRORES EN PANTALLA ====================
 window.onerror = function(mensaje, fuente, linea) {
     alert("ERROR JS: " + mensaje + " en línea " + linea);
@@ -18,8 +19,6 @@ console.log = function(msg) {
     document.body.appendChild(div);
     setTimeout(() => div.remove(), 3000);
 };
-
-// ==================== BIENVENIDA - FUNCIONALIDADES ====================
 // VERSIÓN PROFESIONAL CON SIMULACIÓN DE BOT
 // FASE 1 - Validación local con arrays simulados
 
