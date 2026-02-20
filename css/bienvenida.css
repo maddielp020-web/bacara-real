@@ -186,13 +186,14 @@
     text-transform: uppercase;
 }
 
+/* ==================== INPUTS CORREGIDOS ==================== */
 .campo-input {
     width: 100%;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,215,0,0.3);
-    border-radius: 12px;
-    padding: 15px 18px;
-    color: white;
+    background: #1A1A1A;
+    border: 1px solid var(--oro-puro);
+    border-radius: 30px;           /* ← Redondeado perfecto */
+    padding: 15px 20px;
+    color: #FFFFFF;                 /* ← Texto blanco visible */
     font-size: 1rem;
     transition: all 0.2s;
 }
@@ -200,7 +201,7 @@
 .campo-input:focus {
     outline: none;
     border-color: var(--oro-puro);
-    background: rgba(255,215,0,0.1);
+    background: #2A2A2A;
     box-shadow: 0 0 15px rgba(255,215,0,0.2);
 }
 
@@ -215,6 +216,45 @@
     margin-top: 6px;
     font-style: italic;
 }
+
+/* ==================== BOTONES GEMELOS (MISMO TAMAÑO) ==================== */
+#btn-principal, #btn-terminos {
+    width: 95%;                     /* ← Más ancho */
+    max-width: 380px;               /* ← Mismo máximo */
+    height: 56px;                   /* ← Misma altura */
+    margin: 10px auto;              /* ← Centrados */
+    display: block;
+    border-radius: 30px;            /* ← Mismo redondeo */
+    font-size: 1rem;                /* ← Mismo texto */
+    transition: all 0.3s;
+}
+
+/* ==================== BOTONES DESACTIVADOS (MEJOR CONTRASTE) ==================== */
+#btn-principal:disabled, #btn-terminos:disabled {
+    background: #2A2A2A;
+    color: #666666;
+    border: 1px solid #444444;
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+/* ==================== BOTONES ACTIVOS (DORADOS) ==================== */
+#btn-principal:enabled, #btn-terminos:enabled {
+    background: var(--oro-puro);
+    color: var(--negro-fondo);
+    border: none;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    cursor: pointer;
+}
+
+#btn-principal:enabled:hover, #btn-terminos:enabled:hover {
+    background: var(--dorado-suave);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,215,0,0.4);
+}
+
+/* ==================== MANTENER ESTILOS EXISTENTES ==================== */
+/* El resto del archivo se conserva igual */
 
 /* ==================== MENSAJES DE ERROR ==================== */
 .mensaje-error {
