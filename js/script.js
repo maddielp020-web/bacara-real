@@ -9,14 +9,15 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ DOM completamente cargado');
     
     // ==================== OBTENER ELEMENTOS ====================
-    const contenidoScroll = document.getElementById('contenido-scroll');
+    // CAMBIO AQUÍ: usar querySelector con la clase en lugar de getElementById
+    const contenidoScroll = document.querySelector('.terminos-contenido');
     const checkbox = document.getElementById('checkbox-acepto');
     const btnAceptar = document.getElementById('btn-acepto');
     const indicadorScroll = document.getElementById('indicador-scroll');
     
     // Verificar que los elementos existen
     if (!contenidoScroll) {
-        console.error('❌ No se encontró #contenido-scroll');
+        console.error('❌ No se encontró .terminos-contenido');
         return;
     }
     if (!checkbox) {
