@@ -77,10 +77,13 @@
         <div class="mensaje-error" id="codigo-error"></div>
     </div>
     
-    <!-- Campo TELÉFONO (con estructura completa) -->
+    <!-- Campo TELÉFONO con prefijo +7 fijo -->
     <div class="campo-container" id="telefono-container">
         <label class="campo-label">📱 TELÉFONO (mismo del banco)</label>
-        <input type="tel" class="campo-input" id="telefono-input" placeholder="+7 ___ ___ __ __">
+        <div class="telefono-wrapper">
+            <span class="telefono-prefijo">+7</span>
+            <input type="tel" class="campo-input telefono-input" id="telefono-input" placeholder="___ ___ __ __" maxlength="10">
+        </div>
         <div class="campo-ayuda">Tu teléfono es solo para transferencias. Nunca se comparte.</div>
         <div class="mensaje-error" id="telefono-error"></div>
     </div>
