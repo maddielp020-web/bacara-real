@@ -18,7 +18,7 @@
 }
 
 .lobby-titulo {
-    color: var(--oro-puro);
+    color: var(--oro-puro) !important;
     font-size: 1.5rem;
     margin: 0;
 }
@@ -27,10 +27,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(0, 154, 68, 0.1);
+    background: #8B1A1A !important;
     padding: 8px 15px;
     border-radius: 30px;
-    border: 1px solid var(--verde-bacara);
+    border: 1px solid var(--oro-puro) !important;
 }
 
 .saldo-icono {
@@ -38,7 +38,7 @@
 }
 
 .saldo-cantidad {
-    color: var(--verde-bacara);
+    color: #FFFFFF !important;
     font-weight: 700;
     font-size: 1.1rem;
 }
@@ -85,25 +85,28 @@
 }
 
 .btn-monto {
-    background: #1A1A1A;
-    border: 1px solid rgba(255, 215, 0, 0.2);
+    background: #2A2A2A !important;
+    border: 1px solid var(--oro-puro) !important;
     border-radius: 30px;
     padding: 12px 0;
-    color: white;
+    color: #FFFFFF !important;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
 }
 
 .btn-monto:hover {
+    background: #3A3A3A !important;
     border-color: var(--oro-puro);
-    background: #2A2A2A;
+    transform: scale(1.02);
 }
 
 .btn-monto.activo {
-    background: var(--oro-puro);
-    color: var(--negro-fondo);
-    border-color: var(--oro-puro);
+    background: var(--oro-puro) !important;
+    border: 1px solid var(--oro-puro) !important;
+    color: var(--negro-fondo) !important;
+    font-weight: 700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
 .monto-personalizado {
