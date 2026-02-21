@@ -81,18 +81,6 @@
     font-size: 3.5rem;
 }
 
-/* ==================== DIVISOR ==================== */
-.bienvenida-divisor {
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, 
-                transparent, 
-                var(--oro-puro), 
-                transparent);
-    margin: 20px auto;
-    opacity: 0.8;
-}
-
 /* ==================== DESCRIPCIÓN ==================== */
 .bienvenida-descripcion {
     font-size: 1.2rem;
@@ -664,62 +652,35 @@ body.nuevo #telefono-container {
     100% { opacity: 0.5; width: 70px; filter: blur(18px); }
 }
 
-/* ==================== 3. NEBLINA NEGRA EN BOTÓN AZUL (+30% más notoria, azul más claro) ==================== */
-.bienvenida-btn {
+/* ==================== DIVISOR ==================== */
+.bienvenida-divisor {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, 
+                transparent, 
+                var(--oro-puro), 
+                transparent);
+    margin: 20px auto;
+    opacity: 0.8;
     position: relative;
-    background: linear-gradient(145deg, #2A7FFF, #1A5FD9) !important;
-    border-radius: 50px !important;
-    box-shadow: 
-        0 8px 20px rgba(0,0,0,0.5),
-        0 0 0 2px rgba(255,215,0,0.3) inset !important;
-    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
-/* Efecto neblina negra alrededor del botón */
-.bienvenida-btn::after {
+.bienvenida-divisor::after {
     content: '';
     position: absolute;
-    top: -15px;
-    left: -15px;
-    right: -15px;
-    bottom: -15px;
-    background: radial-gradient(ellipse at 50% 50%, 
-        rgba(0, 0, 0, 0.6) 0%, 
-        rgba(0, 0, 0, 0.35) 30%, 
-        rgba(0, 0, 0, 0.15) 60%,
-        transparent 85%);
-    filter: blur(20px);
-    border-radius: 70px;
-    z-index: -1;
-    opacity: 0.8;
-    animation: neblina-boton 5s infinite alternate;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: correr-luz 3s infinite;
 }
 
-@keyframes neblina-boton {
-    0% { opacity: 0.6; filter: blur(18px); transform: scale(1); }
-    100% { opacity: 1; filter: blur(28px); transform: scale(1.08); }
-}
-
-.bienvenida-btn:hover::after {
-    opacity: 1;
-    filter: blur(32px);
-    background: radial-gradient(ellipse at 50% 50%, 
-        rgba(0, 0, 0, 0.7) 0%, 
-        rgba(0, 0, 0, 0.45) 30%, 
-        rgba(0, 0, 0, 0.2) 60%,
-        transparent 85%);
-}
-
-/* Ajuste para el texto del botón */
-.bienvenida-btn span {
-    position: relative;
-    z-index: 2;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    font-weight: 600;
-}
-
-.btn-flecha {
-    filter: drop-shadow(0 3px 5px rgba(0,0,0,0.4));
+@keyframes correr-luz {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
 }
 
 /* ==================== PARCHE DE EMERGENCIA ==================== */
