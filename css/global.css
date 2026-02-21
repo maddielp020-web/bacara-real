@@ -259,12 +259,6 @@ input::placeholder {
     animation: slideUp 0.4s ease;
 }
 
-/* ==================== 10. TELEGRAM MINI APP FIXES ==================== */
-#telegram-webapp {
-    height: 100vh;
-    overflow: hidden;
-}
-
 /* Scrollbar personalizada (opcional, solo desktop) */
 ::-webkit-scrollbar {
     width: 4px;
