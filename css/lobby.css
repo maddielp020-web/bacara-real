@@ -18,7 +18,7 @@
 }
 
 .lobby-titulo {
-    color: var(--oro-puro) !important;
+    color: #FFD700 !important;  /* Dorado fijo */
     font-size: 1.5rem;
     margin: 0;
 }
@@ -102,14 +102,14 @@
 }
 
 .btn-monto.activo {
-    background: #8B1A1A !important;
+    background: rgba(255, 215, 0, 0.4) !important; /* Dorado más intenso pero no rojo */
     border: 1px solid var(--oro-puro) !important;
     color: #FFFFFF !important;
     font-weight: 700;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Resplandor dorado */
 }
 
-/* ==================== MONTO PERSONALIZADO (CENTRADO) ==================== */
+/* ==================== MONTO PERSONALIZADO ==================== */
 .monto-personalizado {
     width: 100%;
     display: flex;
@@ -167,7 +167,7 @@
 .mesas-lista {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
 }
 
 /* Tarjeta de mesa */
@@ -175,18 +175,21 @@
     background: #1A1A1A;
     border: 1px solid rgba(255, 215, 0, 0.2);
     border-radius: 16px;
-    padding: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.mesa-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.2s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s;
 }
 
-.mesa-card:hover {
-    transform: translateY(-2px);
+.mesa-header:hover {
     border-color: rgba(255, 215, 0, 0.5);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .mesa-info {
@@ -238,81 +241,11 @@
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
-.mesa-accion .btn-llena {
-    background: transparent;
-    color: rgba(255, 255, 255, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px;
-    padding: 8px 18px;
-    font-weight: 600;
-    cursor: not-allowed;
-}
-
-/* Estados de mesa */
-.estado-verde .mesa-estado { color: #00C853; }
-.estado-amarillo .mesa-estado { color: #FFD600; }
-.estado-rojo .mesa-estado { color: #EF3340; }
-.estado-gris .mesa-estado { color: #757575; }
-
-/* ==================== BOTONES DE ACCIÓN ==================== */
-.acciones-container {
-    display: flex;
-    gap: 15px;
-    padding: 20px;
-    border-top: 1px solid rgba(255, 215, 0, 0.2);
-}
-
-.btn-comprar {
-    flex: 1;
-    background: var(--verde-bacara) !important;
-}
-
-.btn-admin {
-    flex: 0 0 auto;
-    background: #8B0000 !important;
-    color: white !important;
-    border: none;
-    border-radius: 40px;
-    padding: 12px 25px;
-    font-weight: 600;
-}
-
-/* ==================== FOOTER ==================== */
-.lobby-footer {
-    padding: 15px 20px;
-    text-align: center;
-    border-top: 1px solid rgba(255, 215, 0, 0.1);
-}
-
-/* ==================== GAVETA ==================== */
-.mesa-card {
-    margin-bottom: 10px;
-    transition: all 0.2s;
-}
-
-.mesa-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    background: #1A1A1A;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-radius: 16px;
-    cursor: pointer;
-    transition: border-color 0.2s;
-}
-
-.mesa-header:hover {
-    border-color: rgba(255, 215, 0, 0.5);
-}
-
+/* Gaveta */
 .mesa-gaveta {
     background: #222222;
-    border: 1px solid rgba(255, 215, 0, 0.2);
-    border-top: none;
-    border-radius: 0 0 16px 16px;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
     padding: 20px;
-    margin-top: -5px;
     animation: slideDown 0.3s ease;
 }
 
@@ -371,9 +304,15 @@
     color: var(--oro-puro);
 }
 
-/* ==================== TÍTULO DORADO - VERSIÓN DEFINITIVA ==================== */
-.lobby-titulo {
-    color: #FFD700 !important;  /* Dorado puro, sin depender de variables */
-    font-size: 1.5rem;          /* Mantiene el tamaño actual */
-    font-weight: 600;           /* Mantiene el peso actual */
+/* Estados de mesa */
+.estado-verde .mesa-estado { color: #00C853; }
+.estado-amarillo .mesa-estado { color: #FFD600; }
+.estado-rojo .mesa-estado { color: #EF3340; }
+.estado-gris .mesa-estado { color: #757575; }
+
+/* ==================== FOOTER ==================== */
+.lobby-footer {
+    padding: 15px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
