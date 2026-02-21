@@ -10,29 +10,24 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     const mesas = [
-        { id: 3, monto: 1000, jugadores: 3, max: 6, estado: "activa" },
         { id: 1, monto: 700, jugadores: 4, max: 6, estado: "activa" },
-        { id: 5, monto: 1200, jugadores: 1, max: 6, estado: "espera" },
-        { id: 2, monto: 1500, jugadores: 6, max: 6, estado: "llena" }
+        { id: 2, monto: 1000, jugadores: 3, max: 6, estado: "activa" },
+        { id: 3, monto: 1200, jugadores: 1, max: 6, estado: "espera" },
+        { id: 4, monto: 1500, jugadores: 6, max: 6, estado: "llena" }
     ];
     
     // ==================== MOSTRAR DATOS DEL JUGADOR ====================
     document.getElementById('usuario-nombre').textContent = jugador.username;
     document.getElementById('saldo-usuario').textContent = jugador.saldo.toLocaleString();
     
-    // Mostrar botón admin solo si es admin
-    if (jugador.esAdmin) {
-        document.getElementById('btn-admin').style.display = 'block';
-    }
-    
     // ==================== RENDERIZAR MESAS ====================
     const mesasLista = document.getElementById('mesas-lista');
     
-    function getEstadoInfo(estado, jugadores) {
-        if (jugadores === 6) return { color: 'gris', texto: '⚪', label: 'LLENA' };
-        if (jugadores === 1) return { color: 'rojo', texto: '🔴', label: 'ENTRAR' };
-        if (jugadores >= 2) return { color: 'verde', texto: '🟢', label: 'ENTRAR' };
-        return { color: 'amarillo', texto: '🟡', label: 'ENTRAR' };
+    function getEstadoInfo(jugadores) {
+        if (jugadores === 6) return { color: 'gris', texto: '⚪' };
+        if (jugadores === 1) return { color: 'rojo', texto: '🔴' };
+        if (jugadores >= 2) return { color: 'verde', texto: '🟢' };
+        return { color: 'amarillo', texto: '🟡' };
     }
     
     function renderizarMesas(filtroMonto = null) {
@@ -46,47 +41,84 @@ document.addEventListener('DOMContentLoaded', function() {
         mesasFiltradas.sort((a, b) => a.monto - b.monto);
         
         mesasFiltradas.forEach(mesa => {
-            const estadoInfo = getEstadoInfo(mesa.estado, mesa.jugadores);
+            const estadoInfo = getEstadoInfo(mesa.jugadores);
             const esLlena = mesa.jugadores === 6;
             
             const mesaCard = document.createElement('div');
             mesaCard.className = `mesa-card estado-${estadoInfo.color}`;
-            mesaCard.innerHTML = `
-                <div class="mesa-info">
-                    <span class="mesa-estado">${estadoInfo.texto}</span>
-                    <div class="mesa-detalles">
-                        <span class="mesa-numero">MESA #${mesa.id}</span>
-                        <span class="mesa-monto">${mesa.monto}₽</span>
-                        <span class="mesa-ocupacion">${mesa.jugadores}/${mesa.max}</span>
-                    </div>
-                </div>
-                <div class="mesa-accion">
-                    ${esLlena ? 
-                        '<span class="btn-llena">LLENA</span>' : 
-                        `<button class="btn-entrar" data-mesa-id="${mesa.id}">▶ ENTRAR</button>`
-                    }
+            mesaCard.dataset.mesaId = mesa.id;
+            
+            // Header de la mesa (click para abrir gaveta)
+            const header = document.createElement('div');
+            header.className = 'mesa-header';
+            header.setAttribute('onclick', 'toggleGaveta(this)');
+            
+            // Info izquierda
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'mesa-info';
+            infoDiv.innerHTML = `
+                <span class="mesa-estado">${estadoInfo.texto}</span>
+                <div class="mesa-detalles">
+                    <span class="mesa-numero">MESA #${mesa.id}</span>
+                    <span class="mesa-monto">${mesa.monto}₽</span>
+                    <span class="mesa-ocupacion">${mesa.jugadores}/${mesa.max}</span>
                 </div>
             `;
             
+            // Botón Entrar
+            const accionDiv = document.createElement('div');
+            accionDiv.className = 'mesa-accion';
+            if (esLlena) {
+                accionDiv.innerHTML = '<span class="btn-llena">LLENA</span>';
+            } else {
+                const entrarBtn = document.createElement('button');
+                entrarBtn.className = 'btn-entrar';
+                entrarBtn.textContent = '▶ ENTRAR';
+                entrarBtn.dataset.mesaId = mesa.id;
+                entrarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Evita que se abra la gaveta
+                    console.log(`Entrar a mesa #${mesa.id}`);
+                    alert(`[SIMULACIÓN] Entrando a mesa #${mesa.id}`);
+                });
+                accionDiv.appendChild(entrarBtn);
+            }
+            
+            header.appendChild(infoDiv);
+            header.appendChild(accionDiv);
+            
+            // Gaveta (oculta por defecto)
+            const gaveta = document.createElement('div');
+            gaveta.className = 'mesa-gaveta';
+            gaveta.style.display = 'none';
+            gaveta.innerHTML = `
+                <div class="gaveta-contenido">
+                    <p class="gaveta-linea">✅ Ha seleccionado la mesa #${mesa.id}</p>
+                    <p class="gaveta-linea">Valor de entrada: <span class="mesa-valor-gaveta">${mesa.monto}</span> ₽</p>
+                    <p class="gaveta-linea">✨ ¡Gracias por jugar con nosotros!</p>
+                    <p class="gaveta-linea">Excelente elección</p>
+                    <button class="btn-comprar-gaveta" onclick="comprarFichas(this, ${mesa.id})">COMPRAR FICHAS</button>
+                    <p class="gaveta-microcopia">(Toque el botón para continuar)</p>
+                </div>
+            `;
+            
+            mesaCard.appendChild(header);
+            mesaCard.appendChild(gaveta);
             mesasLista.appendChild(mesaCard);
-        });
-        
-        // Agregar eventos a botones ENTRAR
-        document.querySelectorAll('.btn-entrar').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const mesaId = this.dataset.mesaId;
-                console.log(`Entrar a mesa #${mesaId}`);
-                alert(`[SIMULACIÓN] Entrando a mesa #${mesaId}`);
-            });
         });
     }
     
     renderizarMesas();
     
-    // ==================== FILTRO POR MONTO ====================
+    // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN CON INPUT ====================
     const botonesMonto = document.querySelectorAll('.btn-monto');
     const montoInput = document.getElementById('monto-input');
+    
+    function actualizarInput(valor) {
+        montoInput.value = valor;
+        // Disparar evento input para que se filtre
+        const event = new Event('input', { bubbles: true });
+        montoInput.dispatchEvent(event);
+    }
     
     botonesMonto.forEach(btn => {
         btn.addEventListener('click', function() {
@@ -96,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('activo');
             
             const monto = parseInt(this.dataset.monto);
-            renderizarMesas(monto);
+            actualizarInput(monto);
         });
     });
     
@@ -107,57 +139,62 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             renderizarMesas();
         }
+        
+        // Sincronizar botones: si el valor coincide con algún botón, activarlo
+        const valorActual = parseInt(this.value);
+        botonesMonto.forEach(btn => {
+            if (parseInt(btn.dataset.monto) === valorActual) {
+                btn.classList.add('activo');
+            } else {
+                btn.classList.remove('activo');
+            }
+        });
     });
     
     // ==================== GAVETA - COMPORTAMIENTO ====================
-
-let mesaAbierta = null;
-
-function toggleGaveta(element) {
-    const mesaCard = element.closest('.mesa-card');
-    if (!mesaCard) return;
+    let mesaAbierta = null;
     
-    const gaveta = mesaCard.querySelector('.mesa-gaveta');
-    if (!gaveta) return;
-    
-    if (mesaAbierta && mesaAbierta !== mesaCard) {
-        const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
-        if (gavetaAnterior) {
-            gavetaAnterior.style.display = 'none';
+    window.toggleGaveta = function(element) {
+        const mesaCard = element.closest('.mesa-card');
+        if (!mesaCard) return;
+        
+        const gaveta = mesaCard.querySelector('.mesa-gaveta');
+        if (!gaveta) return;
+        
+        // Cerrar otra gaveta abierta
+        if (mesaAbierta && mesaAbierta !== mesaCard) {
+            const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+            if (gavetaAnterior) {
+                gavetaAnterior.style.display = 'none';
+            }
         }
-    }
+        
+        // Abrir/cerrar la actual
+        if (gaveta.style.display === 'none' || !gaveta.style.display) {
+            gaveta.style.display = 'block';
+            mesaAbierta = mesaCard;
+        } else {
+            gaveta.style.display = 'none';
+            mesaAbierta = null;
+        }
+    };
     
-    if (gaveta.style.display === 'none' || !gaveta.style.display) {
-        gaveta.style.display = 'block';
-        mesaAbierta = mesaCard;
-    } else {
-        gaveta.style.display = 'none';
-        mesaAbierta = null;
-    }
-}
-
-function comprarFichas(button) {
-    const mesaCard = button.closest('.mesa-card');
-    if (!mesaCard) return;
+    window.comprarFichas = function(button, mesaId) {
+        const mesaCard = button.closest('.mesa-card');
+        if (!mesaCard) return;
+        
+        const mesaNumero = mesaCard.querySelector('.mesa-numero')?.textContent || 'desconocida';
+        const mesaValor = mesaCard.querySelector('.mesa-monto')?.textContent || '0';
+        
+        console.log(`✅ Comprar fichas para ${mesaNumero} - Valor: ${mesaValor}`);
+        alert(`[SIMULACIÓN] Comprar fichas para ${mesaNumero} - Valor: ${mesaValor}`);
+        
+        button.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+            button.style.transform = 'scale(1)';
+        }, 200);
+    };
     
-    const mesaId = mesaCard.dataset.mesaId;
-    const mesaNumero = mesaCard.querySelector('.mesa-numero')?.textContent || 'desconocida';
-    const mesaValor = mesaCard.querySelector('.mesa-monto')?.textContent || '0';
-    
-    console.log(`✅ Comprar fichas para ${mesaNumero} - Valor: ${mesaValor}`);
-    alert(`[SIMULACIÓN] Comprar fichas para ${mesaNumero} - Valor: ${mesaValor}`);
-    
-    button.style.transform = 'scale(0.98)';
-    setTimeout(() => {
-        button.style.transform = 'scale(1)';
-    }, 200);
-}
-
-// Asegurar que todas las gavetas estén ocultas al cargar
-document.addEventListener('DOMContentLoaded', function() {
-    const gavetas = document.querySelectorAll('.mesa-gaveta');
-    gavetas.forEach(gaveta => {
-        gaveta.style.display = 'none';
-    });
+    // Inicializar gavetas cerradas (por si acaso)
+    document.querySelectorAll('.mesa-gaveta').forEach(g => g.style.display = 'none');
 });
-    
