@@ -75,10 +75,38 @@
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
- .titulo-linea.dorado {
-    color: var(--oro-puro) !important;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
+/* ==================== TÍTULO (VERSIÓN UNIFICADA) ==================== */
+.titulo-linea.dorado {
+    position: relative;
+    color: var(--oro-puro);
     font-size: 3.5rem;
+    text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.9),
+        0 0 30px rgba(255, 215, 0, 0.6);
+    animation: brillo-letras 3s infinite alternate;
+}
+
+.titulo-linea.dorado::after {
+    content: 'REAL';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    text-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 25px 45px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes brillo-letras {
+    0% { text-shadow: 0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.6); }
+    100% { text-shadow: 0 0 25px #FFD700, 0 0 45px rgba(255,215,0,0.9), 0 0 60px rgba(255,215,0,0.6); }
 }
 
 /* ==================== DESCRIPCIÓN ==================== */
@@ -89,6 +117,34 @@
     margin-bottom: 15px;
     font-weight: 300;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* ==================== DIVISOR ==================== */
+.bienvenida-divisor {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--oro-puro), transparent);
+    margin: 20px auto;
+    opacity: 0.8;
+    position: relative;
+    overflow: hidden;
+}
+
+.bienvenida-divisor::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: correr-luz 3s infinite;
+}
+
+@keyframes correr-luz {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
 }
 
 /* ==================== LEGAL ==================== */
@@ -415,140 +471,10 @@ body.nuevo #telefono-container {
 .particula:nth-child(14) { left: 45%; animation: particula-luz 9s infinite 1.5s; }
 .particula:nth-child(15) { left: 55%; animation: particula-luz 8s infinite 3.5s; }
 
-.titulo-linea {
-    text-shadow: 
-        0 1px 0 rgba(0,0,0,0.5),
-        0 2px 0 rgba(0,0,0,0.4),
-        0 3px 0 rgba(0,0,0,0.3),
-        0 4px 8px rgba(0,0,0,0.4),
-        0 0 20px rgba(255,215,0,0.4) !important;
-    animation: brillo-titulo 4s infinite alternate;
-}
-
-.titulo-linea.dorado {
-    text-shadow: 
-        0 1px 0 rgba(0,0,0,0.5),
-        0 2px 0 rgba(0,0,0,0.4),
-        0 3px 0 rgba(0,0,0,0.3),
-        0 4px 10px rgba(0,0,0,0.4),
-        0 0 20px #FFD700,
-        0 0 40px rgba(255,215,0,0.6) !important;
-    animation: brillo-dorado 3s infinite alternate !important;
-}
-
-@keyframes brillo-titulo {
-    0% { text-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 20px rgba(255,215,0,0.2); }
-    100% { text-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 40px rgba(255,215,0,0.5); }
-}
-
-@keyframes brillo-dorado {
-    0% { text-shadow: 0 0 20px #FFD700, 0 0 30px rgba(255,215,0,0.4); }
-    100% { text-shadow: 0 0 30px #FFD700, 0 0 60px rgba(255,215,0,0.7); }
-}
-
-.bienvenida-divisor::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-    animation: correr-luz 3s infinite;
-}
-
-@keyframes correr-luz {
-    0% { left: -100%; }
-    20% { left: 100%; }
-    100% { left: 100%; }
-}
-
-.emblema-carta {
-    filter: drop-shadow(0 0 15px rgba(255,215,0,0.6)) !important;
-    animation: flotar-lujo 3s infinite alternate ease-in-out !important;
-}
-
-@keyframes flotar-lujo {
-    0% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
-    100% { transform: translateY(-12px) scale(1.05); filter: drop-shadow(0 0 25px rgba(255,215,0,0.9)); }
-}
-
-.bienvenida-descripcion {
-    position: relative;
-    z-index: 10;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-    padding: 10px 20px;
-    border-radius: 30px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255,215,0,0.15);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.bienvenida-btn {
-    background: linear-gradient(145deg, #FFD700, #D4AF37, #FFD700) !important;
-    background-size: 200% 200% !important;
-    animation: oro-liquido 3s infinite alternate !important;
-    border: 1px solid rgba(255,255,255,0.3) !important;
-    box-shadow: 
-        0 4px 15px rgba(0,0,0,0.4),
-        0 0 0 1px rgba(255,215,0,0.3) inset,
-        0 0 30px rgba(255,215,0,0.4) !important;
-}
-
-@keyframes oro-liquido {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
-}
-
-.bienvenida-btn:hover {
-    animation: oro-liquido 1s infinite !important;
-    box-shadow: 
-        0 8px 25px rgba(0,0,0,0.5),
-        0 0 0 2px rgba(255,215,0,0.5) inset,
-        0 0 40px rgba(255,215,0,0.6) !important;
-}
-
-.bienvenida-contenido {
-    backdrop-filter: blur(3px);
-    background: radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0.2) 0%, transparent 70%);
-    border-radius: 40px 40px 0 0;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
-}
-
 /* ==================== FASE 1.2 - EFECTOS NEBLINA MEJORADOS ==================== */
 
 /* ==================== 1. NEBLINA NEGRA PARA "REAL" (+25% más notoria) ==================== */
-.titulo-linea.dorado {
-    position: relative;
-    color: #FFD700 !important;
-    text-shadow: 
-        0 0 15px rgba(255, 215, 0, 0.9),
-        0 0 30px rgba(255, 215, 0, 0.6) !important;
-    animation: brillo-letras 3s infinite alternate;
-}
-
-.titulo-linea.dorado::after {
-    content: 'REAL';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: transparent;
-    text-shadow: 
-        0 0 8px rgba(0, 0, 0, 0.9),
-        0 8px 20px rgba(0, 0, 0, 0.7),
-        0 15px 35px rgba(0, 0, 0, 0.5),
-        0 25px 45px rgba(0, 0, 0, 0.3);
-    opacity: 0.9;
-    pointer-events: none;
-    z-index: -1;
-}
-
-@keyframes brillo-letras {
-    0% { text-shadow: 0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.6); }
-    100% { text-shadow: 0 0 25px #FFD700, 0 0 45px rgba(255,215,0,0.9), 0 0 60px rgba(255,215,0,0.6); }
-}
+/* (Unificado arriba, se mantiene solo el efecto de neblina en bordes) */
 
 /* ==================== 2. NEBLINA DORADA EN BORDES (VERSIÓN SUAVE) ==================== */
 .bienvenida-container {
@@ -652,41 +578,70 @@ body.nuevo #telefono-container {
     100% { opacity: 0.5; width: 70px; filter: blur(18px); }
 }
 
-/* ==================== DIVISOR ==================== */
-.bienvenida-divisor {
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(90deg, 
-                transparent, 
-                var(--oro-puro), 
-                transparent);
-    margin: 20px auto;
-    opacity: 0.8;
+/* ==================== AJUSTES FINALES ==================== */
+.titulo-linea {
+    text-shadow: 
+        0 1px 0 rgba(0,0,0,0.5),
+        0 2px 0 rgba(0,0,0,0.4),
+        0 3px 0 rgba(0,0,0,0.3),
+        0 4px 8px rgba(0,0,0,0.4),
+        0 0 20px rgba(255,215,0,0.4) !important;
+    animation: brillo-titulo 4s infinite alternate;
+}
+
+@keyframes brillo-titulo {
+    0% { text-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 20px rgba(255,215,0,0.2); }
+    100% { text-shadow: 0 4px 15px rgba(0,0,0,0.6), 0 0 40px rgba(255,215,0,0.5); }
+}
+
+.emblema-carta {
+    filter: drop-shadow(0 0 15px rgba(255,215,0,0.6)) !important;
+    animation: flotar-lujo 3s infinite alternate ease-in-out !important;
+}
+
+@keyframes flotar-lujo {
+    0% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 10px rgba(255,215,0,0.4)); }
+    100% { transform: translateY(-12px) scale(1.05); filter: drop-shadow(0 0 25px rgba(255,215,0,0.9)); }
+}
+
+.bienvenida-descripcion {
     position: relative;
-    overflow: hidden;
+    z-index: 10;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    padding: 10px 20px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,215,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.bienvenida-divisor::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-    animation: correr-luz 3s infinite;
+.bienvenida-btn {
+    background: linear-gradient(145deg, #FFD700, #D4AF37, #FFD700) !important;
+    background-size: 200% 200% !important;
+    animation: oro-liquido 3s infinite alternate !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    box-shadow: 
+        0 4px 15px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(255,215,0,0.3) inset,
+        0 0 30px rgba(255,215,0,0.4) !important;
 }
 
-@keyframes correr-luz {
-    0% { left: -100%; }
-    20% { left: 100%; }
-    100% { left: 100%; }
+@keyframes oro-liquido {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
 }
 
-/* ==================== PARCHE DE EMERGENCIA ==================== */
-.titulo-linea.dorado {
-    color: #FFD700 !important;
-    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5) !important;
-    background: transparent !important;
-    border: none !important;
+.bienvenida-btn:hover {
+    animation: oro-liquido 1s infinite !important;
+    box-shadow: 
+        0 8px 25px rgba(0,0,0,0.5),
+        0 0 0 2px rgba(255,215,0,0.5) inset,
+        0 0 40px rgba(255,215,0,0.6) !important;
+}
+
+.bienvenida-contenido {
+    backdrop-filter: blur(3px);
+    background: radial-gradient(ellipse at 50% 30%, rgba(0,0,0,0.2) 0%, transparent 70%);
+    border-radius: 40px 40px 0 0;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
 }
