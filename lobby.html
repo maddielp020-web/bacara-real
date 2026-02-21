@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lobby | Bacará Real</title>
+    
+    <!-- GLOBAL (siempre primero) -->
+    <link rel="stylesheet" href="global.css">
+    
+    <!-- ESPECÍFICO DE LOBBY -->
+    <link rel="stylesheet" href="css/lobby.css">
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="contenedor lobby-container">
+        
+        <!-- ==================== HEADER LOBBY ==================== -->
+        <header class="lobby-header">
+            <h1 class="lobby-titulo">🎰 BACARÁ REAL</h1>
+            <div class="lobby-saldo">
+                <span class="saldo-icono">🪙</span>
+                <span class="saldo-cantidad" id="saldo-usuario">1,250</span>
+            </div>
+        </header>
+
+        <!-- ==================== IDENTIDAD DEL JUGADOR ==================== -->
+        <div class="lobby-usuario" id="usuario-info">
+            <span class="usuario-icono">👤</span>
+            <span class="usuario-nombre" id="usuario-nombre">@usuario_telegram</span>
+        </div>
+
+        <!-- ==================== SELECTOR DE MONTO ==================== -->
+        <div class="selector-monto">
+            <h2 class="selector-titulo">¿Con cuánto quieres jugar?</h2>
+            
+            <div class="botones-monto">
+                <button class="btn-monto" data-monto="500">500₽</button>
+                <button class="btn-monto" data-monto="1000">1000₽</button>
+                <button class="btn-monto" data-monto="1500">1500₽</button>
+                <button class="btn-monto" data-monto="2000">2000₽</button>
+            </div>
+            
+            <div class="monto-personalizado">
+                <label for="monto-input">O ingresa monto:</label>
+                <input type="number" id="monto-input" class="monto-input" placeholder="Ej: 750" min="200" step="50">
+            </div>
+        </div>
+
+        <!-- ==================== LISTA DE MESAS ==================== -->
+        <div class="mesas-container">
+            <h2 class="mesas-titulo">MESAS DISPONIBLES:</h2>
+            
+            <div class="mesas-lista" id="mesas-lista">
+                <!-- Las mesas se cargarán dinámicamente con JS -->
+            </div>
+        </div>
+
+        <!-- ==================== BOTONES DE ACCIÓN ==================== -->
+        <div class="acciones-container">
+            <button class="btn btn-primary btn-comprar" id="btn-comprar">COMPRAR FICHAS</button>
+            <button class="btn btn-admin" id="btn-admin" style="display: none;">ADMIN</button>
+        </div>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="lobby-footer">
+            <p class="footer-version">v1.0 · exclusivo</p>
+        </footer>
+    </div>
+
+    <script src="js/lobby.js"></script>
+</body>
+</html>
