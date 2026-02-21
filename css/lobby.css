@@ -270,3 +270,10 @@
     text-align: center;
     border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
+
+/* ==================== TÍTULO DORADO - VERSIÓN DEFINITIVA ==================== */
+.lobby-titulo {
+    color: #FFD700 !important;  /* Dorado puro, sin depender de variables */
+    font-size: 1.5rem;          /* Mantiene el tamaño actual */
+    font-weight: 600;           /* Mantiene el peso actual */
+}
