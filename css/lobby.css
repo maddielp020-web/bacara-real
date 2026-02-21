@@ -211,7 +211,7 @@
 }
 
 .mesa-monto {
-    color: var(--oro-puro) !important;
+    color: #FFFFFF !important;
     font-weight: 700;
     font-size: 1rem;
 }
@@ -221,9 +221,9 @@
     font-size: 0.8rem;
 }
 
-.mesa-accion .btn-entrar {
-    background: var(--azul-casino);
-    color: white;
+.btn-entrar {
+    background: #005EB8 !important;
+    color: white !important;
     border: none;
     border-radius: 30px;
     padding: 8px 18px;
@@ -232,9 +232,10 @@
     transition: all 0.2s;
 }
 
-.mesa-accion .btn-entrar:hover {
+.btn-entrar:hover,
+.btn-entrar:focus {
     background: #1a6bc9;
-    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
 .mesa-accion .btn-llena {
@@ -281,6 +282,93 @@
     padding: 15px 20px;
     text-align: center;
     border-top: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+/* ==================== GAVETA ==================== */
+.mesa-card {
+    margin-bottom: 10px;
+    transition: all 0.2s;
+}
+
+.mesa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #1A1A1A;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.mesa-header:hover {
+    border-color: rgba(255, 215, 0, 0.5);
+}
+
+.mesa-gaveta {
+    background: #222222;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    padding: 20px;
+    margin-top: -5px;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.gaveta-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.gaveta-linea {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.gaveta-linea:first-child {
+    font-weight: 600;
+}
+
+.gaveta-microcopia {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    margin: 5px 0 0;
+    text-align: center;
+}
+
+.btn-comprar-gaveta {
+    background: #005EB8;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin: 10px 0 5px;
+}
+
+.btn-comprar-gaveta:hover,
+.btn-comprar-gaveta:focus {
+    background: #1a6bc9;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    transform: scale(1.02);
+}
+
+.mesa-valor-gaveta {
+    font-weight: 700;
+    color: var(--oro-puro);
 }
 
 /* ==================== TÍTULO DORADO - VERSIÓN DEFINITIVA ==================== */
