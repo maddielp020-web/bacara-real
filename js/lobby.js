@@ -109,6 +109,58 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // ==================== GAVETA - COMPORTAMIENTO ====================
+
+let mesaAbierta = null;
+
+function toggleGaveta(element) {
+    const mesaCard = element.closest('.mesa-card');
+    if (!mesaCard) return;
+    
+    const gaveta = mesaCard.querySelector('.mesa-gaveta');
+    if (!gaveta) return;
+    
+    if (mesaAbierta && mesaAbierta !== mesaCard) {
+        const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+        if (gavetaAnterior) {
+            gavetaAnterior.style.display = 'none';
+        }
+    }
+    
+    if (gaveta.style.display === 'none' || !gaveta.style.display) {
+        gaveta.style.display = 'block';
+        mesaAbierta = mesaCard;
+    } else {
+        gaveta.style.display = 'none';
+        mesaAbierta = null;
+    }
+}
+
+function comprarFichas(button) {
+    const mesaCard = button.closest('.mesa-card');
+    if (!mesaCard) return;
+    
+    const mesaId = mesaCard.dataset.mesaId;
+    const mesaNumero = mesaCard.querySelector('.mesa-numero')?.textContent || 'desconocida';
+    const mesaValor = mesaCard.querySelector('.mesa-monto')?.textContent || '0';
+    
+    console.log(`✅ Comprar fichas para ${mesaNumero} - Valor: ${mesaValor}`);
+    alert(`[SIMULACIÓN] Comprar fichas para ${mesaNumero} - Valor: ${mesaValor}`);
+    
+    button.style.transform = 'scale(0.98)';
+    setTimeout(() => {
+        button.style.transform = 'scale(1)';
+    }, 200);
+}
+
+// Asegurar que todas las gavetas estén ocultas al cargar
+document.addEventListener('DOMContentLoaded', function() {
+    const gavetas = document.querySelectorAll('.mesa-gaveta');
+    gavetas.forEach(gaveta => {
+        gaveta.style.display = 'none';
+    });
+});
+    
     // ==================== BOTONES DE ACCIÓN ====================
     document.getElementById('btn-comprar').addEventListener('click', function() {
         console.log('Comprar fichas');
