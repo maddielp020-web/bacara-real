@@ -191,22 +191,19 @@ document.addEventListener('DOMContentLoaded', function() {
         actualizarBotones();
     });
     
-    // Validación mientras escribe (solo para limpiar errores)
-    codigoInput.addEventListener('input', function() {
-        // Si el campo no está vacío, limpiar error (se validará en blur)
-        if (codigoInput.value.trim() !== '') {
-            limpiarError(codigoError);
-        }
-    });
+    // Validación mientras escribe
+codigoInput.addEventListener('input', function() {
+    const codigo = codigoInput.value.trim();
     
-    telefonoInput.addEventListener('input', function() {
-        if (telefonoInput.value.trim() !== '') {
-            limpiarError(telefonoError);
-        } else {
-            // Si está vacío, quitar clase valido
-            telefonoInput.classList.remove('valido');
-        }
-    });
+    if (codigo !== '') {
+        limpiarError(codigoError);
+    }
+    
+    if (codigo === '' && codigoValidoActual) {
+        codigoValidoActual = false;
+        actualizarBotones();
+    }
+});
     
     // ==================== 5A. FUNCIÓN PARA ACTUALIZAR ESTILOS DE INPUTS ====================
     function actualizarEstilosInputs() {
