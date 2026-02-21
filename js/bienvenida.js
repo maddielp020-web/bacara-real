@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Código válido
+       // Código válido
         limpiarError(codigoError);
         codigoValidoActual = true;
         
@@ -152,15 +152,16 @@ document.addEventListener('DOMContentLoaded', function() {
         tipoJugador = determinarTipoJugador(codigo);
         actualizarUITipoJugador();
         
-        // Si es recurrente, limpiar validación de teléfono
+        // Si es recurrente, limpiar validación de teléfono y forzar actualización inmediata
         if (tipoJugador === 'recurrente') {
             telefonoValidoActual = false;
             limpiarError(telefonoError);
             telefonoInput.value = '';
+            // Forzar actualización inmediata para que los botones se habiliten ya
+            actualizarBotones();
+        } else {
+            actualizarBotones();
         }
-        
-        actualizarBotones();
-    });
     
     // Validación del teléfono (al perder foco)
     telefonoInput.addEventListener('blur', function() {
