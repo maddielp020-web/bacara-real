@@ -71,36 +71,33 @@ document.addEventListener('DOMContentLoaded', function() {
         return 'nuevo'; // Por defecto
     }
     
-    // Validar formato de teléfono (mínimo 10 dígitos)
+    // Validar formato de teléfono (10 dígitos exactos)
     function validarTelefono(telefono) {
         const soloNumeros = telefono.replace(/\D/g, '');
-        return soloNumeros.length >= 10;
+        return soloNumeros.length === 10;
     }
     
     // Actualizar estado de los botones según validaciones
     function actualizarBotones() {
-        // Primero actualizar estilos de inputs
+        // Actualizar estilos de inputs
         actualizarEstilosInputs();
         
-        // Caso 1: No hay código válido
-        if (!codigoValidoActual) {
-            btnPrincipal.disabled = true;
-            btnTerminos.disabled = true;
-            return;
-        }
-        
-        // Caso 2: Código válido y es recurrente
+        // ===== BOTÓN TÉRMINOS =====
         if (tipoJugador === 'recurrente') {
-            btnTerminos.disabled = false;  // Siempre activo para recurrentes
-            btnPrincipal.disabled = false; // Activado porque código ya es válido
-            return;
+            // Recurrente: siempre habilitado
+            btnTerminos.disabled = false;
+        } else {
+            // Nuevo: solo cuando código + teléfono válidos
+            btnTerminos.disabled = !(codigoValidoActual && telefonoValidoActual);
         }
         
-        // Caso 3: Código válido y es nuevo (requiere teléfono)
-        if (tipoJugador === 'nuevo') {
-            btnTerminos.disabled = !telefonoValidoActual; // Se activa solo cuando teléfono es válido
-            btnPrincipal.disabled = !telefonoValidoActual;
-            return;
+        // ===== BOTÓN PRINCIPAL =====
+        if (tipoJugador === 'recurrente') {
+            // Recurrente: solo necesita código válido
+            btnPrincipal.disabled = !codigoValidoActual;
+        } else {
+            // Nuevo: necesita código + teléfono válidos
+            btnPrincipal.disabled = !(codigoValidoActual && telefonoValidoActual);
         }
     }
     
@@ -109,11 +106,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tipoJugador === 'recurrente') {
             document.body.classList.add('recurrente');
             document.body.classList.remove('nuevo');
-            btnTexto.textContent = 'ENTRAR AL LOBBY';
+            // El texto NO cambia - siempre "VERIFICAR Y CONTINUAR"
         } else {
             document.body.classList.add('nuevo');
             document.body.classList.remove('recurrente');
-            btnTexto.textContent = 'VERIFICAR Y CONTINUAR';
+            // El texto NO cambia - siempre "VERIFICAR Y CONTINUAR"
         }
     }
     
@@ -157,8 +154,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Si es recurrente, limpiar validación de teléfono
         if (tipoJugador === 'recurrente') {
-            telefonoValidoActual = false; // No necesita teléfono
+            telefonoValidoActual = false;
             limpiarError(telefonoError);
+            telefonoInput.value = '';
         }
         
         actualizarBotones();
@@ -170,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (tipoJugador !== 'nuevo') return;
         
         const telefono = telefonoInput.value.trim();
+        const soloNumeros = telefono.replace(/\D/g, '');
         
         if (telefono === '') {
             mostrarError(telefonoError, '❌ El teléfono es obligatorio');
@@ -178,8 +177,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        if (!validarTelefono(telefono)) {
-            mostrarError(telefonoError, '❌ Número inválido (mínimo 10 dígitos)');
+        if (soloNumeros.length !== 10) {
+            mostrarError(telefonoError, '❌ Número inválido (debe tener 10 dígitos)');
             telefonoValidoActual = false;
             actualizarBotones();
             return;
@@ -191,19 +190,37 @@ document.addEventListener('DOMContentLoaded', function() {
         actualizarBotones();
     });
     
-    // Validación mientras escribe
-codigoInput.addEventListener('input', function() {
-    const codigo = codigoInput.value.trim();
+    // Validación mientras escribe (solo para limpiar errores)
+    codigoInput.addEventListener('input', function() {
+        const codigo = codigoInput.value.trim();
+        
+        if (codigo !== '') {
+            limpiarError(codigoError);
+        }
+    });
     
-    if (codigo !== '') {
-        limpiarError(codigoError);
-    }
-    
-    if (codigo === '' && codigoValidoActual) {
-        codigoValidoActual = false;
+    // Validación en tiempo real para teléfono (NUEVO: revalida inmediatamente)
+    telefonoInput.addEventListener('input', function() {
+        // Solo validar si es jugador nuevo
+        if (tipoJugador !== 'nuevo') return;
+        
+        const telefono = telefonoInput.value.trim();
+        const soloNumeros = telefono.replace(/\D/g, '');
+        
+        // Limpiar error mientras escribe
+        if (telefono !== '') {
+            limpiarError(telefonoError);
+        }
+        
+        // Revalidar en tiempo real
+        if (soloNumeros.length === 10) {
+            telefonoValidoActual = true;
+        } else {
+            telefonoValidoActual = false;
+        }
+        
         actualizarBotones();
-    }
-});
+    });
     
     // ==================== 5A. FUNCIÓN PARA ACTUALIZAR ESTILOS DE INPUTS ====================
     function actualizarEstilosInputs() {
@@ -231,7 +248,6 @@ codigoInput.addEventListener('input', function() {
         const codigo = codigoInput.value.trim();
         const telefono = telefonoInput.value.trim();
         
-        // Guardar en consola/log (simulación)
         console.log('✅ VERIFICACIÓN EXITOSA:', {
             codigo: codigo,
             telefono: tipoJugador === 'nuevo' ? telefono : 'NO APLICA',
@@ -241,10 +257,10 @@ codigoInput.addEventListener('input', function() {
         
         // Redirigir según tipo
         if (tipoJugador === 'nuevo') {
-            console.log('🔀 Redirigiendo a terminos.html');
+            console.log('🔀 Nuevo jugador → terminos.html');
             window.location.href = 'terminos.html';
         } else {
-            console.log('🔀 Redirigiendo a lobby.html');
+            console.log('🔀 Recurrente → lobby.html');
             window.location.href = 'lobby.html';
         }
     });
@@ -253,7 +269,7 @@ codigoInput.addEventListener('input', function() {
     btnTerminos.addEventListener('click', function() {
         if (btnTerminos.disabled) return;
         
-        console.log('📜 Abriendo términos y condiciones');
+        console.log('📜 Abriendo términos (modo solo lectura)');
         window.location.href = 'terminos.html';
     });
     
