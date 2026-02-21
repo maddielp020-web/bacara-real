@@ -53,9 +53,100 @@
             <h2 class="mesas-titulo">MESAS DISPONIBLES:</h2>
             
             <div class="mesas-lista" id="mesas-lista">
-                <!-- Las mesas se cargarán dinámicamente con JS -->
+    <!-- ==================== MESA 1 CON GAVETA ==================== -->
+    <div class="mesa-card" data-mesa-id="1">
+        <div class="mesa-header" onclick="toggleGaveta(this)">
+            <div class="mesa-info">
+                <span class="mesa-estado">🟢</span>
+                <div class="mesa-detalles">
+                    <span class="mesa-numero">MESA #1</span>
+                    <span class="mesa-monto">700₽</span>
+                    <span class="mesa-ocupacion">4/6</span>
+                </div>
+            </div>
+            <div class="mesa-accion">
+                <button class="btn-entrar">▶ ENTRAR</button>
             </div>
         </div>
+        
+        <!-- ==================== GAVETA (oculta por defecto) ==================== -->
+        <div class="mesa-gaveta" style="display: none;">
+            <div class="gaveta-contenido">
+                <p class="gaveta-linea">✅ Ha seleccionado la mesa #<span class="mesa-id-gaveta">1</span></p>
+                <p class="gaveta-linea">Valor de entrada: <span class="mesa-valor-gaveta">700</span> ₽</p>
+                <p class="gaveta-linea">✨ ¡Gracias por jugar con nosotros!</p>
+                <p class="gaveta-linea">Excelente elección</p>
+                
+                <button class="btn-comprar-gaveta" onclick="comprarFichas(this)">
+                    COMPRAR FICHAS
+                </button>
+                <p class="gaveta-microcopia">(Toque el botón para continuar)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MESA 2 CON GAVETA ==================== -->
+    <div class="mesa-card" data-mesa-id="2">
+        <div class="mesa-header" onclick="toggleGaveta(this)">
+            <div class="mesa-info">
+                <span class="mesa-estado">🟢</span>
+                <div class="mesa-detalles">
+                    <span class="mesa-numero">MESA #2</span>
+                    <span class="mesa-monto">1000₽</span>
+                    <span class="mesa-ocupacion">3/6</span>
+                </div>
+            </div>
+            <div class="mesa-accion">
+                <button class="btn-entrar">▶ ENTRAR</button>
+            </div>
+        </div>
+        
+        <div class="mesa-gaveta" style="display: none;">
+            <div class="gaveta-contenido">
+                <p class="gaveta-linea">✅ Ha seleccionado la mesa #<span class="mesa-id-gaveta">2</span></p>
+                <p class="gaveta-linea">Valor de entrada: <span class="mesa-valor-gaveta">1000</span> ₽</p>
+                <p class="gaveta-linea">✨ ¡Gracias por jugar con nosotros!</p>
+                <p class="gaveta-linea">Excelente elección</p>
+                
+                <button class="btn-comprar-gaveta" onclick="comprarFichas(this)">
+                    COMPRAR FICHAS
+                </button>
+                <p class="gaveta-microcopia">(Toque el botón para continuar)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MESA 3 CON GAVETA ==================== -->
+    <div class="mesa-card" data-mesa-id="3">
+        <div class="mesa-header" onclick="toggleGaveta(this)">
+            <div class="mesa-info">
+                <span class="mesa-estado">🟡</span>
+                <div class="mesa-detalles">
+                    <span class="mesa-numero">MESA #3</span>
+                    <span class="mesa-monto">1200₽</span>
+                    <span class="mesa-ocupacion">2/6</span>
+                </div>
+            </div>
+            <div class="mesa-accion">
+                <button class="btn-entrar">▶ ENTRAR</button>
+            </div>
+        </div>
+        
+        <div class="mesa-gaveta" style="display: none;">
+            <div class="gaveta-contenido">
+                <p class="gaveta-linea">✅ Ha seleccionado la mesa #<span class="mesa-id-gaveta">3</span></p>
+                <p class="gaveta-linea">Valor de entrada: <span class="mesa-valor-gaveta">1200</span> ₽</p>
+                <p class="gaveta-linea">✨ ¡Gracias por jugar con nosotros!</p>
+                <p class="gaveta-linea">Excelente elección</p>
+                
+                <button class="btn-comprar-gaveta" onclick="comprarFichas(this)">
+                    COMPRAR FICHAS
+                </button>
+                <p class="gaveta-microcopia">(Toque el botón para continuar)</p>
+            </div>
+        </div>
+    </div>
+</div>
 
         <!-- ==================== BOTONES DE ACCIÓN ==================== -->
         <div class="acciones-container">
