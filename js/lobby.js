@@ -161,17 +161,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
     
-    // ==================== BOTONES DE ACCIÓN ====================
-    document.getElementById('btn-comprar').addEventListener('click', function() {
-        console.log('Comprar fichas');
-        alert('[SIMULACIÓN] Abrir pantalla de compra');
-    });
-    
-    const btnAdmin = document.getElementById('btn-admin');
-    if (btnAdmin) {
-        btnAdmin.addEventListener('click', function() {
-            console.log('Panel admin');
-            alert('[SIMULACIÓN] Abrir panel de administrador');
-        });
-    }
-});
