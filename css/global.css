@@ -2,28 +2,29 @@
    Este archivo contiene los estilos base de TODA la aplicación.
    NO MODIFICAR sin aprobación del director de diseño.
    Versión: 1.0 - Definitiva
+
 /* ==================== 1. VARIABLES (PALETA OFICIAL) ==================== */
 :root {
     /* Colores principales - NO CAMBIAR */
-    --rojo-baraja: #EF3340;      /* Pantone 185 C - Energía, acción */
-    --oro-puro: #FFD700;          /* Pantone 012 C - Lujo, exclusividad */
-    --azul-casino: #005EB8;       /* Pantone 300 C - Confianza, estabilidad */
-    --verde-bacara: #009A44;      /* Pantone 348 C - Mesa de juego, tradición */
-    --negro-fondo: #181818;       /* Elegancia, profundidad */
-    --blanco-texto: #F0F0E6;      /* Legibilidad, limpieza */
+    --rojo-baraja: #EF3340;
+    --oro-puro: #FFD700;
+    --azul-casino: #005EB8;
+    --verde-bacara: #009A44;
+    --negro-fondo: #181818;
+    --blanco-texto: #F0F0E6;
     
     /* Colores secundarios - Derivados */
-    --gris-oscuro: #2A2A2A;       /* Tarjetas, fondos secundarios */
-    --gris-medio: #3A3A3A;         /* Bordes, separadores */
-    --gris-transparente: rgba(240, 240, 230, 0.6);  /* Textos secundarios */
-    --rojo-suave: rgba(239, 51, 64, 0.1);           /* Fondos de advertencia */
-    --oro-transparente: rgba(255, 215, 0, 0.3);     /* Bordes sutiles */
-    --dorado-suave: #D4AF37;       /* Variante oro para hover */
-    
-    /* ==================== SOMBRAS PROFESIONALES (Aprobadas) ==================== */
---sombra-oro: 0 10px 20px -5px rgba(255, 215, 0, 0.3);
---sombra-profunda: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
---brillo-interno: inset 0 0 20px rgba(255, 215, 0, 0.2);
+    --gris-oscuro: #2A2A2A;
+    --gris-medio: #3A3A3A;
+    --gris-transparente: rgba(240, 240, 230, 0.6);
+    --rojo-suave: rgba(239, 51, 64, 0.1);
+    --oro-transparente: rgba(255, 215, 0, 0.3);
+    --dorado-suave: #D4AF37;
+
+    /* SOMBRAS PROFESIONALES */
+    --sombra-oro: 0 10px 20px -5px rgba(255, 215, 0, 0.3);
+    --sombra-profunda: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
+    --brillo-interno: inset 0 0 20px rgba(255, 215, 0, 0.2);
 }
 
 /* ==================== 2. RESET UNIVERSAL ==================== */
