@@ -354,6 +354,52 @@ body.nuevo #telefono-container {
     }
 }
 
+/* ==================== BOTÓN CERRAR ==================== */
+.btn-cerrar {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--oro-transparente);
+    color: var(--blanco-texto);
+    font-size: 24px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-cerrar:hover {
+    background: var(--rojo-baraja);
+    border-color: var(--oro-puro);
+    transform: scale(1.05);
+}
+
+.btn-cerrar:active {
+    transform: scale(0.95);
+}
+
+/* Ajuste para iPhone - área táctil más grande */
+@media (max-width: 480px) {
+    .btn-cerrar {
+        top: 12px;
+        right: 12px;
+        width: 48px;
+        height: 48px;
+        font-size: 28px;
+    }
+}
+
 /* ==================== CORRECIONES VISUALES ==================== */
 
 /* Dar margen a los contenedores para que los inputs no lleguen al borde */
