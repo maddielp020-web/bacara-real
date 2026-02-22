@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-       // Código válido
+        // Código válido
         limpiarError(codigoError);
         codigoValidoActual = true;
         
@@ -157,11 +157,12 @@ document.addEventListener('DOMContentLoaded', function() {
             telefonoValidoActual = false;
             limpiarError(telefonoError);
             telefonoInput.value = '';
-            // Forzar actualización inmediata para que los botones se habiliten ya
+            // Forzar que los botones se habiliten inmediatamente
             actualizarBotones();
         } else {
             actualizarBotones();
         }
+    });
     
     // Validación del teléfono (al perder foco)
     telefonoInput.addEventListener('blur', function() {
@@ -200,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Validación en tiempo real para teléfono (NUEVO: revalida inmediatamente)
+    // Validación en tiempo real para teléfono
     telefonoInput.addEventListener('input', function() {
         // Solo validar si es jugador nuevo
         if (tipoJugador !== 'nuevo') return;
