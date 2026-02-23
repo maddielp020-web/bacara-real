@@ -242,6 +242,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ==================== 6. ACCIONES DE BOTONES ====================
+    // ==================== BOTÓN CERRAR TELEGRAM ====================
+    const btnCerrar = document.getElementById('btn-cerrar-bienvenida');
+    
+    if (btnCerrar) {
+        btnCerrar.addEventListener('click', function() {
+            console.log('🔴 Cerrando miniapp de Telegram');
+            
+            // Intentar cerrar Telegram de diferentes formas
+            if (window.Telegram && Telegram.WebApp) {
+                Telegram.WebApp.close();
+            } else {
+                // Fallback para pruebas en navegador
+                console.log('⚠️ Modo desarrollo: no se puede cerrar Telegram');
+                alert('En Telegram esto cerraría la app');
+            }
+        });
+    }
     
     // Botón principal
     btnPrincipal.addEventListener('click', function() {
