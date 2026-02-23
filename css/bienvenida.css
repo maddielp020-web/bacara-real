@@ -240,7 +240,7 @@
 .campo-label {
     display: block;
     color: var(--oro-puro);
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     margin-bottom: 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -271,7 +271,7 @@
 
 /* Texto de ayuda (para teléfono) */
 .campo-ayuda {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.5);
     margin-top: 5px;
     padding-left: 5px;
@@ -486,7 +486,7 @@ body.nuevo #telefono-container {
 
 /* ==================== CHAT VISUALES - CAPAS DE EFECTO ==================== */
 /* AÑADIR AL FINAL DEL ARCHIVO */
-/* VERSIÓN: 1.0 - SOLO CÓDIGO FUNCIONAL */
+/* VERSIÓN: 1.2 - AJUSTES FINALES */
 
 .bienvenida-overlay {
     animation: respiro-casino 25s infinite alternate ease-in-out;
@@ -516,6 +516,23 @@ body.nuevo #telefono-container {
     pointer-events: none;
 }
 
+.bienvenida-btn:disabled {
+    background: rgba(255, 255, 255, 0.22) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.bienvenida-btn:not(:disabled) {
+    background: #F0EEE9 !important;
+    color: #1A1A1A !important;
+    box-shadow: var(--sombra-oro), 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+
 .bienvenida-btn:not(:disabled)::before {
     content: '';
     position: absolute;
@@ -525,10 +542,15 @@ body.nuevo #telefono-container {
     height: 1px;
     background: linear-gradient(90deg, 
         transparent, 
-        rgba(255, 255, 255, 0.5), 
+        rgba(255, 215, 0, 0.4), 
         transparent);
-    opacity: 0.5;
+    opacity: 0.6;
     pointer-events: none;
+}
+
+.bienvenida-btn:not(:disabled):hover {
+    background: #F5F3EF !important;
+    transform: translateY(-1px);
 }
 
 .acceso-container .btn:not(:disabled) {
@@ -543,8 +565,19 @@ body.nuevo #telefono-container {
     box-shadow: var(--brillo-interno), 0 0 0 2px rgba(255, 215, 0, 0.3) !important;
 }
 
+/* Texto de ayuda MÁS GRANDE (feedback usuarios) */
+.campo-ayuda {
+    font-size: 0.85rem !important;
+}
+
 .bienvenida-container {
     box-shadow: var(--sombra-profunda), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+    background-image: 
+        repeating-linear-gradient(45deg, 
+            rgba(255,215,0,0.01) 0px, 
+            rgba(255,215,0,0.01) 2px, 
+            transparent 2px, 
+            transparent 6px);
 }
 
 .emblema-carta {
@@ -590,15 +623,6 @@ body.nuevo #telefono-container {
     height: 3px;
     border-radius: 3px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.bienvenida-container {
-    background-image: 
-        repeating-linear-gradient(45deg, 
-            rgba(255,215,0,0.01) 0px, 
-            rgba(255,215,0,0.01) 2px, 
-            transparent 2px, 
-            transparent 6px);
 }
 
 /* ==================== FIN CAPAS VISUALES ==================== */
