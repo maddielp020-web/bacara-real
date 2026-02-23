@@ -297,15 +297,18 @@
     display: block;
 }
 
-/* Botones en el contenedor de acceso - VERSIÓN MÁS GRANDE */
+/* Botones en el contenedor de acceso - MISMO ANCHO QUE INPUTS */
 .acceso-container .btn {
     margin: 15px 0;
     transition: all 0.3s ease;
-    font-size: 1.3rem !important;
-    padding: 18px 28px !important;
-    min-width: 300px !important;
-    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    padding: 14px 20px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: unset !important;
+    font-weight: 600 !important;
     letter-spacing: 1px;
+    box-sizing: border-box;
 }
 
 /* Estado deshabilitado */
