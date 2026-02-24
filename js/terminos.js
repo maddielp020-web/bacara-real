@@ -60,16 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 modalCerrar.style.display = 'none';
             }
             
-            // Intentar cerrar Telegram
             if (window.Telegram && Telegram.WebApp) {
-                Telegram.WebApp.close();
-            } else {
-                // Fallback para pruebas
-                console.log('⚠️ Modo desarrollo: no se puede cerrar Telegram');
-                alert('✅ En Telegram real, esto cerraría la app');
-            }
-        });
-    }
+    Telegram.WebApp.close();
+} else {
+    // Modo desarrollo - solo log, sin alert
+    console.log('⚠️ Modo desarrollo: no se puede cerrar Telegram');
+}
     
     // Cerrar modal si se hace clic en el overlay (opcional)
     if (modalCerrar) {
