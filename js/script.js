@@ -1,122 +1,313 @@
-// ==================== SCRIPT PARA TÉRMINOS Y CONDICIONES ====================
-// Controla: scroll, checkbox, botón aceptar, navegación a mesa.html
-// ============================================================================
+// ==================== LOBBY - DATOS SIMULADOS Y COMPORTAMIENTO ====================
+// NOTA: Los datos hardcodeados (username, saldo, esAdmin) son SIMULACIONES
+// En producción vendrán del bot de Telegram y backend
 
-console.log('✅ script.js cargado correctamente');
-
-// ==================== ESPERAR A QUE EL DOM CARGUE ====================
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ DOM completamente cargado');
     
-    // ==================== OBTENER ELEMENTOS ====================
-    // CAMBIO AQUÍ: usar querySelector con la clase en lugar de getElementById
-    const contenidoScroll = document.querySelector('.terminos-contenido');
-    const checkbox = document.getElementById('checkbox-acepto');
-    const btnAceptar = document.getElementById('btn-acepto');
-    const indicadorScroll = document.getElementById('indicador-scroll');
+    // ==================== DATOS DE PRUEBA (TEMPORALES) ====================
+    // Estos datos serán reemplazados por los del bot de Telegram
+    const jugador = {
+        username: "@antonio",
+        saldo: 1250,
+        esAdmin: false  // cambiar a true para probar funcionalidad admin
+    };
     
-    // Verificar que los elementos existen
-    if (!contenidoScroll) {
-        console.error('❌ No se encontró .terminos-contenido');
-        return;
+    const mesas = [
+        { id: 1, monto: 700, jugadores: 4, max: 6, estado: "activa" },
+        { id: 2, monto: 1000, jugadores: 3, max: 6, estado: "activa" },
+        { id: 3, monto: 1200, jugadores: 1, max: 6, estado: "espera" },
+        { id: 4, monto: 1500, jugadores: 6, max: 6, estado: "llena" }
+    ];
+    
+    // ==================== MOSTRAR DATOS DEL JUGADOR ====================
+    document.getElementById('usuario-nombre').textContent = jugador.username;
+    document.getElementById('saldo-usuario').textContent = jugador.saldo.toLocaleString();
+    
+    // Mostrar badge de admin si corresponde
+    const adminBadge = document.getElementById('admin-badge');
+    if (jugador.esAdmin) {
+        adminBadge.style.display = 'inline-block';
+        console.log('👑 Usuario administrador detectado');
     }
-    if (!checkbox) {
-        console.error('❌ No se encontró #checkbox-acepto');
-        return;
+    
+    // ==================== ELEMENTOS DEL DOM ====================
+    const mesasLista = document.getElementById('mesas-lista');
+    const botonesMonto = document.querySelectorAll('.btn-monto');
+    const montoInput = document.getElementById('monto-input');
+    const montoFeedback = document.getElementById('monto-feedback');
+    
+    // ==================== VALIDACIÓN DE MONTO ====================
+    function validarMonto(valor) {
+        const num = parseInt(valor);
+        
+        // Vacío o no numérico
+        if (isNaN(num) || valor === '') {
+            return { valido: false, mensaje: 'Ingresa un monto' };
+        }
+        
+        // Mínimo 200
+        if (num < 200) {
+            return { valido: false, mensaje: 'El monto mínimo es 200₽' };
+        }
+        
+        // Múltiplo de 50
+        if (num % 50 !== 0) {
+            return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
+        }
+        
+        // Saldo suficiente
+        if (num > jugador.saldo) {
+            return { valido: false, mensaje: 'Saldo insuficiente' };
+        }
+        
+        return { valido: true, mensaje: '✓ Monto válido' };
     }
-    if (!btnAceptar) {
-        console.error('❌ No se encontró #btn-acepto');
-        return;
+    
+    function actualizarFeedbackMonto() {
+        const valor = montoInput.value;
+        const resultado = validarMonto(valor);
+        
+        // Actualizar clases del input
+        montoInput.classList.remove('valido', 'invalido');
+        montoFeedback.classList.remove('valido', 'invalido');
+        
+        if (valor === '') {
+            montoFeedback.textContent = '';
+            return;
+        }
+        
+        if (resultado.valido) {
+            montoInput.classList.add('valido');
+            montoFeedback.classList.add('valido');
+            montoFeedback.textContent = resultado.mensaje;
+        } else {
+            montoInput.classList.add('invalido');
+            montoFeedback.classList.add('invalido');
+            montoFeedback.textContent = '❌ ' + resultado.mensaje;
+        }
+        
+        // Re-renderizar mesas para actualizar botones Entrar (habilitados/deshabilitados)
+        const montoActual = resultado.valido ? parseInt(valor) : null;
+        renderizarMesas(montoActual);
     }
     
-    console.log('✅ Todos los elementos encontrados');
+    // ==================== RENDERIZAR MESAS ====================
+    function getEstadoInfo(jugadores) {
+        if (jugadores === 6) return { color: 'gris', texto: '⚪' };
+        if (jugadores === 1) return { color: 'rojo', texto: '🔴' };
+        if (jugadores >= 2) return { color: 'verde', texto: '🟢' };
+        return { color: 'amarillo', texto: '🟡' };
+    }
     
-    // ==================== VARIABLES DE ESTADO ====================
-    let haLlegadoAlFinal = false;
-    
-    // ==================== DETECCIÓN DE SCROLL AL FINAL ====================
-    function verificarScroll() {
-        // Altura total del contenido scrollable
-        const alturaTotal = contenidoScroll.scrollHeight;
+    function renderizarMesas(filtroMonto = null) {
+        mesasLista.innerHTML = '';
         
-        // Altura visible del contenedor
-        const alturaVisible = contenidoScroll.clientHeight;
+        let mesasFiltradas = mesas;
+        if (filtroMonto) {
+            // Filtro simulado: mesas con monto cercano al seleccionado
+            mesasFiltradas = mesas.filter(m => Math.abs(m.monto - filtroMonto) <= 300);
+        }
         
-        // Posición actual del scroll
-        const scrollActual = contenidoScroll.scrollTop;
+        mesasFiltradas.sort((a, b) => a.monto - b.monto);
         
-        // Margen de error (20px desde el final)
-        const margenError = 20;
+        // Verificar si hay un monto válido seleccionado
+        const montoActual = parseInt(montoInput.value);
+        const montoValido = validarMonto(montoActual).valido;
         
-        // Calcular si llegó al final
-        const llegoAlFinal = (scrollActual + alturaVisible) >= (alturaTotal - margenError);
-        
-        console.log(`📊 Scroll: ${scrollActual + alturaVisible} / ${alturaTotal} - ¿Final? ${llegoAlFinal}`);
-        
-        if (llegoAlFinal && !haLlegadoAlFinal) {
-            // Primera vez que llega al final
-            haLlegadoAlFinal = true;
-            console.log('🎉 Usuario llegó al final de los términos');
+        mesasFiltradas.forEach(mesa => {
+            const estadoInfo = getEstadoInfo(mesa.jugadores);
+            const esLlena = mesa.jugadores === 6;
             
-            // Habilitar el checkbox
-            checkbox.disabled = false;
+            const mesaCard = document.createElement('div');
+            mesaCard.className = `mesa-card estado-${estadoInfo.color}`;
+            mesaCard.dataset.mesaId = mesa.id;
             
-            // Opcional: cambiar apariencia del indicador
-            if (indicadorScroll) {
-                indicadorScroll.style.opacity = '0';
-                indicadorScroll.style.transition = 'opacity 0.5s';
+            // Header de la mesa
+            const header = document.createElement('div');
+            header.className = 'mesa-header';
+            
+            // Info izquierda
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'mesa-info';
+            infoDiv.innerHTML = `
+                <span class="mesa-estado">${estadoInfo.texto}</span>
+                <div class="mesa-detalles">
+                    <span class="mesa-numero">MESA #${mesa.id}</span>
+                    <span class="mesa-monto">${mesa.monto}₽</span>
+                    <span class="mesa-ocupacion">${mesa.jugadores}/${mesa.max}</span>
+                </div>
+            `;
+            
+            // Botón Entrar
+            const accionDiv = document.createElement('div');
+            accionDiv.className = 'mesa-accion';
+            
+            if (esLlena) {
+                accionDiv.innerHTML = '<span class="btn-llena">LLENA</span>';
+            } else {
+                const entrarBtn = document.createElement('button');
+                entrarBtn.className = 'btn-entrar';
+                entrarBtn.textContent = '▶ ENTRAR';
+                entrarBtn.dataset.mesaId = mesa.id;
+                
+                // Deshabilitar si no hay monto válido
+                if (!montoValido) {
+                    entrarBtn.disabled = true;
+                }
+                
+                // Event listener en lugar de onclick
+                entrarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    manejarEntrarMesa(mesa.id, mesa.monto);
+                });
+                
+                accionDiv.appendChild(entrarBtn);
             }
             
-            // Opcional: pequeño mensaje
-            console.log('✅ Checkbox habilitado');
+            header.appendChild(infoDiv);
+            header.appendChild(accionDiv);
+            
+            // Gaveta
+            const gaveta = document.createElement('div');
+            gaveta.className = 'mesa-gaveta';
+            gaveta.style.display = 'none';
+            gaveta.innerHTML = `
+                <div class="gaveta-contenido">
+                    <p class="gaveta-linea">✅ Ha seleccionado la mesa #${mesa.id}</p>
+                    <p class="gaveta-linea">Valor de entrada: <span class="mesa-valor-gaveta">${mesa.monto}</span> ₽</p>
+                    <p class="gaveta-linea">✨ ¡Gracias por jugar con nosotros!</p>
+                    <p class="gaveta-linea">Excelente elección</p>
+                    <button class="btn-comprar-gaveta" data-mesa-id="${mesa.id}">COMPRAR FICHAS</button>
+                    <p class="gaveta-microcopia">(Toque el botón para continuar)</p>
+                </div>
+            `;
+            
+            // Event listener para el botón de comprar en gaveta
+            const comprarBtn = gaveta.querySelector('.btn-comprar-gaveta');
+            if (comprarBtn) {
+                comprarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    manejarComprarFichas(mesa.id, mesa.monto);
+                });
+            }
+            
+            // Event listener para abrir/cerrar gaveta (en lugar de onclick)
+            header.addEventListener('click', function(e) {
+                // Evitar que el click en el botón de entrar también abra la gaveta
+                if (e.target.closest('.btn-entrar')) return;
+                toggleGaveta(this, mesaCard);
+            });
+            
+            mesaCard.appendChild(header);
+            mesaCard.appendChild(gaveta);
+            mesasLista.appendChild(mesaCard);
+        });
+    }
+    
+    // ==================== MANEJADORES DE ACCIONES ====================
+    function manejarEntrarMesa(mesaId, montoMesa) {
+        const montoSeleccionado = parseInt(montoInput.value);
+        const validacion = validarMonto(montoSeleccionado);
+        
+        if (!validacion.valido) {
+            alert('❌ ' + validacion.mensaje);
+            return;
+        }
+        
+        console.log(`✅ Entrando a mesa #${mesaId} con monto ${montoSeleccionado}₽`);
+        
+        // Guardar en sessionStorage para pasar a mesa.html
+        sessionStorage.setItem('mesaId', mesaId);
+        sessionStorage.setItem('montoJugada', montoSeleccionado);
+        sessionStorage.setItem('mesaMonto', montoMesa);
+        
+        // Redirigir
+        window.location.href = 'mesa.html';
+    }
+    
+    function manejarComprarFichas(mesaId, montoMesa) {
+        const montoSeleccionado = parseInt(montoInput.value);
+        const validacion = validarMonto(montoSeleccionado);
+        
+        if (!validacion.valido) {
+            alert('❌ ' + validacion.mensaje);
+            return;
+        }
+        
+        console.log(`✅ Comprando fichas para mesa #${mesaId} con monto ${montoSeleccionado}₽`);
+        
+        // Guardar en sessionStorage para pasar a mesa.html
+        sessionStorage.setItem('mesaId', mesaId);
+        sessionStorage.setItem('montoJugada', montoSeleccionado);
+        sessionStorage.setItem('mesaMonto', montoMesa);
+        
+        // Redirigir
+        window.location.href = 'mesa.html';
+    }
+    
+    // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN ====================
+    function actualizarInput(valor) {
+        montoInput.value = valor;
+        actualizarFeedbackMonto();
+    }
+    
+    botonesMonto.forEach(btn => {
+        btn.addEventListener('click', function() {
+            botonesMonto.forEach(b => b.classList.remove('activo'));
+            this.classList.add('activo');
+            
+            const monto = parseInt(this.dataset.monto);
+            actualizarInput(monto);
+        });
+    });
+    
+    montoInput.addEventListener('input', function() {
+        actualizarFeedbackMonto();
+        
+        // Sincronizar botones
+        const valorActual = parseInt(this.value);
+        botonesMonto.forEach(btn => {
+            if (parseInt(btn.dataset.monto) === valorActual) {
+                btn.classList.add('activo');
+            } else {
+                btn.classList.remove('activo');
+            }
+        });
+    });
+    
+    // ==================== GAVETA - COMPORTAMIENTO ====================
+    let mesaAbierta = null;
+    
+    function toggleGaveta(header, mesaCard) {
+        const gaveta = mesaCard.querySelector('.mesa-gaveta');
+        if (!gaveta) return;
+        
+        // Cerrar otra gaveta abierta
+        if (mesaAbierta && mesaAbierta !== mesaCard) {
+            const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+            if (gavetaAnterior) {
+                gavetaAnterior.style.display = 'none';
+            }
+        }
+        
+        // Abrir/cerrar la actual
+        if (gaveta.style.display === 'none' || !gaveta.style.display) {
+            gaveta.style.display = 'block';
+            mesaAbierta = mesaCard;
+        } else {
+            gaveta.style.display = 'none';
+            mesaAbierta = null;
         }
     }
     
-    // Escuchar evento scroll
-    contenidoScroll.addEventListener('scroll', verificarScroll);
+    // ==================== INICIALIZACIÓN ====================
+    renderizarMesas();
     
-    // Verificar inmediatamente por si ya está al final (poco probable)
-    setTimeout(verificarScroll, 500);
+    // Agregar evento al input para validación inicial
+    actualizarFeedbackMonto();
     
-    // ==================== MANEJAR CHECKBOX ====================
-    checkbox.addEventListener('change', function() {
-        if (checkbox.checked) {
-            console.log('📌 Checkbox marcado - habilitando botón');
-            btnAceptar.disabled = false;
-        } else {
-            console.log('📌 Checkbox desmarcado - deshabilitando botón');
-            btnAceptar.disabled = true;
-        }
-    });
-    
-    // ==================== MANEJAR BOTÓN ACEPTAR ====================
-    btnAceptar.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Verificaciones de seguridad
-        if (!checkbox.checked) {
-            console.warn('⚠️ Intento de aceptar sin marcar checkbox');
-            return;
-        }
-        
-        if (!haLlegadoAlFinal) {
-            console.warn('⚠️ Intento de aceptar sin leer todo');
-            alert('Por favor, lee todos los términos antes de aceptar.');
-            return;
-        }
-        
-        console.log('🚀 Aceptando términos y navegando a mesa.html');
-        
-        // Navegar a la mesa
-        window.location.href = 'mesa.html';
-    });
-    
-    // ==================== ESTADO INICIAL ====================
-    console.log('🏁 Estado inicial:');
-    console.log(`- Checkbox deshabilitado? ${checkbox.disabled}`);
-    console.log(`- Botón deshabilitado? ${btnAceptar.disabled}`);
-    console.log(`- ¿Llegó al final? ${haLlegadoAlFinal}`);
-    
-    // ==================== VERIFICACIÓN FINAL ====================
-    console.log('✅ Sistema de términos listo. Esperando scroll...');
+    console.log('✅ Lobby cargado - Modo simulación (datos temporales)');
+    if (jugador.esAdmin) {
+        console.log('👑 Modo administrador activado');
+    }
 });
