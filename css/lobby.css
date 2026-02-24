@@ -18,7 +18,7 @@
         repeating-linear-gradient(45deg, rgba(255,215,0,0.01) 0px, rgba(255,215,0,0.01) 2px, transparent 2px, transparent 6px),
         repeating-linear-gradient(135deg, rgba(255,215,0,0.005) 0px, rgba(255,215,0,0.005) 2px, transparent 2px, transparent 6px);
     pointer-events: none;
-    z-index: -1;  /* ← ÚNICO CAMBIO NECESARIO *//* FIX 2026-02-25 16:45 */
+    z-index: -1;  /* ← ÚNICO CAMBIO NECESARIO */
 }
 
 /* ==================== HEADER ==================== */
