@@ -17,62 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ==================== BOTONES DE NAVEGACIÓN ====================
     const btnVolver = document.getElementById('btn-volver-terminos');
-    const btnCerrar = document.getElementById('btn-cerrar-terminos');
-    const modalCerrar = document.getElementById('modal-cerrar');
-    const modalSi = document.getElementById('modal-si');
-    const modalNo = document.getElementById('modal-no');
     
     // Botón volver atrás
     if (btnVolver) {
         btnVolver.addEventListener('click', function() {
             console.log('🔙 Volviendo a Bienvenida');
             window.location.href = 'index.html';
-        });
-    }
-    
-    // Botón cerrar - abre modal
-    if (btnCerrar) {
-        btnCerrar.addEventListener('click', function() {
-            console.log('❓ Abriendo modal de confirmación');
-            if (modalCerrar) {
-                modalCerrar.style.display = 'flex';
-            }
-        });
-    }
-    
-    // Modal - botón NO
-    if (modalNo) {
-        modalNo.addEventListener('click', function() {
-            console.log('❌ Cierre cancelado');
-            if (modalCerrar) {
-                modalCerrar.style.display = 'none';
-            }
-        });
-    }
-    
-    // Modal - botón SÍ
-    if (modalSi) {
-        modalSi.addEventListener('click', function() {
-            console.log('🔴 Cerrando miniapp de Telegram');
-            
-            // Cerrar modal primero (por si acaso)
-            if (modalCerrar) {
-                modalCerrar.style.display = 'none';
-            }
-            
-            if (window.Telegram && Telegram.WebApp) {
-    Telegram.WebApp.close();
-} else {
-    // Modo desarrollo - solo log, sin alert
-    console.log('⚠️ Modo desarrollo: no se puede cerrar Telegram');
-}
-    
-    // Cerrar modal si se hace clic en el overlay (opcional)
-    if (modalCerrar) {
-        modalCerrar.addEventListener('click', function(e) {
-            if (e.target === modalCerrar) {
-                modalCerrar.style.display = 'none';
-            }
         });
     }
     
