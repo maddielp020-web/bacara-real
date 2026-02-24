@@ -32,229 +32,198 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ==================== ELEMENTOS DEL DOM ====================
     const mesasLista = document.getElementById('mesas-lista');
-    const mesasError = document.getElementById('mesas-error');
     const botonesMonto = document.querySelectorAll('.btn-monto');
     const montoInput = document.getElementById('monto-input');
     const montoFeedback = document.getElementById('monto-feedback');
     
     // ==================== VALIDACIÓN DE MONTO ====================
-function validarMonto(valor) {
-    const num = parseInt(valor);
-    
-    // Vacío o no numérico
-    if (isNaN(num) || valor === '') {
-        return { valido: false, mensaje: 'Ingresa un monto' };
+    function validarMonto(valor) {
+        const num = parseInt(valor);
+        
+        // Vacío o no numérico
+        if (isNaN(num) || valor === '') {
+            return { valido: false, mensaje: 'Ingresa un monto' };
+        }
+        
+        // Mínimo 200
+        if (num < 200) {
+            return { valido: false, mensaje: 'El monto mínimo es 200₽' };
+        }
+        
+        // Múltiplo de 50
+        if (num % 50 !== 0) {
+            return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
+        }
+        
+        // Saldo suficiente
+        if (num > jugador.saldo) {
+            return { valido: false, mensaje: 'Saldo insuficiente' };
+        }
+        
+        return { valido: true, mensaje: '✓ Monto válido' };
     }
     
-    // Mínimo 200
-    if (num < 200) {
-        return { valido: false, mensaje: 'El monto mínimo es 200₽' };
+    function actualizarFeedbackMonto() {
+        const valor = montoInput.value;
+        const resultado = validarMonto(valor);
+        
+        // Actualizar clases del input
+        montoInput.classList.remove('valido', 'invalido');
+        montoFeedback.classList.remove('valido', 'invalido');
+        
+        if (valor === '') {
+            montoFeedback.textContent = '';
+            return;
+        }
+        
+        if (resultado.valido) {
+            montoInput.classList.add('valido');
+            montoFeedback.classList.add('valido');
+            montoFeedback.textContent = resultado.mensaje;
+        } else {
+            montoInput.classList.add('invalido');
+            montoFeedback.classList.add('invalido');
+            montoFeedback.textContent = '❌ ' + resultado.mensaje;
+        }
+        
+        // Re-renderizar mesas para actualizar botones Entrar (habilitados/deshabilitados)
+        const montoActual = resultado.valido ? parseInt(valor) : null;
+        renderizarMesas(montoActual);
     }
-    
-    // Múltiplo de 50
-    if (num % 50 !== 0) {
-        return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
-    }
-    
-    // NOTA: La validación de saldo se hace al intentar entrar a una mesa
-    // porque el problema puede ser falta de mesas, no falta de saldo
-    
-    return { valido: true, mensaje: '✓ Monto válido' };
-}
     
     // ==================== RENDERIZAR MESAS ====================
-function renderizarMesas(filtroMonto = null) {
-    mesasLista.innerHTML = '';
-    mesasError.style.display = 'none';
-    mesasError.innerHTML = '';
+    function getEstadoInfo(jugadores) {
+        if (jugadores === 6) return { color: 'gris', texto: '⚪' };
+        if (jugadores === 1) return { color: 'rojo', texto: '🔴' };
+        if (jugadores >= 2) return { color: 'verde', texto: '🟢' };
+        return { color: 'amarillo', texto: '🟡' };
+    }
     
-    // PASO 1: Partir de todas las mesas
-    let mesasDisponibles = [...mesas];
-    
-    // PASO 2: Si hay filtro por monto, aplicar PRIMERO (para sugerencia)
-    let mesasPorMonto = mesasDisponibles;
-    let mesaSugerida = null;
-    
-    if (filtroMonto && filtroMonto >= 200) {
-        // Buscar mesas con monto >= seleccionado
-        mesasPorMonto = mesasDisponibles.filter(m => m.monto >= filtroMonto);
+    function renderizarMesas(filtroMonto = null) {
+        mesasLista.innerHTML = '';
         
-        // Si no hay, buscar la más cercana para sugerencia
-        if (mesasPorMonto.length === 0) {
-            let menorDiferencia = Infinity;
-            mesasDisponibles.forEach(m => {
-                const diferencia = Math.abs(m.monto - filtroMonto);
-                if (diferencia < menorDiferencia) {
-                    menorDiferencia = diferencia;
-                    mesaSugerida = m;
-                }
-            });
+        let mesasFiltradas = mesas;
+        if (filtroMonto) {
+            // Filtro simulado: mesas con monto cercano al seleccionado
+            mesasFiltradas = mesas.filter(m => Math.abs(m.monto - filtroMonto) <= 300);
+        }
+        
+        mesasFiltradas.sort((a, b) => a.monto - b.monto);
+        
+        // Verificar si hay un monto válido seleccionado
+        const montoActual = parseInt(montoInput.value);
+        const montoValido = validarMonto(montoActual).valido;
+        
+        mesasFiltradas.forEach(mesa => {
+            const estadoInfo = getEstadoInfo(mesa.jugadores);
+            const esLlena = mesa.jugadores === 6;
             
-            // Mostrar mensaje de error con sugerencia
-            if (mesaSugerida) {
-                mesasError.style.display = 'block';
-                mesasError.innerHTML = `
-                    <p>No hay mesas disponibles para el monto seleccionado (${filtroMonto}).</p>
-                    <div class="mesa-sugerida" data-mesa-id="${mesaSugerida.id}" data-mesa-monto="${mesaSugerida.monto}">
-                        <div class="sugerida-info">
-                            <span class="sugerida-titulo">MESA #${mesaSugerida.id}</span>
-                            <span class="sugerida-detalle">Valor: ${mesaSugerida.monto}₽ • ${mesaSugerida.jugadores}/${mesaSugerida.max} jugadores</span>
-                        </div>
-                        <button class="sugerida-accion">SELECCIONAR</button>
-                    </div>
-                `;
+            const mesaCard = document.createElement('div');
+            mesaCard.className = `mesa-card estado-${estadoInfo.color}`;
+            mesaCard.dataset.mesaId = mesa.id;
+            
+            // Header de la mesa
+            const header = document.createElement('div');
+            header.className = 'mesa-header';
+            
+            // Info izquierda
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'mesa-info';
+            infoDiv.innerHTML = `
+                <span class="mesa-estado">${estadoInfo.texto}</span>
+                <div class="mesa-detalles">
+                    <span class="mesa-numero">MESA #${mesa.id}</span>
+                    <span class="mesa-monto">${mesa.monto}₽</span>
+                    <span class="mesa-ocupacion">${mesa.jugadores}/${mesa.max}</span>
+                </div>
+            `;
+            
+            // Botón Entrar
+            const accionDiv = document.createElement('div');
+            accionDiv.className = 'mesa-accion';
+            
+            if (esLlena) {
+                accionDiv.innerHTML = '<span class="btn-llena">LLENA</span>';
+            } else {
+                const entrarBtn = document.createElement('button');
+                entrarBtn.className = 'btn-entrar';
+                entrarBtn.textContent = '▶ ENTRAR';
+                entrarBtn.dataset.mesaId = mesa.id;
                 
-                const sugerencia = mesasError.querySelector('.mesa-sugerida');
-                if (sugerencia) {
-                    sugerencia.addEventListener('click', function() {
-                        const mesaId = this.dataset.mesaId;
-                        const mesaMonto = parseInt(this.dataset.mesaMonto);
-                        manejarEntrarMesa(parseInt(mesaId), mesaMonto);
-                    });
+                // Deshabilitar si no hay monto válido
+                if (!montoValido) {
+                    entrarBtn.disabled = true;
                 }
-            }
-        }
-    }
-    
-    // PASO 3: Aplicar filtro de mesas llenas SEGÚN ROL (para visualización normal)
-    let mesasVisibles = [];
-if (!jugador.esAdmin) {
-    mesasVisibles = mesasPorMonto.filter(m => m.jugadores < 6);
-        console.log('👤 Modo jugador - ocultando mesas llenas');
-    } else {
-        mesasVisibles = mesasPorMonto;
-}
-// SI NO HAY MESAS VISIBLES, MOSTRAR MENSAJE
-if (mesasVisibles.length === 0 && !mesaSugerida) {
-    mesasError.style.display = 'block';
-    mesasError.innerHTML = `<p>No hay mesas disponibles en este momento.</p>`;
-    return;
-}
-
-// SI NO HAY MESAS VISIBLES, MOSTRAR MENSAJE
-if (mesasVisibles.length === 0 && !mesaSugerida) {
-    mesasError.style.display = 'block';
-    mesasError.innerHTML = `<p>No hay mesas disponibles en este momento.</p>`;
-    return;
-}
-        // Admins: ven todas
-        mesasVisibles = mesasPorMonto;
-        console.log('👑 Modo admin - mostrando todas');
-    }
-    
-    // Ordenar por monto
-    mesasVisibles.sort((a, b) => a.monto - b.monto);
-    
-    // Verificar monto válido para habilitar botones
-    const montoActual = parseInt(montoInput.value);
-    const montoValido = !isNaN(montoActual) && montoActual >= 200 && montoActual % 50 === 0;
-    
-    // Renderizar cada mesa
-    mesasVisibles.forEach(mesa => {
-        const estadoInfo = getEstadoInfo(mesa.jugadores);
-        const esLlena = mesa.jugadores === 6;
-        
-        const mesaCard = document.createElement('div');
-        mesaCard.className = `mesa-card estado-${estadoInfo.color}`;
-        mesaCard.dataset.mesaId = mesa.id;
-        
-        const header = document.createElement('div');
-        header.className = 'mesa-header';
-        
-        const infoDiv = document.createElement('div');
-        infoDiv.className = 'mesa-info';
-        infoDiv.innerHTML = `
-            <span class="mesa-estado">${estadoInfo.texto}</span>
-            <div class="mesa-detalles">
-                <span class="mesa-numero">MESA #${mesa.id}</span>
-                <span class="mesa-monto">${mesa.monto}₽</span>
-                <span class="mesa-ocupacion">${mesa.jugadores}/${mesa.max}</span>
-            </div>
-        `;
-        
-        const accionDiv = document.createElement('div');
-        accionDiv.className = 'mesa-accion';
-        
-        if (esLlena) {
-            accionDiv.innerHTML = '<span class="btn-llena">LLENA</span>';
-        } else {
-            const entrarBtn = document.createElement('button');
-            entrarBtn.className = 'btn-entrar';
-            entrarBtn.textContent = '▶ ENTRAR';
-            entrarBtn.dataset.mesaId = mesa.id;
-            
-            if (!montoValido) {
-                entrarBtn.disabled = true;
+                
+                // Event listener en lugar de onclick
+                entrarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    manejarEntrarMesa(mesa.id, mesa.monto);
+                });
+                
+                accionDiv.appendChild(entrarBtn);
             }
             
-            entrarBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                manejarEntrarMesa(mesa.id, mesa.monto);
+            header.appendChild(infoDiv);
+            header.appendChild(accionDiv);
+            
+            // Gaveta
+            const gaveta = document.createElement('div');
+            gaveta.className = 'mesa-gaveta';
+            gaveta.style.display = 'none';
+            gaveta.innerHTML = `
+                <div class="gaveta-contenido">
+                    <p class="gaveta-linea">✅ Ha seleccionado la mesa #${mesa.id}</p>
+                    <p class="gaveta-linea">Valor de entrada: <span class="mesa-valor-gaveta">${mesa.monto}</span> ₽</p>
+                    <p class="gaveta-linea">✨ ¡Gracias por jugar con nosotros!</p>
+                    <p class="gaveta-linea">Excelente elección</p>
+                    <button class="btn-comprar-gaveta" data-mesa-id="${mesa.id}">COMPRAR FICHAS</button>
+                    <p class="gaveta-microcopia">(Toque el botón para continuar)</p>
+                </div>
+            `;
+            
+            // Event listener para el botón de comprar en gaveta
+            const comprarBtn = gaveta.querySelector('.btn-comprar-gaveta');
+            if (comprarBtn) {
+                comprarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    manejarComprarFichas(mesa.id, mesa.monto);
+                });
+            }
+            
+            // Event listener para abrir/cerrar gaveta (en lugar de onclick)
+            header.addEventListener('click', function(e) {
+                // Evitar que el click en el botón de entrar también abra la gaveta
+                if (e.target.closest('.btn-entrar')) return;
+                toggleGaveta(this, mesaCard);
             });
             
-            accionDiv.appendChild(entrarBtn);
-        }
-        
-        header.appendChild(infoDiv);
-        header.appendChild(accionDiv);
-        
-        const gaveta = document.createElement('div');
-        gaveta.className = 'mesa-gaveta';
-        gaveta.style.display = 'none';
-        gaveta.innerHTML = `
-            <div class="gaveta-contenido">
-                <p class="gaveta-linea">✅ Ha seleccionado la mesa #${mesa.id}</p>
-                <p class="gaveta-linea">Valor de entrada: <span class="mesa-valor-gaveta">${mesa.monto}</span> ₽</p>
-                <p class="gaveta-linea">✨ ¡Gracias por jugar con nosotros!</p>
-                <p class="gaveta-linea">Excelente elección</p>
-                <button class="btn-comprar-gaveta" data-mesa-id="${mesa.id}">COMPRAR FICHAS</button>
-                <p class="gaveta-microcopia">(Toque el botón para continuar)</p>
-            </div>
-        `;
-        
-        const comprarBtn = gaveta.querySelector('.btn-comprar-gaveta');
-        if (comprarBtn) {
-            comprarBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                manejarComprarFichas(mesa.id, mesa.monto);
-            });
-        }
-        
-        header.addEventListener('click', function(e) {
-            if (e.target.closest('.btn-entrar')) return;
-            toggleGaveta(this, mesaCard);
+            mesaCard.appendChild(header);
+            mesaCard.appendChild(gaveta);
+            mesasLista.appendChild(mesaCard);
         });
-        
-        mesaCard.appendChild(header);
-        mesaCard.appendChild(gaveta);
-        mesasLista.appendChild(mesaCard);
-    });
-}
+    }
     
     // ==================== MANEJADORES DE ACCIONES ====================
     function manejarEntrarMesa(mesaId, montoMesa) {
-    const montoSeleccionado = parseInt(montoInput.value);
-    const validacion = validarMonto(montoSeleccionado);
-    
-    if (!validacion.valido) {
-        alert('❌ ' + validacion.mensaje);
-        return;
+        const montoSeleccionado = parseInt(montoInput.value);
+        const validacion = validarMonto(montoSeleccionado);
+        
+        if (!validacion.valido) {
+            alert('❌ ' + validacion.mensaje);
+            return;
+        }
+        
+        console.log(`✅ Entrando a mesa #${mesaId} con monto ${montoSeleccionado}₽`);
+        
+        // Guardar en sessionStorage para pasar a mesa.html
+        sessionStorage.setItem('mesaId', mesaId);
+        sessionStorage.setItem('montoJugada', montoSeleccionado);
+        sessionStorage.setItem('mesaMonto', montoMesa);
+        
+        // Redirigir
+        window.location.href = 'mesa.html';
     }
-    
-    // Validar saldo AQUÍ (después de validar el monto)
-    if (montoSeleccionado > jugador.saldo) {
-        alert('❌ Saldo insuficiente para este monto');
-        return;
-    }
-    
-    console.log(`✅ Entrando a mesa #${mesaId} con monto ${montoSeleccionado}₽`);
-    
-    sessionStorage.setItem('mesaId', mesaId);
-    sessionStorage.setItem('montoJugada', montoSeleccionado);
-    sessionStorage.setItem('mesaMonto', montoMesa);
-    
-    window.location.href = 'mesa.html';
-}
     
     function manejarComprarFichas(mesaId, montoMesa) {
         const montoSeleccionado = parseInt(montoInput.value);
@@ -267,10 +236,12 @@ if (mesasVisibles.length === 0 && !mesaSugerida) {
         
         console.log(`✅ Comprando fichas para mesa #${mesaId} con monto ${montoSeleccionado}₽`);
         
+        // Guardar en sessionStorage para pasar a mesa.html
         sessionStorage.setItem('mesaId', mesaId);
         sessionStorage.setItem('montoJugada', montoSeleccionado);
         sessionStorage.setItem('mesaMonto', montoMesa);
         
+        // Redirigir
         window.location.href = 'mesa.html';
     }
     
@@ -293,6 +264,7 @@ if (mesasVisibles.length === 0 && !mesaSugerida) {
     montoInput.addEventListener('input', function() {
         actualizarFeedbackMonto();
         
+        // Sincronizar botones
         const valorActual = parseInt(this.value);
         botonesMonto.forEach(btn => {
             if (parseInt(btn.dataset.monto) === valorActual) {
@@ -310,6 +282,7 @@ if (mesasVisibles.length === 0 && !mesaSugerida) {
         const gaveta = mesaCard.querySelector('.mesa-gaveta');
         if (!gaveta) return;
         
+        // Cerrar otra gaveta abierta
         if (mesaAbierta && mesaAbierta !== mesaCard) {
             const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
             if (gavetaAnterior) {
@@ -317,6 +290,7 @@ if (mesasVisibles.length === 0 && !mesaSugerida) {
             }
         }
         
+        // Abrir/cerrar la actual
         if (gaveta.style.display === 'none' || !gaveta.style.display) {
             gaveta.style.display = 'block';
             mesaAbierta = mesaCard;
@@ -328,6 +302,8 @@ if (mesasVisibles.length === 0 && !mesaSugerida) {
     
     // ==================== INICIALIZACIÓN ====================
     renderizarMesas();
+    
+    // Agregar evento al input para validación inicial
     actualizarFeedbackMonto();
     
     console.log('✅ Lobby cargado - Modo simulación (datos temporales)');
