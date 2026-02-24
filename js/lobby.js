@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ==================== ELEMENTOS DEL DOM ====================
     const mesasLista = document.getElementById('mesas-lista');
+    const mesasError = document.getElementById('mesas-error');
     const botonesMonto = document.querySelectorAll('.btn-monto');
     const montoInput = document.getElementById('monto-input');
     const montoFeedback = document.getElementById('monto-feedback');
@@ -86,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
             montoFeedback.textContent = '❌ ' + resultado.mensaje;
         }
         
-        // Re-renderizar mesas para actualizar botones Entrar (habilitados/deshabilitados)
-        const montoActual = resultado.valido ? parseInt(valor) : null;
+        // Re-renderizar mesas
+        const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
         renderizarMesas(montoActual);
     }
     
@@ -99,20 +100,89 @@ document.addEventListener('DOMContentLoaded', function() {
         return { color: 'amarillo', texto: '🟡' };
     }
     
+    function encontrarMesaCercana(montoObjetivo) {
+        // Buscar la mesa más cercana al monto objetivo (puede ser inferior o superior)
+        let mesaCercana = null;
+        let menorDiferencia = Infinity;
+        
+        mesas.forEach(mesa => {
+            // Solo considerar mesas activas (no llenas) para sugerencia
+            if (mesa.jugadores < 6) {
+                const diferencia = Math.abs(mesa.monto - montoObjetivo);
+                if (diferencia < menorDiferencia) {
+                    menorDiferencia = diferencia;
+                    mesaCercana = mesa;
+                }
+            }
+        });
+        
+        return mesaCercana;
+    }
+    
     function renderizarMesas(filtroMonto = null) {
         mesasLista.innerHTML = '';
+        mesasError.style.display = 'none';
+        mesasError.innerHTML = '';
         
-        let mesasFiltradas = mesas;
-        if (filtroMonto) {
-            // Filtro simulado: mesas con monto cercano al seleccionado
-            mesasFiltradas = mesas.filter(m => Math.abs(m.monto - filtroMonto) <= 300);
+        // PASO 1: Filtrar mesas según disponibilidad para no-admins
+        // TODO: En producción, activar este filtro para no-admins
+        let mesasVisibles = [...mesas];
+        
+        if (!jugador.esAdmin) {
+            // Comentado para pruebas - descomentar en producción
+            // mesasVisibles = mesas.filter(m => m.jugadores < 6); // Ocultar llenas
+            console.log('👤 Modo jugador normal - mostrando todas (filtro comentado)');
+        } else {
+            console.log('👑 Modo admin - mostrando todas las mesas');
         }
         
+        // PASO 2: Aplicar filtro por monto (solo mesas >= monto seleccionado)
+        let mesasFiltradas = mesasVisibles;
+        if (filtroMonto && filtroMonto >= 200) {
+            // REGLA DE NEGOCIO: Solo mostrar mesas con valor IGUAL O SUPERIOR al seleccionado
+            mesasFiltradas = mesasVisibles.filter(m => m.monto >= filtroMonto);
+            
+            // PASO 3: Si no hay mesas disponibles con ese criterio
+            if (mesasFiltradas.length === 0) {
+                // Buscar la mesa más cercana (excepción a la regla)
+                const mesaCercana = encontrarMesaCercana(filtroMonto);
+                
+                if (mesaCercana) {
+                    // Mostrar mensaje de error con sugerencia
+                    mesasError.style.display = 'block';
+                    mesasError.innerHTML = `
+                        <p>❌ Lo sentimos, no hay mesas disponibles con su valor (${filtroMonto})</p>
+                        <div class="mesa-sugerida" data-mesa-id="${mesaCercana.id}" data-mesa-monto="${mesaCercana.monto}">
+                            <div class="sugerida-info">
+                                <span class="sugerida-titulo">MESA #${mesaCercana.id}</span>
+                                <span class="sugerida-detalle">Valor: ${mesaCercana.monto}₽ • ${mesaCercana.jugadores}/${mesaCercana.max} jugadores</span>
+                            </div>
+                            <button class="sugerida-accion">SELECCIONAR</button>
+                        </div>
+                    `;
+                    
+                    // Agregar evento al botón de sugerencia
+                    const sugerencia = mesasError.querySelector('.mesa-sugerida');
+                    if (sugerencia) {
+                        sugerencia.addEventListener('click', function() {
+                            const mesaId = this.dataset.mesaId;
+                            const mesaMonto = parseInt(this.dataset.mesaMonto);
+                            manejarEntrarMesa(parseInt(mesaId), mesaMonto);
+                        });
+                    }
+                    
+                    // No mostrar mesas adicionales
+                    mesasFiltradas = [];
+                }
+            }
+        }
+        
+        // Ordenar por monto ascendente
         mesasFiltradas.sort((a, b) => a.monto - b.monto);
         
-        // Verificar si hay un monto válido seleccionado
+        // Verificar si hay un monto válido seleccionado para habilitar botones
         const montoActual = parseInt(montoInput.value);
-        const montoValido = validarMonto(montoActual).valido;
+        const montoValido = !isNaN(montoActual) && montoActual >= 200 && montoActual % 50 === 0 && montoActual <= jugador.saldo;
         
         mesasFiltradas.forEach(mesa => {
             const estadoInfo = getEstadoInfo(mesa.jugadores);
@@ -155,7 +225,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     entrarBtn.disabled = true;
                 }
                 
-                // Event listener en lugar de onclick
                 entrarBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     manejarEntrarMesa(mesa.id, mesa.monto);
@@ -182,7 +251,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             
-            // Event listener para el botón de comprar en gaveta
             const comprarBtn = gaveta.querySelector('.btn-comprar-gaveta');
             if (comprarBtn) {
                 comprarBtn.addEventListener('click', function(e) {
@@ -191,9 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // Event listener para abrir/cerrar gaveta (en lugar de onclick)
             header.addEventListener('click', function(e) {
-                // Evitar que el click en el botón de entrar también abra la gaveta
                 if (e.target.closest('.btn-entrar')) return;
                 toggleGaveta(this, mesaCard);
             });
@@ -216,12 +282,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log(`✅ Entrando a mesa #${mesaId} con monto ${montoSeleccionado}₽`);
         
-        // Guardar en sessionStorage para pasar a mesa.html
         sessionStorage.setItem('mesaId', mesaId);
         sessionStorage.setItem('montoJugada', montoSeleccionado);
         sessionStorage.setItem('mesaMonto', montoMesa);
         
-        // Redirigir
         window.location.href = 'mesa.html';
     }
     
@@ -236,12 +300,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log(`✅ Comprando fichas para mesa #${mesaId} con monto ${montoSeleccionado}₽`);
         
-        // Guardar en sessionStorage para pasar a mesa.html
         sessionStorage.setItem('mesaId', mesaId);
         sessionStorage.setItem('montoJugada', montoSeleccionado);
         sessionStorage.setItem('mesaMonto', montoMesa);
         
-        // Redirigir
         window.location.href = 'mesa.html';
     }
     
@@ -264,7 +326,6 @@ document.addEventListener('DOMContentLoaded', function() {
     montoInput.addEventListener('input', function() {
         actualizarFeedbackMonto();
         
-        // Sincronizar botones
         const valorActual = parseInt(this.value);
         botonesMonto.forEach(btn => {
             if (parseInt(btn.dataset.monto) === valorActual) {
@@ -282,7 +343,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const gaveta = mesaCard.querySelector('.mesa-gaveta');
         if (!gaveta) return;
         
-        // Cerrar otra gaveta abierta
         if (mesaAbierta && mesaAbierta !== mesaCard) {
             const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
             if (gavetaAnterior) {
@@ -290,7 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Abrir/cerrar la actual
         if (gaveta.style.display === 'none' || !gaveta.style.display) {
             gaveta.style.display = 'block';
             mesaAbierta = mesaCard;
@@ -302,8 +361,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ==================== INICIALIZACIÓN ====================
     renderizarMesas();
-    
-    // Agregar evento al input para validación inicial
     actualizarFeedbackMonto();
     
     console.log('✅ Lobby cargado - Modo simulación (datos temporales)');
