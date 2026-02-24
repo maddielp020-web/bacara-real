@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let haLlegadoAlFinal = false;
     
+    // Asegurar estado inicial
+    btnAceptar.disabled = true; // Siempre deshabilitado al inicio
+    checkbox.disabled = false; // El checkbox siempre debe estar habilitado
+    
     // ==================== DETECCIÓN DE SCROLL AL FINAL ====================
     function verificarScroll() {
         const scrollTop = window.scrollY;
@@ -22,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (distanciaAlFinal <= margenError && !haLlegadoAlFinal) {
             haLlegadoAlFinal = true;
-            checkbox.disabled = false;
+            // Actualizar estado del botón por si el checkbox ya estaba marcado
+            btnAceptar.disabled = !(haLlegadoAlFinal && checkbox.checked);
         }
     }
     
@@ -31,9 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Verificar inmediatamente por si ya está al final
     setTimeout(verificarScroll, 500);
     
-    // ==================== CHECKBOX HABILITA BOTÓN ====================
+    // ==================== CHECKBOX HABILITA BOTÓN (SOLO SI YA LLEGÓ AL FINAL) ====================
     checkbox.addEventListener('change', function() {
-        btnAceptar.disabled = !checkbox.checked;
+        // Solo habilitar botón si ha llegado al final Y el checkbox está marcado
+        btnAceptar.disabled = !(haLlegadoAlFinal && checkbox.checked);
     });
     
     // ==================== BOTÓN ACEPTAR - NAVEGACIÓN ====================
