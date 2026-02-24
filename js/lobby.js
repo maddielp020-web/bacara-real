@@ -55,10 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
             return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
         }
         
-        // Saldo suficiente
-        if (num > jugador.saldo) {
-            return { valido: false, mensaje: 'Saldo insuficiente' };
-        }
+        // ✅ CORRECIÓN: El saldo ya NO bloquea la validación
+        // Solo se valida formato, no disponibilidad
         
         return { valido: true, mensaje: '✓ Monto válido' };
     }
@@ -73,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (valor === '') {
             montoFeedback.textContent = '';
+            renderizarMesas(null); // ✅ CORRECIÓN: Mostrar todas las mesas si el input está vacío
             return;
         }
         
@@ -86,8 +85,9 @@ document.addEventListener('DOMContentLoaded', function() {
             montoFeedback.textContent = '❌ ' + resultado.mensaje;
         }
         
-        // Re-renderizar mesas para actualizar botones Entrar (habilitados/deshabilitados)
-        const montoActual = resultado.valido ? parseInt(valor) : null;
+        // ✅ CORRECIÓN: Siempre pasar el número (aunque sea inválido por formato)
+        // para que el filtro de mesas funcione según la intención del jugador
+        const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
         renderizarMesas(montoActual);
     }
     
@@ -99,21 +99,49 @@ document.addEventListener('DOMContentLoaded', function() {
         return { color: 'amarillo', texto: '🟡' };
     }
     
-    function renderizarMesas(filtroMonto = null) {
+    function renderizarMesas(intencionMonto = null) {
         mesasLista.innerHTML = '';
-        let mesasFiltradas = mesas;
-if (filtroMonto && !isNaN(filtroMonto) && filtroMonto >= 200) {
-    // CORREGIDO: Mostrar mesas con monto IGUAL O SUPERIOR al seleccionado
-    mesasFiltradas = mesas.filter(m => m.monto >= filtroMonto);
-} else {
-    // Si no hay filtro válido, mostrar TODAS las mesas
-    mesasFiltradas = mesas;
-}
-        // Verificar si hay un monto válido seleccionado
-        const montoActual = parseInt(montoInput.value);
-        const montoValido = validarMonto(montoActual).valido;
         
-        mesasFiltradas.forEach(mesa => {
+        // ✅ CORRECIÓN: Nueva lógica de marketing
+        // Filtrar mesas NO llenas para mostrar
+        const mesasActivas = mesas.filter(m => m.jugadores < 6);
+        
+        let mesasAMostrar = [];
+        
+        if (intencionMonto && !isNaN(intencionMonto) && intencionMonto >= 200) {
+            // Buscar mesas activas con monto >= intencion
+            const mesasSuperiores = mesasActivas.filter(m => m.monto >= intencionMonto);
+            
+            if (mesasSuperiores.length > 0) {
+                // Caso 1: Hay mesas superiores o iguales -> mostrar SOLO esas
+                mesasAMostrar = mesasSuperiores;
+            } else {
+                // Caso 2: No hay superiores -> mostrar la mesa activa de mayor monto por debajo
+                const mesasInferiores = mesasActivas.filter(m => m.monto < intencionMonto);
+                if (mesasInferiores.length > 0) {
+                    // Ordenar de mayor a menor y tomar la más cercana
+                    mesasInferiores.sort((a, b) => b.monto - a.monto);
+                    mesasAMostrar = [mesasInferiores[0]];
+                } else {
+                    // No hay ninguna mesa activa
+                    mesasAMostrar = [];
+                }
+            }
+        } else {
+            // Sin intención de monto: mostrar todas las mesas activas
+            mesasAMostrar = mesasActivas;
+        }
+        
+        // Mostrar mensaje en el div de error si no hay mesas
+        const errorDiv = document.getElementById('mesas-error');
+        if (mesasAMostrar.length === 0) {
+            errorDiv.style.display = 'block';
+            errorDiv.innerHTML = '<p>No hay mesas disponibles en este momento</p>';
+        } else {
+            errorDiv.style.display = 'none';
+        }
+        
+        mesasAMostrar.forEach(mesa => {
             const estadoInfo = getEstadoInfo(mesa.jugadores);
             const esLlena = mesa.jugadores === 6;
             
@@ -149,12 +177,9 @@ if (filtroMonto && !isNaN(filtroMonto) && filtroMonto >= 200) {
                 entrarBtn.textContent = '▶ ENTRAR';
                 entrarBtn.dataset.mesaId = mesa.id;
                 
-                // Deshabilitar si no hay monto válido
-                if (!montoValido) {
-                    entrarBtn.disabled = true;
-                }
+                // ✅ CORRECIÓN: El botón SIEMPRE está habilitado si la mesa no está llena
+                // Ya no depende de validación de monto
                 
-                // Event listener en lugar de onclick
                 entrarBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     manejarEntrarMesa(mesa.id, mesa.monto);
@@ -181,18 +206,18 @@ if (filtroMonto && !isNaN(filtroMonto) && filtroMonto >= 200) {
                 </div>
             `;
             
-            // Event listener para el botón de comprar en gaveta
+            // ✅ CORRECIÓN: Botón COMPRAR FICHAS abre el bot de Telegram
             const comprarBtn = gaveta.querySelector('.btn-comprar-gaveta');
             if (comprarBtn) {
                 comprarBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    manejarComprarFichas(mesa.id, mesa.monto);
+                    // URL del bot para depósitos
+                    window.location.href = 'https://t.me/mesa_baccarat_bot?start=deposito';
                 });
             }
             
-            // Event listener para abrir/cerrar gaveta (en lugar de onclick)
+            // Event listener para abrir/cerrar gaveta
             header.addEventListener('click', function(e) {
-                // Evitar que el click en el botón de entrar también abra la gaveta
                 if (e.target.closest('.btn-entrar')) return;
                 toggleGaveta(this, mesaCard);
             });
@@ -201,47 +226,18 @@ if (filtroMonto && !isNaN(filtroMonto) && filtroMonto >= 200) {
             mesaCard.appendChild(gaveta);
             mesasLista.appendChild(mesaCard);
         });
+        
+        console.log(`🎲 Mostradas ${mesasAMostrar.length} mesas`);
     }
     
     // ==================== MANEJADORES DE ACCIONES ====================
     function manejarEntrarMesa(mesaId, montoMesa) {
-        const montoSeleccionado = parseInt(montoInput.value);
-        const validacion = validarMonto(montoSeleccionado);
+        // ✅ CORRECIÓN: Ya no validamos monto aquí
+        // Solo guardamos la intención y abrimos la gaveta (que ya está abierta al hacer click)
+        console.log(`👆 Mesa #${mesaId} seleccionada (monto mesa: ${montoMesa}₽)`);
         
-        if (!validacion.valido) {
-            alert('❌ ' + validacion.mensaje);
-            return;
-        }
-        
-        console.log(`✅ Entrando a mesa #${mesaId} con monto ${montoSeleccionado}₽`);
-        
-        // Guardar en sessionStorage para pasar a mesa.html
-        sessionStorage.setItem('mesaId', mesaId);
-        sessionStorage.setItem('montoJugada', montoSeleccionado);
-        sessionStorage.setItem('mesaMonto', montoMesa);
-        
-        // Redirigir
-        window.location.href = 'mesa.html';
-    }
-    
-    function manejarComprarFichas(mesaId, montoMesa) {
-        const montoSeleccionado = parseInt(montoInput.value);
-        const validacion = validarMonto(montoSeleccionado);
-        
-        if (!validacion.valido) {
-            alert('❌ ' + validacion.mensaje);
-            return;
-        }
-        
-        console.log(`✅ Comprando fichas para mesa #${mesaId} con monto ${montoSeleccionado}₽`);
-        
-        // Guardar en sessionStorage para pasar a mesa.html
-        sessionStorage.setItem('mesaId', mesaId);
-        sessionStorage.setItem('montoJugada', montoSeleccionado);
-        sessionStorage.setItem('mesaMonto', montoMesa);
-        
-        // Redirigir
-        window.location.href = 'mesa.html';
+        // La gaveta ya se abre/cierra con toggleGaveta, no necesitamos hacer nada más
+        // Este manejador ahora es solo para acciones futuras si es necesario
     }
     
     // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN ====================
