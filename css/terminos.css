@@ -493,10 +493,11 @@
 }
 
 .modal-body p {
-    color: var(--blanco-texto);
+    color: #8B1A1A;  /* Mismo rojo del fondo de términos */
     font-size: 1.1rem;
     line-height: 1.5;
     margin: 0;
+    font-weight: 500;
 }
 
 .modal-footer {
@@ -505,7 +506,8 @@
     padding: 0 20px 20px;
 }
 
-.btn-modal {
+/* Estilo base para ambos botones */
+.btn-modal-si, .btn-modal-no {
     flex: 1;
     padding: 16px 0;
     border: none;
@@ -516,34 +518,63 @@
     transition: all 0.2s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-}
-
-.btn-modal-si {
-    background: var(--rojo-baraja);
+    
+    /* Efecto cristal esmerilado sutil */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.08);
+    
+    /* Texto blanco para ambos */
     color: white;
-    box-shadow: 0 4px 10px rgba(239, 51, 64, 0.3);
+    
+    /* Sombra de iluminación (misma para ambos) */
+    box-shadow: 0 4px 15px rgba(239, 51, 64, 0.4);
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-modal-si:hover {
-    background: #ff4d5a;
+/* Efecto de brillo adicional (hover) */
+.btn-modal-si:hover, .btn-modal-no:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(239, 51, 64, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 25px rgba(239, 51, 64, 0.7);
 }
 
+/* Botón SÍ - acento rojo más fuerte */
+.btn-modal-si {
+    border: 1px solid var(--rojo-baraja);
+}
+
+/* Botón NO - borde dorado para diferenciar */
 .btn-modal-no {
-    background: var(--gris-oscuro);
-    color: var(--blanco-texto);
     border: 1px solid var(--oro-puro);
 }
 
-.btn-modal-no:hover {
-    background: var(--gris-medio);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+/* Efecto de profundidad (pseudo-elemento para ambos) */
+.btn-modal-si::after, .btn-modal-no::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 1;
 }
 
-.btn-modal:active {
-    transform: translateY(0);
+.btn-modal-si:hover::after, .btn-modal-no:hover::after {
+    opacity: 0.3;
+}
+
+/* Asegurar que el texto esté por encima */
+.btn-modal-si span, .btn-modal-no span {
+    position: relative;
+    z-index: 2;
 }
 
 /* ==================== ANIMACIONES ==================== */
