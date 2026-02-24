@@ -364,3 +364,107 @@
     pointer-events: none;
     background: #666 !important;
 } 
+
+/* ==================== SELECCIÓN RÁPIDA (NUEVO) ==================== */
+.selector-rapido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0 15px;
+}
+
+.flecha {
+    font-size: 1.5rem;
+    animation: bounce-subtle 1.5s infinite ease-in-out;
+    opacity: 0.9;
+}
+
+.flecha:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.flecha:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.rapido-texto {
+    color: var(--oro-puro);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
+
+/* ==================== MENSAJE DE ERROR DE MESAS ==================== */
+.mesas-error {
+    background: rgba(239, 51, 64, 0.15);
+    border-left: 4px solid var(--rojo-baraja);
+    border-radius: 0 8px 8px 0;
+    padding: 15px 20px;
+    margin: 0 20px 20px;
+    color: white;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mesas-error p {
+    margin: 0;
+}
+
+.mesa-sugerida {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid var(--oro-puro);
+    border-radius: 12px;
+    padding: 12px 15px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.mesa-sugerida:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: scale(1.02);
+}
+
+.sugerida-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sugerida-titulo {
+    font-weight: 700;
+    color: var(--oro-puro);
+}
+
+.sugerida-detalle {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sugerida-accion {
+    background: var(--azul-casino);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.sugerida-accion:hover {
+    background: #1a6bc9;
+}
