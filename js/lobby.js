@@ -117,12 +117,26 @@ function renderizarMesas(filtroMonto = null) {
     }
     
     // PASO 3: Aplicar filtro de mesas llenas SEGÚN ROL (para visualización normal)
-    let mesasVisibles;
-    if (!jugador.esAdmin) {
-        // No-admins: no ven mesas llenas
-        mesasVisibles = mesasPorMonto.filter(m => m.jugadores < 6);
+    let mesasVisibles = [];
+if (!jugador.esAdmin) {
+    mesasVisibles = mesasPorMonto.filter(m => m.jugadores < 6);
         console.log('👤 Modo jugador - ocultando mesas llenas');
     } else {
+        mesasVisibles = mesasPorMonto;
+}
+// SI NO HAY MESAS VISIBLES, MOSTRAR MENSAJE
+if (mesasVisibles.length === 0 && !mesaSugerida) {
+    mesasError.style.display = 'block';
+    mesasError.innerHTML = `<p>No hay mesas disponibles en este momento.</p>`;
+    return;
+}
+
+// SI NO HAY MESAS VISIBLES, MOSTRAR MENSAJE
+if (mesasVisibles.length === 0 && !mesaSugerida) {
+    mesasError.style.display = 'block';
+    mesasError.innerHTML = `<p>No hay mesas disponibles en este momento.</p>`;
+    return;
+}
         // Admins: ven todas
         mesasVisibles = mesasPorMonto;
         console.log('👑 Modo admin - mostrando todas');
