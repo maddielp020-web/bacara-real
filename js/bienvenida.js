@@ -311,13 +311,12 @@ if (modalSi) {
             modalCerrar.style.display = 'none';
         }
         
-        // Intentar cerrar Telegram - SIN ALERT
-        if (window.Telegram && Telegram.WebApp) {
-            Telegram.WebApp.close();
-        } else {
-            // Modo desarrollo - solo log
-            console.log('⚠️ Modo desarrollo: no se puede cerrar Telegram');
-        }
+        // Pequeño retraso para asegurar que el modal se cierra antes
+        setTimeout(function() {
+            if (window.Telegram && Telegram.WebApp) {
+                Telegram.WebApp.close();
+            }
+        }, 50);
     });
 }
 
