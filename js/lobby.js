@@ -274,26 +274,36 @@ document.addEventListener('DOMContentLoaded', function() {
     let mesaAbierta = null;
     
     function toggleGaveta(header, mesaCard) {
-        const gaveta = mesaCard.querySelector('.mesa-gaveta');
-        if (!gaveta) return;
-        
-        // Cerrar otra gaveta abierta
-        if (mesaAbierta && mesaAbierta !== mesaCard) {
-            const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
-            if (gavetaAnterior) {
-                gavetaAnterior.style.display = 'none';
-            }
-        }
-        
-        // Abrir/cerrar la actual
-        if (gaveta.style.display === 'none' || !gaveta.style.display) {
-            gaveta.style.display = 'block';
-            mesaAbierta = mesaCard;
-        } else {
-            gaveta.style.display = 'none';
-            mesaAbierta = null;
+    const gaveta = mesaCard.querySelector('.mesa-gaveta');
+    if (!gaveta) return;
+    
+    // 🟡 PRIORIDAD MEDIA: Manejar clase active para la flecha
+    const mesaHeader = mesaCard.querySelector('.mesa-header');
+    
+    // Cerrar otra gaveta abierta
+    if (mesaAbierta && mesaAbierta !== mesaCard) {
+        const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+        if (gavetaAnterior) {
+            gavetaAnterior.style.display = 'none';
+            // Quitar clase active del header anterior
+            const headerAnterior = mesaAbierta.querySelector('.mesa-header');
+            if (headerAnterior) headerAnterior.classList.remove('active');
         }
     }
+    
+    // Abrir/cerrar la actual
+    if (gaveta.style.display === 'none' || !gaveta.style.display) {
+        gaveta.style.display = 'block';
+        mesaAbierta = mesaCard;
+        // Añadir clase active al header actual
+        if (mesaHeader) mesaHeader.classList.add('active');
+    } else {
+        gaveta.style.display = 'none';
+        mesaAbierta = null;
+        // Quitar clase active del header actual
+        if (mesaHeader) mesaHeader.classList.remove('active');
+    }
+}
     
     // ==================== INICIALIZACIÓN ====================
     renderizarMesas();
