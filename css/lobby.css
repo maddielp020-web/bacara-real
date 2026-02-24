@@ -43,6 +43,51 @@
     font-size: 1.1rem;
 }
 
+/* ==================== BOTÓN VOLVER (LOBBY) ==================== */
+.btn-volver-lobby {
+    background: transparent;
+    border: 2px solid #FFD700;  /* Dorado visible sobre negro */
+    color: #FFD700;
+    font-size: 1.8rem;
+    font-weight: 700;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-volver-lobby:hover,
+.btn-volver-lobby:active {
+    background: #FFD700;
+    color: #0A0A0A;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Ajuste para que el header mantenga el espacio */
+.lobby-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+/* Para que el título no se desplace */
+.lobby-titulo {
+    color: #FFD700 !important;
+    font-size: 1.5rem;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
 /* ==================== IDENTIDAD DEL JUGADOR ==================== */
 .lobby-usuario {
     display: flex;
