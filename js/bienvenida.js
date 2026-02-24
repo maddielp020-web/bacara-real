@@ -274,22 +274,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('📜 Abriendo términos (modo solo lectura)');
         window.location.href = 'terminos.html';
     });
-    
-    // ==================== 6.1 MODAL DE CONFIRMACIÓN ====================
-const btnCerrar = document.getElementById('btn-cerrar-bienvenida');
-const modalCerrar = document.getElementById('modal-cerrar-bienvenida');
-const modalSi = document.getElementById('modal-si-bienvenida');
-const modalNo = document.getElementById('modal-no-bienvenida');
-
-// Botón cerrar - abre modal
-if (btnCerrar) {
-    btnCerrar.addEventListener('click', function() {
-        console.log('❓ Abriendo modal de confirmación');
-        if (modalCerrar) {
-            modalCerrar.style.display = 'flex';
-        }
-    });
-}
 
 // Modal - botón NO
 if (modalNo) {
