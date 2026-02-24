@@ -529,3 +529,12 @@
 .particula:nth-child(3) { left: 55%; animation: particula-lobby 22s infinite 8s; }
 .particula:nth-child(4) { left: 75%; animation: particula-lobby 26s infinite 2s; }
 .particula:nth-child(5) { left: 90%; animation: particula-lobby 28s infinite 12s; }
+
+/* ==================== DIAGNÓSTICO FORZADO ==================== */
+.lobby-container {
+    background: #ff0000 !important;  /* Rojo brillante temporal */
+}
+
+.lobby-container::before {
+    display: none !important;  /* Desactivar efecto tela para prueba */
+}
