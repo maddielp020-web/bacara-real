@@ -101,15 +101,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function renderizarMesas(filtroMonto = null) {
         mesasLista.innerHTML = '';
-        
         let mesasFiltradas = mesas;
-        if (filtroMonto) {
-            // Filtro simulado: mesas con monto cercano al seleccionado
-            mesasFiltradas = mesas.filter(m => Math.abs(m.monto - filtroMonto) <= 300);
-        }
-        
-        mesasFiltradas.sort((a, b) => a.monto - b.monto);
-        
+if (filtroMonto && !isNaN(filtroMonto) && filtroMonto >= 200) {
+    // CORREGIDO: Mostrar mesas con monto IGUAL O SUPERIOR al seleccionado
+    mesasFiltradas = mesas.filter(m => m.monto >= filtroMonto);
+} else {
+    // Si no hay filtro válido, mostrar TODAS las mesas
+    mesasFiltradas = mesas;
+}
         // Verificar si hay un monto válido seleccionado
         const montoActual = parseInt(montoInput.value);
         const montoValido = validarMonto(montoActual).valido;
