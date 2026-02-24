@@ -30,6 +30,8 @@
         <div class="lobby-usuario" id="usuario-info">
             <span class="usuario-icono">👤</span>
             <span class="usuario-nombre" id="usuario-nombre">@usuario_telegram</span>
+            <!-- Admin badge (opcional, se muestra por JS si es admin) -->
+            <span class="admin-badge" id="admin-badge" style="display: none;">👑 ADMIN</span>
         </div>
 
         <!-- ==================== SELECTOR DE MONTO ==================== -->
@@ -44,8 +46,9 @@
             </div>
             
             <div class="monto-personalizado">
-                <label for="monto-input" class="monto-label">Coloca aquí la cifra para empezar</label>
+                <label for="monto-input" class="monto-label">Coloca aquí la cifra para empezar (múltiplo de 50)</label>
                 <input type="number" id="monto-input" class="monto-input" placeholder="Ej: 750 ₽" min="200" step="50">
+                <div class="monto-feedback" id="monto-feedback"></div>
             </div>
         </div>
 
