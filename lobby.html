@@ -38,6 +38,13 @@
         <div class="selector-monto">
             <h2 class="selector-titulo">¿Con cuánto quieres jugar?</h2>
             
+            <!-- ==================== NUEVO SUBTÍTULO CON ANIMACIÓN ==================== -->
+            <div class="selector-rapido">
+                <span class="flecha">⬇️</span>
+                <span class="rapido-texto">SELECCIÓN RÁPIDA</span>
+                <span class="flecha">⬇️</span>
+            </div>
+            
             <div class="botones-monto">
                 <button class="btn-monto" data-monto="500">500₽</button>
                 <button class="btn-monto" data-monto="1000">1000₽</button>
@@ -51,6 +58,9 @@
                 <div class="monto-feedback" id="monto-feedback"></div>
             </div>
         </div>
+
+        <!-- ==================== MENSAJE DE ERROR DE MESAS ==================== -->
+        <div class="mesas-error" id="mesas-error" style="display: none;"></div>
 
         <!-- ==================== LISTA DE MESAS (GENERADA POR JS) ==================== -->
         <div class="mesas-container">
