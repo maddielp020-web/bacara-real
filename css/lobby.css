@@ -1,28 +1,24 @@
 /* ==================== LOBBY - ESTILOS ESPECÍFICOS ==================== */
 /* Depende de global.css - USA LAS VARIABLES OFICIALES */
 /* CORRECCIONES VISUALES APLICADAS SEGÚN INSTRUCCIONES DEL CHAT VISUALES */
-
 .lobby-container {
     background: var(--negro-fondo);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    position: relative; /* 🔴 PRIORIDAD ALTA: Para efecto tela */
+    position: relative; /* necesario para ::before */
+    overflow: hidden;
 }
 
-/* 🔴 PRIORIDAD ALTA: Efecto tela (alfombra/tela) - FIRMA VISUAL DEL JUEGO */
 .lobby-container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-image: 
         repeating-linear-gradient(45deg, rgba(255,215,0,0.01) 0px, rgba(255,215,0,0.01) 2px, transparent 2px, transparent 6px),
         repeating-linear-gradient(135deg, rgba(255,215,0,0.005) 0px, rgba(255,215,0,0.005) 2px, transparent 2px, transparent 6px);
     pointer-events: none;
-    z-index: 0;
+    z-index: 0; /* capa más baja */
 }
 
 /* ==================== HEADER ==================== */
@@ -529,12 +525,3 @@
 .particula:nth-child(3) { left: 55%; animation: particula-lobby 22s infinite 8s; }
 .particula:nth-child(4) { left: 75%; animation: particula-lobby 26s infinite 2s; }
 .particula:nth-child(5) { left: 90%; animation: particula-lobby 28s infinite 12s; }
-
-/* ==================== DIAGNÓSTICO FORZADO ==================== */
-.lobby-container {
-    background: #ff0000 !important;  /* Rojo brillante temporal */
-}
-
-.lobby-container::before {
-    display: none !important;  /* Desactivar efecto tela para prueba */
-}
