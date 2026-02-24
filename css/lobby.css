@@ -158,7 +158,7 @@
 }
 
 .mesas-titulo {
-    color: var(--oro-puro);
+    color: #ffffff;
     font-size: 0.9rem;
     margin-bottom: 15px;
     letter-spacing: 2px;
@@ -389,7 +389,7 @@
 }
 
 .rapido-texto {
-    color: var(--oro-puro);
+    color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 2px;
