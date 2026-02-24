@@ -242,23 +242,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ==================== 6. ACCIONES DE BOTONES ====================
-    // ==================== BOTÓN CERRAR TELEGRAM ====================
-    const btnCerrar = document.getElementById('btn-cerrar-bienvenida');
-    
-    if (btnCerrar) {
-        btnCerrar.addEventListener('click', function() {
-            console.log('🔴 Cerrando miniapp de Telegram');
-            
-            // Intentar cerrar Telegram de diferentes formas
-            if (window.Telegram && Telegram.WebApp) {
-                Telegram.WebApp.close();
-            } else {
-                // Fallback para pruebas en navegador
-                console.log('⚠️ Modo desarrollo: no se puede cerrar Telegram');
-                alert('En Telegram esto cerraría la app');
-            }
-        });
-    }
     
     // Botón principal
     btnPrincipal.addEventListener('click', function() {
@@ -291,6 +274,61 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('📜 Abriendo términos (modo solo lectura)');
         window.location.href = 'terminos.html';
     });
+    
+    // ==================== 6.1 MODAL DE CONFIRMACIÓN ====================
+const btnCerrar = document.getElementById('btn-cerrar-bienvenida');
+const modalCerrar = document.getElementById('modal-cerrar-bienvenida');
+const modalSi = document.getElementById('modal-si-bienvenida');
+const modalNo = document.getElementById('modal-no-bienvenida');
+
+// Botón cerrar - abre modal
+if (btnCerrar) {
+    btnCerrar.addEventListener('click', function() {
+        console.log('❓ Abriendo modal de confirmación');
+        if (modalCerrar) {
+            modalCerrar.style.display = 'flex';
+        }
+    });
+}
+
+// Modal - botón NO
+if (modalNo) {
+    modalNo.addEventListener('click', function() {
+        console.log('❌ Cierre cancelado');
+        if (modalCerrar) {
+            modalCerrar.style.display = 'none';
+        }
+    });
+}
+
+// Modal - botón SÍ
+if (modalSi) {
+    modalSi.addEventListener('click', function() {
+        console.log('🔴 Cerrando miniapp de Telegram');
+        
+        // Cerrar modal primero
+        if (modalCerrar) {
+            modalCerrar.style.display = 'none';
+        }
+        
+        // Intentar cerrar Telegram - SIN ALERT
+        if (window.Telegram && Telegram.WebApp) {
+            Telegram.WebApp.close();
+        } else {
+            // Modo desarrollo - solo log
+            console.log('⚠️ Modo desarrollo: no se puede cerrar Telegram');
+        }
+    });
+}
+
+// Cerrar modal si se hace clic en el overlay
+if (modalCerrar) {
+    modalCerrar.addEventListener('click', function(e) {
+        if (e.target === modalCerrar) {
+            modalCerrar.style.display = 'none';
+        }
+    });
+}
     
     // ==================== 7. INICIALIZACIÓN ====================
     // Asegurar que todo comienza deshabilitado
