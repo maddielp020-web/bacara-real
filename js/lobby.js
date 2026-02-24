@@ -125,13 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
         mesasError.innerHTML = '';
         
         // PASO 1: Filtrar mesas según disponibilidad para no-admins
-        // TODO: En producción, activar este filtro para no-admins
         let mesasVisibles = [...mesas];
         
         if (!jugador.esAdmin) {
-            // Comentado para pruebas - descomentar en producción
-            // mesasVisibles = mesas.filter(m => m.jugadores < 6); // Ocultar llenas
-            console.log('👤 Modo jugador normal - mostrando todas (filtro comentado)');
+            // Filtro activado: no-admins no ven mesas llenas
+            mesasVisibles = mesas.filter(m => m.jugadores < 6); // Ocultar llenas
+            console.log('👤 Modo jugador normal - ocultando mesas llenas');
         } else {
             console.log('👑 Modo admin - mostrando todas las mesas');
         }
@@ -151,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Mostrar mensaje de error con sugerencia
                     mesasError.style.display = 'block';
                     mesasError.innerHTML = `
-                        <p>❌ Lo sentimos, no hay mesas disponibles con su valor (${filtroMonto})</p>
+                        <p>No hay mesas disponibles para el monto seleccionado (${filtroMonto}).</p>
                         <div class="mesa-sugerida" data-mesa-id="${mesaCercana.id}" data-mesa-monto="${mesaCercana.monto}">
                             <div class="sugerida-info">
                                 <span class="sugerida-titulo">MESA #${mesaCercana.id}</span>
