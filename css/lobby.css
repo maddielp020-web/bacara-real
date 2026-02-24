@@ -316,3 +316,51 @@
     text-align: center;
     border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
+
+/* ==================== FEEDBACK DE MONTO ==================== */
+.monto-feedback {
+    font-size: 0.8rem;
+    margin-top: 8px;
+    min-height: 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.monto-feedback.valido {
+    color: #4CAF50;
+}
+
+.monto-feedback.invalido {
+    color: #EF3340;
+}
+
+.monto-input.valido {
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+}
+
+.monto-input.invalido {
+    border-color: #EF3340 !important;
+    box-shadow: 0 0 0 2px rgba(239, 51, 64, 0.2) !important;
+}
+
+/* ==================== ADMIN BADGE ==================== */
+.admin-badge {
+    background: var(--oro-puro);
+    color: var(--negro-fondo);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 30px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+}
+
+/* ==================== BOTÓN DESHABILITADO ==================== */
+.btn-entrar:disabled,
+.btn-comprar-gaveta:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: #666 !important;
+} 
