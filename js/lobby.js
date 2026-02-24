@@ -38,59 +38,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const montoFeedback = document.getElementById('monto-feedback');
     
     // ==================== VALIDACIÓN DE MONTO ====================
-    function validarMonto(valor) {
-        const num = parseInt(valor);
-        
-        // Vacío o no numérico
-        if (isNaN(num) || valor === '') {
-            return { valido: false, mensaje: 'Ingresa un monto' };
-        }
-        
-        // Mínimo 200
-        if (num < 200) {
-            return { valido: false, mensaje: 'El monto mínimo es 200₽' };
-        }
-        
-        // Múltiplo de 50
-        if (num % 50 !== 0) {
-            return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
-        }
-        
-        // Saldo suficiente
-        if (num > jugador.saldo) {
-            return { valido: false, mensaje: 'Saldo insuficiente' };
-        }
-        
-        return { valido: true, mensaje: '✓ Monto válido' };
+function validarMonto(valor) {
+    const num = parseInt(valor);
+    
+    // Vacío o no numérico
+    if (isNaN(num) || valor === '') {
+        return { valido: false, mensaje: 'Ingresa un monto' };
     }
     
-    function actualizarFeedbackMonto() {
-        const valor = montoInput.value;
-        const resultado = validarMonto(valor);
-        
-        // Actualizar clases del input
-        montoInput.classList.remove('valido', 'invalido');
-        montoFeedback.classList.remove('valido', 'invalido');
-        
-        if (valor === '') {
-            montoFeedback.textContent = '';
-            return;
-        }
-        
-        if (resultado.valido) {
-            montoInput.classList.add('valido');
-            montoFeedback.classList.add('valido');
-            montoFeedback.textContent = resultado.mensaje;
-        } else {
-            montoInput.classList.add('invalido');
-            montoFeedback.classList.add('invalido');
-            montoFeedback.textContent = '❌ ' + resultado.mensaje;
-        }
-        
-        // Re-renderizar mesas
-        const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
-        renderizarMesas(montoActual);
+    // Mínimo 200
+    if (num < 200) {
+        return { valido: false, mensaje: 'El monto mínimo es 200₽' };
     }
+    
+    // Múltiplo de 50
+    if (num % 50 !== 0) {
+        return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
+    }
+    
+    // NOTA: La validación de saldo se hace al intentar entrar a una mesa
+    // porque el problema puede ser falta de mesas, no falta de saldo
+    
+    return { valido: true, mensaje: '✓ Monto válido' };
+}
     
     // ==================== RENDERIZAR MESAS ====================
     function getEstadoInfo(jugadores) {
@@ -271,22 +241,28 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // ==================== MANEJADORES DE ACCIONES ====================
     function manejarEntrarMesa(mesaId, montoMesa) {
-        const montoSeleccionado = parseInt(montoInput.value);
-        const validacion = validarMonto(montoSeleccionado);
-        
-        if (!validacion.valido) {
-            alert('❌ ' + validacion.mensaje);
-            return;
-        }
-        
-        console.log(`✅ Entrando a mesa #${mesaId} con monto ${montoSeleccionado}₽`);
-        
-        sessionStorage.setItem('mesaId', mesaId);
-        sessionStorage.setItem('montoJugada', montoSeleccionado);
-        sessionStorage.setItem('mesaMonto', montoMesa);
-        
-        window.location.href = 'mesa.html';
+    const montoSeleccionado = parseInt(montoInput.value);
+    const validacion = validarMonto(montoSeleccionado);
+    
+    if (!validacion.valido) {
+        alert('❌ ' + validacion.mensaje);
+        return;
     }
+    
+    // Validar saldo AQUÍ (después de validar el monto)
+    if (montoSeleccionado > jugador.saldo) {
+        alert('❌ Saldo insuficiente para este monto');
+        return;
+    }
+    
+    console.log(`✅ Entrando a mesa #${mesaId} con monto ${montoSeleccionado}₽`);
+    
+    sessionStorage.setItem('mesaId', mesaId);
+    sessionStorage.setItem('montoJugada', montoSeleccionado);
+    sessionStorage.setItem('mesaMonto', montoMesa);
+    
+    window.location.href = 'mesa.html';
+}
     
     function manejarComprarFichas(mesaId, montoMesa) {
         const montoSeleccionado = parseInt(montoInput.value);
