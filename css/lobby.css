@@ -573,3 +573,11 @@
 .particula-luz:nth-child(1) { left: 20%; animation: particula-lobby 18s infinite 0s; }
 .particula-luz:nth-child(2) { left: 50%; animation: particula-lobby 22s infinite 5s; }
 .particula-luz:nth-child(3) { left: 80%; animation: particula-lobby 20s infinite 10s; }
+
+/* ==================== FORZAR TÍTULO DORADO ==================== */
+header .lobby-titulo,
+.lobby-header .lobby-titulo,
+h1.lobby-titulo {
+    color: var(--oro-puro) !important;
+    text-shadow: none !important;
+}
