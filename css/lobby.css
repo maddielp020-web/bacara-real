@@ -81,11 +81,12 @@
 
 /* Para que el título no se desplace */
 .lobby-titulo {
-    color: var(--oro-puro) !important;  /* CAMBIADO: #FFD700 → var(--oro-puro) */
+    color: var(--oro-puro) !important;
     font-size: 1.5rem;
     margin: 0;
     flex: 1;
     text-align: center;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 /* ==================== IDENTIDAD DEL JUGADOR ==================== */
@@ -111,17 +112,6 @@
 }
 
 /* ==================== SELECTOR DE MONTO ==================== */
-.selector-monto {
-    padding: 0 20px 20px;
-}
-
-.selector-titulo {
-    color: white;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    font-weight: 500;
-}
-
 .botones-monto {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -130,28 +120,41 @@
 }
 
 .btn-monto {
-    background: var(--oro-transparente) !important;  /* CAMBIADO: rgba(255,215,0,0.2) → var(--oro-transparente) */
-    border: 1px solid var(--oro-puro) !important;
+    /* Efecto cristal esmerilado para estado inactivo */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
     border-radius: 30px;
     padding: 12px 0;
-    color: #FFFFFF !important;
+    color: #FFFFFF;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn-monto:hover {
-    background: rgba(255, 215, 0, 0.3) !important;
-    border-color: var(--oro-puro);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 215, 0, 0.6);
     transform: scale(1.02);
 }
 
 .btn-monto.activo {
-    background: rgba(255, 215, 0, 0.4) !important; /* Dorado más intenso pero no rojo */
-    border: 1px solid var(--oro-puro) !important;
-    color: #FFFFFF !important;
+    /* Estado activo: dorado vivo y elegante */
+    background: var(--oro-puro);
+    border: 1px solid #FFFFFF;
+    color: #000000;
     font-weight: 700;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8); /* Resplandor dorado */
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.btn-monto.activo:hover {
+    background: #FFE55C;  /* Dorado ligeramente más claro para hover */
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 1);
 }
 
 /* ==================== MONTO PERSONALIZADO ==================== */
