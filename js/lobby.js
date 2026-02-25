@@ -36,14 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const montoInput = document.getElementById('monto-input');
     const montoFeedback = document.getElementById('monto-feedback');
     
-    // ==================== BOTÓN VOLVER ====================
-const btnVolver = document.getElementById('btn-volver-lobby');
-if (btnVolver) {
-    btnVolver.addEventListener('click', function() {
-        window.location.href = 'terminos.html';
-    });
-}
-    
     // ==================== VALIDACIÓN DE MONTO ====================
     function validarMonto(valor) {
         const num = parseInt(valor);
@@ -63,9 +55,6 @@ if (btnVolver) {
             return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
         }
         
-        // ✅ CORRECIÓN: El saldo ya NO bloquea la validación
-        // Solo se valida formato, no disponibilidad
-        
         return { valido: true, mensaje: '✓ Monto válido' };
     }
     
@@ -79,7 +68,7 @@ if (btnVolver) {
         
         if (valor === '') {
             montoFeedback.textContent = '';
-            renderizarMesas(null); // ✅ CORRECIÓN: Mostrar todas las mesas si el input está vacío
+            renderizarMesas(null);
             return;
         }
         
@@ -93,8 +82,6 @@ if (btnVolver) {
             montoFeedback.textContent = '❌ ' + resultado.mensaje;
         }
         
-        // ✅ CORRECIÓN: Siempre pasar el número (aunque sea inválido por formato)
-        // para que el filtro de mesas funcione según la intención del jugador
         const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
         renderizarMesas(montoActual);
     }
@@ -110,7 +97,6 @@ if (btnVolver) {
     function renderizarMesas(intencionMonto = null) {
         mesasLista.innerHTML = '';
         
-        // ✅ CORRECIÓN: Nueva lógica de marketing
         // Filtrar mesas NO llenas para mostrar
         const mesasActivas = mesas.filter(m => m.jugadores < 6);
         
@@ -121,22 +107,17 @@ if (btnVolver) {
             const mesasSuperiores = mesasActivas.filter(m => m.monto >= intencionMonto);
             
             if (mesasSuperiores.length > 0) {
-                // Caso 1: Hay mesas superiores o iguales -> mostrar SOLO esas
                 mesasAMostrar = mesasSuperiores;
             } else {
-                // Caso 2: No hay superiores -> mostrar la mesa activa de mayor monto por debajo
                 const mesasInferiores = mesasActivas.filter(m => m.monto < intencionMonto);
                 if (mesasInferiores.length > 0) {
-                    // Ordenar de mayor a menor y tomar la más cercana
                     mesasInferiores.sort((a, b) => b.monto - a.monto);
                     mesasAMostrar = [mesasInferiores[0]];
                 } else {
-                    // No hay ninguna mesa activa
                     mesasAMostrar = [];
                 }
             }
         } else {
-            // Sin intención de monto: mostrar todas las mesas activas
             mesasAMostrar = mesasActivas;
         }
         
@@ -157,11 +138,9 @@ if (btnVolver) {
             mesaCard.className = `mesa-card estado-${estadoInfo.color}`;
             mesaCard.dataset.mesaId = mesa.id;
             
-            // Header de la mesa
             const header = document.createElement('div');
             header.className = 'mesa-header';
             
-            // Info izquierda
             const infoDiv = document.createElement('div');
             infoDiv.className = 'mesa-info';
             infoDiv.innerHTML = `
@@ -173,7 +152,6 @@ if (btnVolver) {
                 </div>
             `;
             
-            // Botón Entrar
             const accionDiv = document.createElement('div');
             accionDiv.className = 'mesa-accion';
             
@@ -184,9 +162,6 @@ if (btnVolver) {
                 entrarBtn.className = 'btn-entrar';
                 entrarBtn.textContent = '▶ ENTRAR';
                 entrarBtn.dataset.mesaId = mesa.id;
-                
-                // ✅ CORRECIÓN: El botón SIEMPRE está habilitado si la mesa no está llena
-                // Ya no depende de validación de monto
                 
                 entrarBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
@@ -199,7 +174,6 @@ if (btnVolver) {
             header.appendChild(infoDiv);
             header.appendChild(accionDiv);
             
-            // Gaveta
             const gaveta = document.createElement('div');
             gaveta.className = 'mesa-gaveta';
             gaveta.style.display = 'none';
@@ -214,21 +188,18 @@ if (btnVolver) {
                 </div>
             `;
             
-            // ✅ CORRECIÓN: Botón COMPRAR FICHAS abre el bot de Telegram
             const comprarBtn = gaveta.querySelector('.btn-comprar-gaveta');
             if (comprarBtn) {
                 comprarBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    // URL del bot para depósitos
                     window.location.href = 'https://t.me/mesa_baccarat_bot?start=deposito';
                 });
             }
             
-            // Event listener para abrir/cerrar gaveta
             header.addEventListener('click', function(e) {
-    if (e.target.closest('.btn-entrar')) return;
-    toggleGaveta(this, mesaCard);  // <-- versión original con dos parámetros
-});
+                if (e.target.closest('.btn-entrar')) return;
+                toggleGaveta(this, mesaCard);
+            });
             
             mesaCard.appendChild(header);
             mesaCard.appendChild(gaveta);
@@ -240,12 +211,7 @@ if (btnVolver) {
     
     // ==================== MANEJADORES DE ACCIONES ====================
     function manejarEntrarMesa(mesaId, montoMesa) {
-        // ✅ CORRECIÓN: Ya no validamos monto aquí
-        // Solo guardamos la intención y abrimos la gaveta (que ya está abierta al hacer click)
         console.log(`👆 Mesa #${mesaId} seleccionada (monto mesa: ${montoMesa}₽)`);
-        
-        // La gaveta ya se abre/cierra con toggleGaveta, no necesitamos hacer nada más
-        // Este manejador ahora es solo para acciones futuras si es necesario
     }
     
     // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN ====================
@@ -267,7 +233,6 @@ if (btnVolver) {
     montoInput.addEventListener('input', function() {
         actualizarFeedbackMonto();
         
-        // Sincronizar botones
         const valorActual = parseInt(this.value);
         botonesMonto.forEach(btn => {
             if (parseInt(btn.dataset.monto) === valorActual) {
@@ -279,44 +244,48 @@ if (btnVolver) {
     });
     
     // ==================== GAVETA - COMPORTAMIENTO ====================
-let mesaAbierta = null;
-
-function toggleGaveta(header, mesaCard) {
-    const gaveta = mesaCard.querySelector('.mesa-gaveta');
-    if (!gaveta) return;
+    let mesaAbierta = null;
     
-    // Manejar clase active para la flecha
-    const mesaHeader = mesaCard.querySelector('.mesa-header');
-    
-    // Cerrar otra gaveta abierta
-    if (mesaAbierta && mesaAbierta !== mesaCard) {
-        const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
-        if (gavetaAnterior) {
-            gavetaAnterior.style.display = 'none';
-            // Quitar clase active del header anterior
-            const headerAnterior = mesaAbierta.querySelector('.mesa-header');
-            if (headerAnterior) headerAnterior.classList.remove('active');
+    function toggleGaveta(header, mesaCard) {
+        const gaveta = mesaCard.querySelector('.mesa-gaveta');
+        if (!gaveta) return;
+        
+        const mesaHeader = mesaCard.querySelector('.mesa-header');
+        
+        if (mesaAbierta && mesaAbierta !== mesaCard) {
+            const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+            if (gavetaAnterior) {
+                gavetaAnterior.style.display = 'none';
+                const headerAnterior = mesaAbierta.querySelector('.mesa-header');
+                if (headerAnterior) headerAnterior.classList.remove('active');
+            }
+        }
+        
+        if (gaveta.style.display === 'none' || !gaveta.style.display) {
+            gaveta.style.display = 'block';
+            mesaAbierta = mesaCard;
+            if (mesaHeader) mesaHeader.classList.add('active');
+        } else {
+            gaveta.style.display = 'none';
+            mesaAbierta = null;
+            if (mesaHeader) mesaHeader.classList.remove('active');
         }
     }
     
-    // Abrir/cerrar la actual
-    if (gaveta.style.display === 'none' || !gaveta.style.display) {
-        gaveta.style.display = 'block';
-        mesaAbierta = mesaCard;
-        // Añadir clase active al header actual
-        if (mesaHeader) mesaHeader.classList.add('active');
-    } else {
-        gaveta.style.display = 'none';
-        mesaAbierta = null;
-        // Quitar clase active del header actual
-        if (mesaHeader) mesaHeader.classList.remove('active');
+    // ==================== BOTÓN VOLVER ====================
+    const btnVolver = document.getElementById('btn-volver-lobby');
+    if (btnVolver) {
+        btnVolver.addEventListener('click', function() {
+            window.location.href = 'terminos.html';
+        });
     }
-}
     
     // ==================== INICIALIZACIÓN ====================
     renderizarMesas();
-actualizarFeedbackMonto();
-console.log('✅ Lobby cargado - Modo simulación (datos temporales)');
-if (jugador.esAdmin) {
-    console.log('👑 Modo administrador activado');
-}
+    actualizarFeedbackMonto();
+    
+    console.log('✅ Lobby cargado - Modo simulación (datos temporales)');
+    if (jugador.esAdmin) {
+        console.log('👑 Modo administrador activado');
+    }
+});
