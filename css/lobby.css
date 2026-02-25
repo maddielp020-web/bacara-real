@@ -18,7 +18,7 @@
 }
 
 .lobby-titulo {
-    color: #FFD700 !important;  /* Dorado fijo */
+    color: var(--oro-puro) !important;  /* CAMBIADO: #FFD700 → var(--oro-puro) */
     font-size: 1.5rem;
     margin: 0;
 }
@@ -27,7 +27,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: #8B1A1A !important;
+    background: var(--rojo-baraja) !important;  /* CAMBIADO: #8B1A1A → var(--rojo-baraja) */
     padding: 8px 15px;
     border-radius: 30px;
     border: 1px solid var(--oro-puro) !important;
@@ -81,7 +81,7 @@
 
 /* Para que el título no se desplace */
 .lobby-titulo {
-    color: #FFD700 !important;
+    color: var(--oro-puro) !important;  /* CAMBIADO: #FFD700 → var(--oro-puro) */
     font-size: 1.5rem;
     margin: 0;
     flex: 1;
@@ -95,7 +95,7 @@
     justify-content: center;
     gap: 8px;
     padding: 15px 20px;
-    background: #1A1A1A;
+    background: var(--gris-oscuro);  /* CAMBIADO: #1A1A1A → var(--gris-oscuro) */
     margin: 10px 20px;
     border-radius: 40px;
     border: 1px solid rgba(255, 215, 0, 0.2);
@@ -130,7 +130,7 @@
 }
 
 .btn-monto {
-    background: rgba(255, 215, 0, 0.2) !important;
+    background: var(--oro-transparente) !important;  /* CAMBIADO: rgba(255,215,0,0.2) → var(--oro-transparente) */
     border: 1px solid var(--oro-puro) !important;
     border-radius: 30px;
     padding: 12px 0;
@@ -270,7 +270,7 @@
 }
 
 .btn-entrar {
-    background: #005EB8 !important;
+    background: var(--azul-casino) !important;  /* CAMBIADO: #005EB8 → var(--azul-casino) */
     color: white !important;
     border: none;
     border-radius: 30px;
@@ -282,7 +282,7 @@
 
 .btn-entrar:hover,
 .btn-entrar:focus {
-    background: #1a6bc9;
+    background: var(--azul-brillante);  /* CAMBIADO: #1a6bc9 → var(--azul-brillante) */
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
@@ -323,7 +323,7 @@
 }
 
 .btn-comprar-gaveta {
-    background: #005EB8;
+    background: var(--azul-casino);  /* CAMBIADO: #005EB8 → var(--azul-casino) */
     color: white;
     border: none;
     border-radius: 30px;
@@ -339,7 +339,7 @@
 
 .btn-comprar-gaveta:hover,
 .btn-comprar-gaveta:focus {
-    background: #1a6bc9;
+    background: var(--azul-brillante);  /* CAMBIADO: #1a6bc9 → var(--azul-brillante) */
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
     transform: scale(1.02);
 }
@@ -350,10 +350,10 @@
 }
 
 /* Estados de mesa */
-.estado-verde .mesa-estado { color: #00C853; }
-.estado-amarillo .mesa-estado { color: #FFD600; }
-.estado-rojo .mesa-estado { color: #EF3340; }
-.estado-gris .mesa-estado { color: #757575; }
+.estado-verde .mesa-estado { color: var(--verde-bacara); }  /* CAMBIADO: #00C853 → var(--verde-bacara) */
+.estado-amarillo .mesa-estado { color: var(--oro-puro); }    /* CAMBIADO: #FFD600 → var(--oro-puro) */
+.estado-rojo .mesa-estado { color: var(--rojo-baraja); }     /* CAMBIADO: #EF3340 → var(--rojo-baraja) */
+.estado-gris .mesa-estado { color: var(--gris-medio); }      /* CAMBIADO: #757575 → var(--gris-medio) */
 
 /* ==================== FOOTER ==================== */
 .lobby-footer {
@@ -372,20 +372,20 @@
 }
 
 .monto-feedback.valido {
-    color: #4CAF50;
+    color: var(--verde-exito);  /* CAMBIADO: #4CAF50 → var(--verde-exito) */
 }
 
 .monto-feedback.invalido {
-    color: #EF3340;
+    color: var(--rojo-baraja);  /* CAMBIADO: #EF3340 → var(--rojo-baraja) */
 }
 
 .monto-input.valido {
-    border-color: #4CAF50 !important;
+    border-color: var(--verde-exito) !important;  /* CAMBIADO: #4CAF50 → var(--verde-exito) */
     box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
 }
 
 .monto-input.invalido {
-    border-color: #EF3340 !important;
+    border-color: var(--rojo-baraja) !important;  /* CAMBIADO: #EF3340 → var(--rojo-baraja) */
     box-shadow: 0 0 0 2px rgba(239, 51, 64, 0.2) !important;
 }
 
@@ -511,5 +511,69 @@
 }
 
 .sugerida-accion:hover {
-    background: #1a6bc9;
+    background: var(--azul-brillante);  /* CAMBIADO: #1a6bc9 → var(--azul-brillante) */
 }
+
+/* ==================== CHAT VISUALES - CAPAS DE EFECTO ==================== */
+/* AÑADIR AL FINAL DEL ARCHIVO - VERSIÓN LOBBY */
+/* SIN Z-INDEX - RESPETA JERARQUÍA NATURAL */
+
+/* EFECTO 1: TELA/ALFOMBRA (FIRMA VISUAL) */
+.lobby-container {
+    position: relative;
+}
+
+.lobby-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(45deg, rgba(255,215,0,0.008) 0px, rgba(255,215,0,0.008) 2px, transparent 2px, transparent 6px);
+    pointer-events: none;
+}
+
+/* EFECTO 2: GLOW SUTIL EN BOTONES ACTIVOS */
+.btn-monto.activo {
+    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+    transition: box-shadow 0.2s ease;
+}
+
+/* EFECTO 3: MICRO-INTERACCIÓN EN HOVER */
+.btn-entrar:hover,
+.btn-comprar-gaveta:hover {
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+}
+
+/* EFECTO 4: BRILLO EN FOCUS DE INPUTS */
+.monto-input:focus {
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+
+/* EFECTO 5: PARTÍCULAS DE LUZ (OPCIONAL - 3 SUTILES) */
+@keyframes particula-lobby {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    15% { opacity: 0.12; }
+    80% { opacity: 0.12; }
+    100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
+}
+
+.lobby-container .particula-luz {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--oro-puro);
+    border-radius: 50%;
+    filter: blur(0.8px);
+    box-shadow: 0 0 6px var(--oro-puro);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+.particula-luz:nth-child(1) { left: 20%; animation: particula-lobby 18s infinite 0s; }
+.particula-luz:nth-child(2) { left: 50%; animation: particula-lobby 22s infinite 5s; }
+.particula-luz:nth-child(3) { left: 80%; animation: particula-lobby 20s infinite 10s; }
