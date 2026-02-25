@@ -27,20 +27,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ==================== DETECCIÓN DE SCROLL AL FINAL ====================
-    function verificarScroll() {
-        const scrollTop = window.scrollY;
-        const scrollHeight = document.documentElement.scrollHeight;
-        const clientHeight = window.innerHeight;
-        const margenError = 20; // Ajustado para mejor experiencia en iPhone
-        
-        const distanciaAlFinal = scrollHeight - (scrollTop + clientHeight);
-        
-        if (distanciaAlFinal <= margenError && !haLlegadoAlFinal) {
-            haLlegadoAlFinal = true;
-            // Actualizar estado del botón por si el checkbox ya estaba marcado
-            btnAceptar.disabled = !(haLlegadoAlFinal && checkbox.checked);
-        }
+function verificarScroll() {
+    const scrollTop = window.scrollY;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = window.innerHeight;
+    const margenError = 20;
+    
+    const distanciaAlFinal = scrollHeight - (scrollTop + clientHeight);
+    
+    if (distanciaAlFinal <= margenError && !haLlegadoAlFinal) {
+        haLlegadoAlFinal = true;
+        // FORZAR actualización del botón basado en el estado actual del checkbox
+        btnAceptar.disabled = !checkbox.checked;
     }
+}
     
     // Escuchar scroll en window
     window.addEventListener('scroll', verificarScroll);
