@@ -36,6 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const montoInput = document.getElementById('monto-input');
     const montoFeedback = document.getElementById('monto-feedback');
     
+    // ==================== BOTÓN VOLVER ====================
+const btnVolver = document.getElementById('btn-volver-lobby');
+if (btnVolver) {
+    btnVolver.addEventListener('click', function() {
+        window.location.href = 'terminos.html';
+    });
+}
+    
     // ==================== VALIDACIÓN DE MONTO ====================
     function validarMonto(valor) {
         const num = parseInt(valor);
@@ -218,9 +226,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Event listener para abrir/cerrar gaveta
             header.addEventListener('click', function(e) {
-                if (e.target.closest('.btn-entrar')) return;
-                toggleGaveta(this, mesaCard);
-            });
+    if (e.target.closest('.btn-entrar')) return;
+    toggleGaveta(mesaCard);  // <-- AHORA: solo un parámetro
+});
             
             mesaCard.appendChild(header);
             mesaCard.appendChild(gaveta);
@@ -271,13 +279,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ==================== GAVETA - COMPORTAMIENTO ====================
-    let mesaAbierta = null;
-    
-    function toggleGaveta(header, mesaCard) {
+let mesaAbierta = null;
+
+function toggleGaveta(mesaCard) {
     const gaveta = mesaCard.querySelector('.mesa-gaveta');
     if (!gaveta) return;
     
-    // 🟡 PRIORIDAD MEDIA: Manejar clase active para la flecha
+    // Manejar clase active para la flecha
     const mesaHeader = mesaCard.querySelector('.mesa-header');
     
     // Cerrar otra gaveta abierta
@@ -290,6 +298,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (headerAnterior) headerAnterior.classList.remove('active');
         }
     }
+    
+    // Abrir/cerrar la actual
+    if (gaveta.style.display === 'none' || !gaveta.style.display) {
+        gaveta.style.display = 'block';
+        mesaAbierta = mesaCard;
+        // Añadir clase active al header actual
+        if (mesaHeader) mesaHeader.classList.add('active');
+    } else {
+        gaveta.style.display = 'none';
+        mesaAbierta = null;
+        // Quitar clase active del header actual
+        if (mesaHeader) mesaHeader.classList.remove('active');
+    }
+}
     
     // Abrir/cerrar la actual
     if (gaveta.style.display === 'none' || !gaveta.style.display) {
