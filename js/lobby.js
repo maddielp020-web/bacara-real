@@ -227,7 +227,7 @@ if (btnVolver) {
             // Event listener para abrir/cerrar gaveta
             header.addEventListener('click', function(e) {
     if (e.target.closest('.btn-entrar')) return;
-    toggleGaveta(mesaCard);  // <-- AHORA: solo un parámetro
+    toggleGaveta(this, mesaCard);  // <-- versión original con dos parámetros
 });
             
             mesaCard.appendChild(header);
@@ -281,7 +281,7 @@ if (btnVolver) {
     // ==================== GAVETA - COMPORTAMIENTO ====================
 let mesaAbierta = null;
 
-function toggleGaveta(mesaCard) {
+function toggleGaveta(header, mesaCard) {
     const gaveta = mesaCard.querySelector('.mesa-gaveta');
     if (!gaveta) return;
     
@@ -313,28 +313,10 @@ function toggleGaveta(mesaCard) {
     }
 }
     
-    // Abrir/cerrar la actual
-    if (gaveta.style.display === 'none' || !gaveta.style.display) {
-        gaveta.style.display = 'block';
-        mesaAbierta = mesaCard;
-        // Añadir clase active al header actual
-        if (mesaHeader) mesaHeader.classList.add('active');
-    } else {
-        gaveta.style.display = 'none';
-        mesaAbierta = null;
-        // Quitar clase active del header actual
-        if (mesaHeader) mesaHeader.classList.remove('active');
-    }
-}
-    
     // ==================== INICIALIZACIÓN ====================
     renderizarMesas();
-    
-    // Agregar evento al input para validación inicial
-    actualizarFeedbackMonto();
-    
-    console.log('✅ Lobby cargado - Modo simulación (datos temporales)');
-    if (jugador.esAdmin) {
-        console.log('👑 Modo administrador activado');
-    }
-});
+actualizarFeedbackMonto();
+console.log('✅ Lobby cargado - Modo simulación (datos temporales)');
+if (jugador.esAdmin) {
+    console.log('👑 Modo administrador activado');
+}
