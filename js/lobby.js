@@ -215,33 +215,43 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN ====================
-    function actualizarInput(valor) {
-        montoInput.value = valor;
-        actualizarFeedbackMonto();
-    }
-    
-    botonesMonto.forEach(btn => {
-        btn.addEventListener('click', function() {
-            botonesMonto.forEach(b => b.classList.remove('activo'));
-            this.classList.add('activo');
-            
-            const monto = parseInt(this.dataset.monto);
-            actualizarInput(monto);
-        });
-    });
-    
-    montoInput.addEventListener('input', function() {
-        actualizarFeedbackMonto();
+function actualizarInput(valor) {
+    montoInput.value = valor;
+    actualizarFeedbackMonto();
+}
+
+// Manejador para botones rápidos
+botonesMonto.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();  // Evita que el clic se propague
         
-        const valorActual = parseInt(this.value);
-        botonesMonto.forEach(btn => {
-            if (parseInt(btn.dataset.monto) === valorActual) {
-                btn.classList.add('activo');
-            } else {
-                btn.classList.remove('activo');
-            }
-        });
+        // Remover clase activo de todos los botones
+        botonesMonto.forEach(b => b.classList.remove('activo'));
+        
+        // Activar el botón clickeado
+        this.classList.add('activo');
+        
+        const monto = parseInt(this.dataset.monto);
+        actualizarInput(monto);
     });
+});
+
+// Manejador para input personalizado
+montoInput.addEventListener('input', function(e) {
+    e.stopPropagation();
+    actualizarFeedbackMonto();
+    
+    const valorActual = parseInt(this.value);
+    
+    // Sincronizar botones según el valor del input
+    botonesMonto.forEach(btn => {
+        if (parseInt(btn.dataset.monto) === valorActual) {
+            btn.classList.add('activo');
+        } else {
+            btn.classList.remove('activo');
+        }
+    });
+});
     
     // ==================== GAVETA - COMPORTAMIENTO ====================
     let mesaAbierta = null;
