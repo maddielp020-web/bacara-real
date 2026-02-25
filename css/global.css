@@ -21,6 +21,9 @@
     --oro-transparente: rgba(255, 215, 0, 0.3);
     --dorado-suave: #D4AF37;
     --azul-brillante: #1a6bc9;  /* Hover para botones azules */
+    
+    /* NUEVA VARIABLE - Verde éxito para feedback */
+    --verde-exito: #4CAF50;
 
     /* SOMBRAS PROFESIONALES */
     --sombra-oro: 0 10px 20px -5px rgba(255, 215, 0, 0.3);
