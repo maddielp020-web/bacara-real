@@ -575,9 +575,7 @@
 .particula-luz:nth-child(3) { left: 80%; animation: particula-lobby 20s infinite 10s; }
 
 /* ==================== FORZAR TÍTULO DORADO ==================== */
-header .lobby-titulo,
-.lobby-header .lobby-titulo,
-h1.lobby-titulo {
-    color: var(--oro-puro) !important;
+html body div.contenedor.lobby-container header.lobby-header h1.lobby-titulo {
+    color: #FFD700 !important;
     text-shadow: none !important;
 }
