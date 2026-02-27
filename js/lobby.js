@@ -252,6 +252,79 @@ montoInput.addEventListener('input', function(e) {
         }
     });
 });
+
+// ==================== VALIDACIÓN Y FEEDBACK DE MONTO ====================
+function validarMonto(valor) {
+    const num = parseInt(valor);
+    
+    // Vacío o no numérico
+    if (isNaN(num) || valor === '') {
+        return { valido: false, mensaje: 'Ingresa un monto' };
+    }
+    
+    // Mínimo 200
+    if (num < 200) {
+        return { valido: false, mensaje: 'El monto mínimo es 200₽' };
+    }
+    
+    // Múltiplo de 50
+    if (num % 50 !== 0) {
+        return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
+    }
+    
+    return { valido: true, mensaje: '✓ Monto válido' };
+}
+
+function actualizarFeedbackMonto() {
+    const valor = montoInput.value;
+    const resultado = validarMonto(valor);
+    const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
+    
+    // Limpiar clases previas
+    montoInput.classList.remove('valido-formato', 'valido-con-mesa', 'invalido');
+    montoFeedback.classList.remove('valido-formato', 'valido-con-mesa', 'invalido');
+    
+    // Caso 1: Campo vacío
+    if (valor === '') {
+        montoFeedback.textContent = '';
+        renderizarMesas(null);
+        return;
+    }
+    
+    // Caso 2: Formato inválido (no cumple reglas)
+    if (!resultado.valido) {
+        montoInput.classList.add('invalido');
+        montoFeedback.classList.add('invalido');
+        montoFeedback.textContent = '❌ ' + resultado.mensaje;
+        renderizarMesas(montoActual);
+        return;
+    }
+    
+    // Si llegamos aquí, el monto es válido (≥200 y múltiplo de 50)
+    
+    // Verificar si hay mesa con el monto EXACTO
+    const hayMesaExacta = mesas.some(m => m.monto === montoActual && m.jugadores < 6);
+    
+    if (hayMesaExacta) {
+        // Caso 3: Monto válido Y hay mesa exacta
+        montoInput.classList.add('valido-con-mesa');
+        montoFeedback.classList.add('valido-con-mesa');
+        montoFeedback.textContent = '✓ Monto válido';
+    } else {
+        // Caso 4: Monto válido pero NO hay mesa exacta
+        montoInput.classList.add('valido-formato');
+        montoFeedback.classList.add('valido-formato');
+        
+        // Mensaje neutral informativo
+        if (montoActual) {
+            montoFeedback.textContent = `Con ${montoActual}₽ no hay mesas disponibles. Estas son las opciones:`;
+        } else {
+            montoFeedback.textContent = '';
+        }
+    }
+    
+    renderizarMesas(montoActual);
+}
     
     // ==================== GAVETA - COMPORTAMIENTO ====================
     let mesaAbierta = null;
