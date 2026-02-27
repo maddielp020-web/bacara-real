@@ -164,9 +164,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 entrarBtn.dataset.mesaId = mesa.id;
                 
                 entrarBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    manejarEntrarMesa(mesa.id, mesa.monto);
-                });
+    e.stopPropagation();
+    manejarEntrarMesa(mesa.id, mesa.monto);
+    // Abrir la gaveta
+    toggleGaveta(header, mesaCard);
+});
                 
                 accionDiv.appendChild(entrarBtn);
             }
@@ -196,10 +198,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            header.addEventListener('click', function(e) {
-                if (e.target.closest('.btn-entrar')) return;
-                toggleGaveta(this, mesaCard);
-            });
+            // El header YA NO abre la gaveta
+header.addEventListener('click', function(e) {
+    // No hacer nada al hacer clic en el header
+    // La gaveta solo se abre con el botón
+});
             
             mesaCard.appendChild(header);
             mesaCard.appendChild(gaveta);
