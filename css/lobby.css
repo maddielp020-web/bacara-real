@@ -107,7 +107,7 @@
 
 /* ==================== SELECTOR DE MONTO ==================== */
 .selector-titulo {
-    color: var(--rojo-baraja);  /* Rojo institucional */
+    color: var(--rojo-baraja); !important; /* Rojo institucional */
     font-size: 1.2rem;           /* Un poco más grande que el default */
     margin-bottom: 15px;
     font-weight: 500;
@@ -385,7 +385,8 @@
 }
 
 .monto-feedback.invalido {
-    color: var(--rojo-baraja);  /* Rojo para errores (múltiplo, mínimo) */
+      .monto-feedback.invalido {
+    color: var(--rojo-baraja) !important; /* Rojo para errores (múltiplo, mínimo) */
 }
 
 .monto-input.valido-formato {
