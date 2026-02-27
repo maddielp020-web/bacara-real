@@ -106,6 +106,14 @@
 }
 
 /* ==================== SELECTOR DE MONTO ==================== */
+.selector-titulo {
+    color: var(--rojo-baraja);  /* Rojo institucional */
+    font-size: 1.2rem;           /* Un poco más grande que el default */
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+/* ==================== SELECTOR DE MONTO ==================== */
 .botones-monto {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -367,21 +375,30 @@
     transition: all 0.2s ease;
 }
 
-.monto-feedback.valido {
-    color: var(--verde-exito);  /* CAMBIADO: #4CAF50 → var(--verde-exito) */
+.monto-feedback.valido-formato {
+    color: #CCCCCC;  /* Neutral para cuando solo cumple reglas pero no hay mesa exacta */
+}
+
+.monto-feedback.valido-con-mesa {
+    color: var(--verde-exito) !important;  /* Verde éxito cuando hay mesa exacta */
+    font-weight: 600;
 }
 
 .monto-feedback.invalido {
-    color: var(--rojo-baraja);  /* CAMBIADO: #EF3340 → var(--rojo-baraja) */
+    color: var(--rojo-baraja);  /* Rojo para errores (múltiplo, mínimo) */
 }
 
-.monto-input.valido {
-    border-color: var(--verde-exito) !important;  /* CAMBIADO: #4CAF50 → var(--verde-exito) */
+.monto-input.valido-formato {
+    border-color: #CCCCCC;  /* Borde neutral cuando cumple reglas */
+}
+
+.monto-input.valido-con-mesa {
+    border-color: var(--verde-exito) !important;  /* Borde verde cuando hay mesa exacta */
     box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
 }
 
 .monto-input.invalido {
-    border-color: var(--rojo-baraja) !important;  /* CAMBIADO: #EF3340 → var(--rojo-baraja) */
+    border-color: var(--rojo-baraja) !important;
     box-shadow: 0 0 0 2px rgba(239, 51, 64, 0.2) !important;
 }
 
