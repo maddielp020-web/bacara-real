@@ -379,7 +379,12 @@
     color: #CCCCCC;  /* Neutral para cuando solo cumple reglas pero no hay mesa exacta */
 }
 
-      .monto-feedback.invalido {
+.monto-feedback.valido-con-mesa {
+    color: var(--verde-exito) !important;
+    font-weight: 600;
+}
+
+.monto-feedback.invalido {
     color: var(--rojo-baraja) !important; /* Rojo para errores (múltiplo, mínimo) */
 }
 
