@@ -1,0 +1,55 @@
+/* ==================== TELEGRAM FIXES ==================== */
+/* Cargar este archivo ÚLTIMO en todos los HTML */
+/* Solo para elementos que Telegram sobrescribe */
+
+/* Títulos principales */
+h1.lobby-titulo {
+    color: #FFD700 !important;  /* Dorado puro */
+    text-shadow: none !important;
+}
+
+/* Subtítulos */
+h2.selector-titulo {
+    color: #EF3340 !important;  /* Rojo institucional */
+    font-size: 1.2rem !important; /* si se pierde el tamaño */
+}
+
+/* Feedback de monto válido (con mesa) */
+.monto-feedback.valido-con-mesa {
+    color: #4CAF50 !important;  /* Verde éxito */
+    font-weight: 600 !important;
+}
+
+/* Feedback de error */
+.monto-feedback.invalido {
+    color: #EF3340 !important;  /* Rojo error */
+}
+
+/* Input cuando es válido (borde verde) */
+.monto-input.valido-con-mesa {
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+}
+
+/* Input cuando es inválido */
+.monto-input.invalido {
+    border-color: #EF3340 !important;
+    box-shadow: 0 0 0 2px rgba(239, 51, 64, 0.2) !important;
+}
+
+/* Botones de selección rápida (si se pierde el estilo) */
+button.btn-monto.activo {
+    background: #D4AF37 !important;  /* Dorado elegante */
+    color: #000000 !important;
+}
+
+/* Flechas animadas (si Telegram las detiene) */
+.selector-rapido .flecha {
+    animation: bounce-subtle 1.5s infinite ease-in-out !important;
+}
+
+/* Asegurar que la animación exista (si se pierde) */
+@keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
