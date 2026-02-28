@@ -9,41 +9,45 @@
     <link rel="stylesheet" href="global.css">
     
     <!-- ESPECÍFICO DE LOBBY -->
-    <link rel="stylesheet" href="css/lobby.css?v=2">
+    <link rel="stylesheet" href="css/lobby.css">
     
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        
-     <!-- FORZADO FINAL contra Telegram -->
+    
+    <!-- FORZADO FINAL contra Telegram -->
     <link rel="stylesheet" href="css/telegram-fixes.css">
-        
 </head>
 <body>
     <div class="contenedor lobby-container">
         
+        <!-- ==================== PARTÍCULAS (3 SUTILES) ==================== -->
+        <div class="particula-luz"></div>
+        <div class="particula-luz"></div>
+        <div class="particula-luz"></div>
+        
         <!-- ==================== HEADER LOBBY ==================== -->
-<header class="lobby-header">
-    <button class="btn-nav btn-volver-lobby" id="btn-volver-lobby" aria-label="Volver a Términos">←</button>
-    <h1 class="lobby-titulo">🎰 BACARÁ REAL</h1>
-    <div class="lobby-saldo">
-        <span class="saldo-icono">🪙</span>
-        <span class="saldo-cantidad" id="saldo-usuario">1,250</span>
-    </div>
-</header>
+        <header class="lobby-header">
+            <button class="btn-nav btn-volver-lobby" id="btn-volver-lobby" aria-label="Volver a Términos">←</button>
+            <h1 class="lobby-titulo">🎰 BACARÁ REAL</h1>
+            <div class="lobby-saldo">
+                <span class="saldo-icono">🪙</span>
+                <span class="saldo-cantidad" id="saldo-usuario">1,250</span>
+            </div>
+        </header>
 
         <!-- ==================== IDENTIDAD DEL JUGADOR ==================== -->
         <div class="lobby-usuario" id="usuario-info">
             <span class="usuario-icono">👤</span>
             <span class="usuario-nombre" id="usuario-nombre">@usuario_telegram</span>
-            <!-- Admin badge (opcional, se muestra por JS si es admin) -->
-            <span class="admin-badge" id="admin-badge" style="display: none;">👑 ADMIN</span>
+            <!-- Admin badge (se muestra con clase .oculto por defecto) -->
+            <span class="admin-badge oculto" id="admin-badge">👑 ADMIN</span>
         </div>
 
         <!-- ==================== SELECTOR DE MONTO ==================== -->
         <div class="selector-monto">
             <h2 class="selector-titulo">¿Con cuánto quieres jugar?</h2>
             
-            <!-- ==================== NUEVO SUBTÍTULO CON ANIMACIÓN ==================== -->
+            <!-- ==================== SUBTÍTULO CON ANIMACIÓN ==================== -->
             <div class="selector-rapido">
                 <span class="flecha">⬇️</span>
                 <span class="rapido-texto">SELECCIÓN RÁPIDA</span>
@@ -65,7 +69,7 @@
         </div>
 
         <!-- ==================== MENSAJE DE ERROR DE MESAS ==================== -->
-        <div class="mesas-error" id="mesas-error" style="display: none;"></div>
+        <div class="mesas-error oculto" id="mesas-error"></div>
 
         <!-- ==================== LISTA DE MESAS (GENERADA POR JS) ==================== -->
         <div class="mesas-container">
