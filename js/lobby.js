@@ -1,11 +1,10 @@
-- [ ] // ==================== LOBBY - DATOS SIMULADOS Y COMPORTAMIENTO ====================
+// ==================== LOBBY - DATOS SIMULADOS Y COMPORTAMIENTO ====================
 // NOTA: Los datos hardcodeados (username, saldo, esAdmin) son SIMULACIONES
 // En producción vendrán del bot de Telegram y backend
 
 document.addEventListener('DOMContentLoaded', function() {
     
     // ==================== DATOS DE PRUEBA (TEMPORALES) ====================
-    // Estos datos serán reemplazados por los del bot de Telegram
     const jugador = {
         username: "@antonio",
         saldo: 1250,
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('usuario-nombre').textContent = jugador.username;
     document.getElementById('saldo-usuario').textContent = jugador.saldo.toLocaleString();
     
-    // Mostrar badge de admin si corresponde
     const adminBadge = document.getElementById('admin-badge');
     if (jugador.esAdmin) {
         adminBadge.style.display = 'inline-block';
@@ -36,35 +34,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const montoInput = document.getElementById('monto-input');
     const montoFeedback = document.getElementById('monto-feedback');
     
-    // ==================== VALIDACIÓN DE MONTO ====================
+    // ==================== FUNCIONES AUXILIARES ====================
+    
     function validarMonto(valor) {
         const num = parseInt(valor);
         
-        // Vacío o no numérico
         if (isNaN(num) || valor === '') {
             return { valido: false, mensaje: 'Ingresa un monto' };
         }
-        
-        // Mínimo 200
         if (num < 200) {
             return { valido: false, mensaje: 'El monto mínimo es 200₽' };
         }
-        
-        // Múltiplo de 50
         if (num % 50 !== 0) {
             return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
         }
-        
         return { valido: true, mensaje: '✓ Monto válido' };
     }
     
     function actualizarFeedbackMonto() {
         const valor = montoInput.value;
         const resultado = validarMonto(valor);
+        const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
         
-        // Actualizar clases del input
-        montoInput.classList.remove('valido', 'invalido');
-        montoFeedback.classList.remove('valido', 'invalido');
+        // Limpiar clases previas
+        montoInput.classList.remove('valido-formato', 'valido-con-mesa', 'invalido');
+        montoFeedback.classList.remove('valido-formato', 'valido-con-mesa', 'invalido');
         
         if (valor === '') {
             montoFeedback.textContent = '';
@@ -72,21 +66,34 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        if (resultado.valido) {
-            montoInput.classList.add('valido');
-            montoFeedback.classList.add('valido');
-            montoFeedback.textContent = resultado.mensaje;
-        } else {
+        if (!resultado.valido) {
             montoInput.classList.add('invalido');
             montoFeedback.classList.add('invalido');
             montoFeedback.textContent = '❌ ' + resultado.mensaje;
+            renderizarMesas(montoActual);
+            return;
         }
         
-        const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
+        // Monto válido (≥200 y múltiplo de 50)
+        const hayMesaExacta = mesas.some(m => m.monto === montoActual && m.jugadores < 6);
+        
+        if (hayMesaExacta) {
+            montoInput.classList.add('valido-con-mesa');
+            montoFeedback.classList.add('valido-con-mesa');
+            montoFeedback.textContent = '✓ Monto válido';
+        } else {
+            montoInput.classList.add('valido-formato');
+            montoFeedback.classList.add('valido-formato');
+            if (montoActual) {
+                montoFeedback.textContent = `Con ${montoActual}₽ no hay mesas disponibles. Estas son las opciones:`;
+            } else {
+                montoFeedback.textContent = '';
+            }
+        }
+        
         renderizarMesas(montoActual);
     }
     
-    // ==================== RENDERIZAR MESAS ====================
     function getEstadoInfo(jugadores) {
         if (jugadores === 6) return { color: 'gris', texto: '⚪' };
         if (jugadores === 1) return { color: 'rojo', texto: '🔴' };
@@ -97,15 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderizarMesas(intencionMonto = null) {
         mesasLista.innerHTML = '';
         
-        // Filtrar mesas NO llenas para mostrar
         const mesasActivas = mesas.filter(m => m.jugadores < 6);
-        
         let mesasAMostrar = [];
         
         if (intencionMonto && !isNaN(intencionMonto) && intencionMonto >= 200) {
-            // Buscar mesas activas con monto >= intencion
             const mesasSuperiores = mesasActivas.filter(m => m.monto >= intencionMonto);
-            
             if (mesasSuperiores.length > 0) {
                 mesasAMostrar = mesasSuperiores;
             } else {
@@ -121,7 +124,6 @@ document.addEventListener('DOMContentLoaded', function() {
             mesasAMostrar = mesasActivas;
         }
         
-        // Mostrar mensaje en el div de error si no hay mesas
         const errorDiv = document.getElementById('mesas-error');
         if (mesasAMostrar.length === 0) {
             errorDiv.style.display = 'block';
@@ -209,122 +211,9 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(`🎲 Mostradas ${mesasAMostrar.length} mesas`);
     }
     
-    // ==================== MANEJADORES DE ACCIONES ====================
     function manejarEntrarMesa(mesaId, montoMesa) {
         console.log(`👆 Mesa #${mesaId} seleccionada (monto mesa: ${montoMesa}₽)`);
     }
-    
-    // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN ====================
-function actualizarInput(valor) {
-    montoInput.value = valor;
-    actualizarFeedbackMonto();
-}
-
-// Manejador para botones rápidos
-botonesMonto.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();  // Evita que el clic se propague
-        
-        // Remover clase activo de todos los botones
-        botonesMonto.forEach(b => b.classList.remove('activo'));
-        
-        // Activar el botón clickeado
-        this.classList.add('activo');
-        
-        const monto = parseInt(this.dataset.monto);
-        actualizarInput(monto);
-    });
-});
-
-// Manejador para input personalizado
-montoInput.addEventListener('input', function(e) {
-    e.stopPropagation();
-    actualizarFeedbackMonto();
-    
-    const valorActual = parseInt(this.value);
-    
-    // Sincronizar botones según el valor del input
-    botonesMonto.forEach(btn => {
-        if (parseInt(btn.dataset.monto) === valorActual) {
-            btn.classList.add('activo');
-        } else {
-            btn.classList.remove('activo');
-        }
-    });
-});
-
-// ==================== VALIDACIÓN Y FEEDBACK DE MONTO ====================
-function validarMonto(valor) {
-    const num = parseInt(valor);
-    
-    // Vacío o no numérico
-    if (isNaN(num) || valor === '') {
-        return { valido: false, mensaje: 'Ingresa un monto' };
-    }
-    
-    // Mínimo 200
-    if (num < 200) {
-        return { valido: false, mensaje: 'El monto mínimo es 200₽' };
-    }
-    
-    // Múltiplo de 50
-    if (num % 50 !== 0) {
-        return { valido: false, mensaje: 'El monto debe ser múltiplo de 50' };
-    }
-    
-    return { valido: true, mensaje: '✓ Monto válido' };
-}
-
-function actualizarFeedbackMonto() {
-    const valor = montoInput.value;
-    const resultado = validarMonto(valor);
-    const montoActual = !isNaN(parseInt(valor)) ? parseInt(valor) : null;
-    
-    // Limpiar clases previas
-    montoInput.classList.remove('valido-formato', 'valido-con-mesa', 'invalido');
-    montoFeedback.classList.remove('valido-formato', 'valido-con-mesa', 'invalido');
-    
-    // Caso 1: Campo vacío
-    if (valor === '') {
-        montoFeedback.textContent = '';
-        renderizarMesas(null);
-        return;
-    }
-    
-    // Caso 2: Formato inválido (no cumple reglas)
-    if (!resultado.valido) {
-        montoInput.classList.add('invalido');
-        montoFeedback.classList.add('invalido');
-        montoFeedback.textContent = '❌ ' + resultado.mensaje;
-        renderizarMesas(montoActual);
-        return;
-    }
-    
-    // Si llegamos aquí, el monto es válido (≥200 y múltiplo de 50)
-    
-    // Verificar si hay mesa con el monto EXACTO
-    const hayMesaExacta = mesas.some(m => m.monto === montoActual && m.jugadores < 6);
-    
-    if (hayMesaExacta) {
-        // Caso 3: Monto válido Y hay mesa exacta
-        montoInput.classList.add('valido-con-mesa');
-        montoFeedback.classList.add('valido-con-mesa');
-        montoFeedback.textContent = '✓ Monto válido';
-    } else {
-        // Caso 4: Monto válido pero NO hay mesa exacta
-        montoInput.classList.add('valido-formato');
-        montoFeedback.classList.add('valido-formato');
-        
-        // Mensaje neutral informativo
-        if (montoActual) {
-            montoFeedback.textContent = `Con ${montoActual}₽ no hay mesas disponibles. Estas son las opciones:`;
-        } else {
-            montoFeedback.textContent = '';
-        }
-    }
-    
-    renderizarMesas(montoActual);
-}
     
     // ==================== GAVETA - COMPORTAMIENTO ====================
     let mesaAbierta = null;
@@ -354,6 +243,35 @@ function actualizarFeedbackMonto() {
             if (mesaHeader) mesaHeader.classList.remove('active');
         }
     }
+    
+    // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN ====================
+    function actualizarInput(valor) {
+        montoInput.value = valor;
+        actualizarFeedbackMonto();
+    }
+    
+    botonesMonto.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            botonesMonto.forEach(b => b.classList.remove('activo'));
+            this.classList.add('activo');
+            const monto = parseInt(this.dataset.monto);
+            actualizarInput(monto);
+        });
+    });
+    
+    montoInput.addEventListener('input', function(e) {
+        e.stopPropagation();
+        actualizarFeedbackMonto();
+        const valorActual = parseInt(this.value);
+        botonesMonto.forEach(btn => {
+            if (parseInt(btn.dataset.monto) === valorActual) {
+                btn.classList.add('activo');
+            } else {
+                btn.classList.remove('activo');
+            }
+        });
+    });
     
     // ==================== BOTÓN VOLVER ====================
     const btnVolver = document.getElementById('btn-volver-lobby');
