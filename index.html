@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bienvenido | Bacará Real</title>
     
-    <!-- GLOBAL (base) -->
+    <!-- GLOBAL (base) - SIEMPRE PRIMERO -->
     <link rel="stylesheet" href="global.css">
     
     <!-- ESPECÍFICO DE BIENVENIDA -->
@@ -13,34 +13,16 @@
     
     <!-- Fuentes -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        
-        <!-- FORZADO FINAL contra Telegram -->
-    <link rel="stylesheet" href="css/telegram-fixes.css">
-        
 </head>
-<body>
+<body class="nuevo">
     <div class="contenedor bienvenida-container">
         
+        <!-- ==================== PARTÍCULAS (5 SUTILES) ==================== -->
         <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-    <div class="particula"></div>
-        <!-- EFECTOS NEBLINA EN BORDES -->
-    <div class="borde-neblina">
-        <div class="izquierdo"></div>
-        <div class="derecho"></div>
-    </div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
+        <div class="particula"></div>
         
         <!-- ==================== OVERLAY DORADO ==================== -->
         <div class="bienvenida-overlay fade-in"></div>
@@ -71,59 +53,42 @@
             <!-- ==================== DIVISOR CON FRANJA DE LUZ ==================== -->
             <div class="bienvenida-divisor"></div>
             
-           <!-- ==================== NUEVO: FORMULARIO DE ACCESO ==================== -->
-<div class="acceso-container">
-    
-    <!-- Campo CÓDIGO (con estructura completa) -->
-    <div class="campo-container">
-        <label class="campo-label">🔑 CÓDIGO DE INVITACIÓN</label>
-        <input type="text" class="campo-input" id="codigo-input" placeholder="Ej: INV-123">
-        <div class="mensaje-error" id="codigo-error"></div>
-    </div>
-    
-    <!-- Campo TELÉFONO con prefijo +7 fijo -->
-    <div class="campo-container" id="telefono-container">
-        <label class="campo-label">📱 TELÉFONO (mismo del banco)</label>
-        <div class="telefono-wrapper">
-            <span class="telefono-prefijo">+7</span>
-            <input type="tel" class="campo-input telefono-input" id="telefono-input" placeholder="___ ___ __ __" maxlength="10">
-        </div>
-        <div class="campo-ayuda">Tu teléfono es solo para transferencias. Nunca se comparte.</div>
-        <div class="mensaje-error" id="telefono-error"></div>
-    </div>
-    
-    <!-- Botón principal -->
-    <button class="btn bienvenida-btn" id="btn-principal" disabled>
-        <span class="btn-texto" id="btn-texto">VERIFICAR Y CONTINUAR</span>
-    </button>
-    <!-- Botón términos -->
-    <button class="btn bienvenida-btn" id="btn-terminos" disabled>
-        📜 TÉRMINOS Y CONDICIONES
-    </button>
-</div>       
+            <!-- ==================== FORMULARIO DE ACCESO ==================== -->
+            <div class="acceso-container">
+                
+                <!-- Campo CÓDIGO -->
+                <div class="campo-container">
+                    <label class="campo-label">🔑 CÓDIGO DE INVITACIÓN</label>
+                    <input type="text" class="campo-input" id="codigo-input" placeholder="Ej: INV-123">
+                    <div class="mensaje-error" id="codigo-error"></div>
+                </div>
+                
+                <!-- Campo TELÉFONO con prefijo +7 fijo -->
+                <div class="campo-container" id="telefono-container">
+                    <label class="campo-label">📱 TELÉFONO (mismo del banco)</label>
+                    <div class="telefono-wrapper">
+                        <span class="telefono-prefijo">+7</span>
+                        <input type="tel" class="campo-input telefono-input" id="telefono-input" placeholder="___ ___ __ __" maxlength="10">
+                    </div>
+                    <div class="campo-ayuda">Tu teléfono es solo para transferencias. Nunca se comparte.</div>
+                    <div class="mensaje-error" id="telefono-error"></div>
+                </div>
+                
+                <!-- Botones -->
+                <button class="btn bienvenida-btn" id="btn-principal" disabled>
+                    <span class="btn-texto">VERIFICAR Y CONTINUAR</span>
+                </button>
+                <button class="btn bienvenida-btn" id="btn-terminos" disabled>
+                    📜 TÉRMINOS Y CONDICIONES
+                </button>
+            </div>       
+            
             <!-- Versión -->
             <p class="bienvenida-version">v1.0 · exclusivo</p>
         </div>
     </div>
     
-    <!-- ==================== MODAL DE CONFIRMACIÓN ==================== -->
-        <div class="modal-overlay" id="modal-cerrar-bienvenida" style="display: none;">
-            <div class="modal-contenido">
-                <div class="modal-header">
-                    <span class="modal-icono">❓</span>
-                    <h3 class="modal-titulo">¿CERRAR APLICACIÓN?</h3>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro que quieres salir de Bacará Real?</p>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn-modal btn-modal-no" id="modal-no-bienvenida">NO</button>
-                    <button class="btn-modal btn-modal-si" id="modal-si-bienvenida">SÍ</button>
-                </div>
-            </div>
-        </div>
-    
     <!-- ==================== SCRIPTS ==================== -->
-<script src="js/bienvenida.js"></script>
+    <script src="js/bienvenida.js"></script>
 </body>
 </html>
