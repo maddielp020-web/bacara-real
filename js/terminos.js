@@ -1,77 +1,47 @@
 // ==================== TÉRMINOS Y CONDICIONES ====================
+// Versión limpia - 1.0 - Sin funciones globales, sin estilos inline
 // Control de scroll, checkbox, navegación y acordeones por inciso
-// VERSIÓN PRODUCCIÓN - logs reducidos
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('✅ terminos.js cargado');
     
-    // ==================== ELEMENTOS PRINCIPALES ====================
-    const checkbox = document.getElementById('checkbox-acepto');
-    const btnAceptar = document.getElementById('btn-aceptar');
+    // ==================== CONSTANTES ====================
+    const MARGEN_ERROR_SCROLL = 20; // Píxeles de tolerancia para "llegó al final"
     
+    // ==================== ELEMENTOS DEL DOM ====================
+    const elementos = {
+        checkbox: document.getElementById('checkbox-acepto'),
+        btnAceptar: document.getElementById('btn-aceptar'),
+        btnVolver: document.getElementById('btn-volver-terminos'),
+        modalCerrar: document.getElementById('modal-cerrar'),
+        btnModalNo: document.getElementById('modal-no'),
+        btnModalSi: document.getElementById('modal-si'),
+        incisosHeaders: document.querySelectorAll('.inciso-header')
+    };
+    
+    // ==================== VARIABLES DE ESTADO ====================
     let haLlegadoAlFinal = false;
     
-    // Asegurar estado inicial
-    btnAceptar.disabled = true; // Siempre deshabilitado al inicio
-    checkbox.disabled = false; // El checkbox siempre debe estar habilitado
-    
-    // ==================== BOTONES DE NAVEGACIÓN ====================
-    const btnVolver = document.getElementById('btn-volver-terminos');
-    
-    // Botón volver atrás
-    if (btnVolver) {
-        btnVolver.addEventListener('click', function() {
-            console.log('🔙 Volviendo a Bienvenida');
-            window.location.href = 'index.html';
-        });
+    // ==================== FUNCIONES AUXILIARES ====================
+    function actualizarBotonAceptar() {
+        elementos.btnAceptar.disabled = !(haLlegadoAlFinal && elementos.checkbox.checked);
     }
     
-    // ==================== DETECCIÓN DE SCROLL AL FINAL ====================
-function verificarScroll() {
-    const scrollTop = window.scrollY;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = window.innerHeight;
-    const margenError = 20;
-    
-    const distanciaAlFinal = scrollHeight - (scrollTop + clientHeight);
-    
-    if (distanciaAlFinal <= margenError && !haLlegadoAlFinal) {
-        haLlegadoAlFinal = true;
-        // FORZAR actualización del botón basado en el estado actual del checkbox
-        btnAceptar.disabled = !checkbox.checked;
+    function verificarScroll() {
+        const scrollTop = window.scrollY;
+        const scrollHeight = document.documentElement.scrollHeight;
+        const clientHeight = window.innerHeight;
+        
+        const distanciaAlFinal = scrollHeight - (scrollTop + clientHeight);
+        
+        if (distanciaAlFinal <= MARGEN_ERROR_SCROLL && !haLlegadoAlFinal) {
+            haLlegadoAlFinal = true;
+            actualizarBotonAceptar();
+        }
     }
-}
     
-    // Escuchar scroll en window
-    window.addEventListener('scroll', verificarScroll);
-    // Verificar inmediatamente por si ya está al final
-    setTimeout(verificarScroll, 500);
-    
-    // ==================== CHECKBOX HABILITA BOTÓN (SOLO SI YA LLEGÓ AL FINAL) ====================
-    checkbox.addEventListener('change', function() {
-        // Solo habilitar botón si ha llegado al final Y el checkbox está marcado
-        btnAceptar.disabled = !(haLlegadoAlFinal && checkbox.checked);
-    });
-    
-    // ==================== BOTÓN ACEPTAR - NAVEGACIÓN ====================
-    btnAceptar.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        if (!checkbox.checked) {
-            return;
-        }
-        
-        if (!haLlegadoAlFinal) {
-            alert('Por favor, desliza hasta el final para leer todos los términos antes de aceptar.');
-            return;
-        }
-        
-        // Navegación directa
-        window.location.href = 'lobby.html';
-    });
-    
-    // ==================== ACORDEÓN POR INCISO ====================
-    window.toggleInciso = function(header) {
+    // ==================== ACORDEONES (SIN GLOBALES) ====================
+    function toggleInciso(header) {
         if (!header) return;
         
         const inciso = header.closest('.inciso-item');
@@ -80,20 +50,77 @@ function verificarScroll() {
         const contenido = inciso.querySelector('.inciso-contenido');
         if (!contenido) return;
         
+        // Toggle clase active en header
         header.classList.toggle('active');
         
-        if (contenido.style.display === 'block') {
-            contenido.style.display = 'none';
-        } else {
-            contenido.style.display = 'block';
-        }
-    };
+        // Toggle clase abierto en contenido (CSS maneja display)
+        contenido.classList.toggle('abierto');
+    }
     
-    // Inicializar: todos los contenidos ocultos
-    const contenidosIncisos = document.querySelectorAll('.inciso-contenido');
-    contenidosIncisos.forEach(cont => {
-        cont.style.display = 'none';
+    // Asignar evento a cada header de inciso
+    elementos.incisosHeaders.forEach(header => {
+        header.addEventListener('click', function(e) {
+            toggleInciso(this);
+        });
     });
     
+    // ==================== SCROLL ====================
+    window.addEventListener('scroll', verificarScroll);
+    // Verificar posición inicial (por si ya está al final al cargar)
+    verificarScroll();
+    
+    // ==================== CHECKBOX ====================
+    elementos.checkbox.addEventListener('change', function() {
+        actualizarBotonAceptar();
+    });
+    
+    // ==================== BOTÓN ACEPTAR ====================
+    elementos.btnAceptar.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (!elementos.checkbox.checked) {
+            return;
+        }
+        
+        if (!haLlegadoAlFinal) {
+            alert('Por favor, desliza hasta el final para leer todos los términos antes de aceptar.');
+            return;
+        }
+        
+        console.log('✅ Términos aceptados → lobby.html');
+        window.location.href = 'lobby.html';
+    });
+    
+    // ==================== BOTÓN VOLVER CON CONFIRMACIÓN ====================
+    if (elementos.btnVolver) {
+        elementos.btnVolver.addEventListener('click', function() {
+            // Mostrar modal de confirmación
+            elementos.modalCerrar.classList.remove('oculto');
+        });
+    }
+    
+    // ==================== MODAL DE CONFIRMACIÓN ====================
+    if (elementos.btnModalNo) {
+        elementos.btnModalNo.addEventListener('click', function() {
+            elementos.modalCerrar.classList.add('oculto');
+        });
+    }
+    
+    if (elementos.btnModalSi) {
+        elementos.btnModalSi.addEventListener('click', function() {
+            console.log('🔙 Volviendo a Bienvenida');
+            window.location.href = 'index.html';
+        });
+    }
+    
+    // Cerrar modal si se hace clic fuera del contenido
+    elementos.modalCerrar.addEventListener('click', function(e) {
+        if (e.target === elementos.modalCerrar) {
+            elementos.modalCerrar.classList.add('oculto');
+        }
+    });
+    
+    // ==================== INICIALIZACIÓN ====================
+    elementos.btnAceptar.disabled = true;
     console.log('✅ Sistema de términos listo');
 });
