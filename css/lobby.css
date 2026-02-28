@@ -596,28 +596,3 @@ html body div.contenedor.lobby-container header.lobby-header h1.lobby-titulo {
     color: #FFD700 !important;
     text-shadow: none !important;
 }
-/* ==================== FORZAR VISIBILIDAD DE MESAS ==================== */
-.mesas-container,
-.mesas-lista,
-.mesa-card,
-.mesa-header,
-.mesa-info,
-.mesa-detalles,
-.btn-entrar,
-.mesa-gaveta {
-    position: relative;
-    z-index: 10;
-}
-
-/* Asegurar que las capas de efecto no tapen el contenido */
-.lobby-container::before,
-.particula-luz {
-    z-index: 1 !important;
-}
-
-/* Forzar que el contenedor de mesas sea visible */
-.mesas-container {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
