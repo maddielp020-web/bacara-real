@@ -17,6 +17,26 @@
     border-bottom: 1px solid rgba(255, 215, 0, 0.2);
 }
 
+.lobby-saldo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--rojo-baraja) !important;  /* CAMBIADO: #8B1A1A → var(--rojo-baraja) */
+    padding: 8px 15px;
+    border-radius: 30px;
+    border: 1px solid var(--oro-puro) !important;
+}
+
+.saldo-icono {
+    font-size: 1.2rem;
+}
+
+.saldo-cantidad {
+    color: #FFFFFF !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
 /* ==================== BOTÓN VOLVER (LOBBY) ==================== */
 .btn-volver-lobby {
     background: transparent;
