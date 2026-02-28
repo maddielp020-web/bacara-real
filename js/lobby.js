@@ -1,4 +1,4 @@
-// ==================== LOBBY - DATOS SIMULADOS Y COMPORTAMIENTO ====================
+- [ ] // ==================== LOBBY - DATOS SIMULADOS Y COMPORTAMIENTO ====================
 // NOTA: Los datos hardcodeados (username, saldo, esAdmin) son SIMULACIONES
 // En producción vendrán del bot de Telegram y backend
 
@@ -164,11 +164,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 entrarBtn.dataset.mesaId = mesa.id;
                 
                 entrarBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    manejarEntrarMesa(mesa.id, mesa.monto);
-    // Abrir la gaveta
-    toggleGaveta(header, mesaCard);
-});
+                    e.stopPropagation();
+                    manejarEntrarMesa(mesa.id, mesa.monto);
+                });
                 
                 accionDiv.appendChild(entrarBtn);
             }
@@ -198,11 +196,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
-            // El header YA NO abre la gaveta
-header.addEventListener('click', function(e) {
-    // No hacer nada al hacer clic en el header
-    // La gaveta solo se abre con el botón
-});
+            header.addEventListener('click', function(e) {
+                if (e.target.closest('.btn-entrar')) return;
+                toggleGaveta(this, mesaCard);
+            });
             
             mesaCard.appendChild(header);
             mesaCard.appendChild(gaveta);
