@@ -1,11 +1,13 @@
 /* ==================== LOBBY - ESTILOS ESPECÍFICOS ==================== */
+/* Versión limpia - 1.0 - SIN duplicados, !important mínimo */
 /* Depende de global.css - NO DUPLICAR VARIABLES */
 
 .lobby-container {
-    background: #0A0A0A;  /* Negro profundo */
+    background: #0A0A0A;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 /* ==================== HEADER ==================== */
@@ -21,10 +23,10 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background: var(--rojo-baraja) !important;  /* CAMBIADO: #8B1A1A → var(--rojo-baraja) */
+    background: var(--rojo-baraja);
     padding: 8px 15px;
     border-radius: 30px;
-    border: 1px solid var(--oro-puro) !important;
+    border: 1px solid var(--oro-puro);
 }
 
 .saldo-icono {
@@ -32,7 +34,7 @@
 }
 
 .saldo-cantidad {
-    color: #FFFFFF !important;
+    color: #FFFFFF;
     font-weight: 700;
     font-size: 1.1rem;
 }
@@ -40,8 +42,8 @@
 /* ==================== BOTÓN VOLVER (LOBBY) ==================== */
 .btn-volver-lobby {
     background: transparent;
-    border: 2px solid #FFD700;  /* Dorado visible sobre negro */
-    color: #FFD700;
+    border: 2px solid var(--oro-puro);
+    color: var(--oro-puro);
     font-size: 1.8rem;
     font-weight: 700;
     width: 45px;
@@ -58,29 +60,20 @@
 
 .btn-volver-lobby:hover,
 .btn-volver-lobby:active {
-    background: #FFD700;
+    background: var(--oro-puro);
     color: #0A0A0A;
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
-/* Ajuste para que el header mantenga el espacio */
-.lobby-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-}
-
 /* ==================== TÍTULO LOBBY ==================== */
 .lobby-titulo {
-    color: var(--oro-puro) !important;  /* Dorado puro sin mezcla */
+    color: var(--oro-puro);
     font-size: 1.5rem;
     margin: 0;
     flex: 1;
     text-align: center;
-    text-shadow: none;  /* Sin sombra negra */
+    text-shadow: none;
 }
 
 /* ==================== IDENTIDAD DEL JUGADOR ==================== */
@@ -90,7 +83,7 @@
     justify-content: center;
     gap: 8px;
     padding: 15px 20px;
-    background: var(--gris-oscuro);  /* CAMBIADO: #1A1A1A → var(--gris-oscuro) */
+    background: var(--gris-oscuro);
     margin: 10px 20px;
     border-radius: 40px;
     border: 1px solid rgba(255, 215, 0, 0.2);
@@ -105,15 +98,71 @@
     font-size: 0.95rem;
 }
 
+/* ==================== ADMIN BADGE ==================== */
+.admin-badge {
+    background: var(--oro-puro);
+    color: var(--negro-fondo);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 30px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+}
+
+.admin-badge.oculto {
+    display: none;
+}
+
 /* ==================== SELECTOR DE MONTO ==================== */
+.selector-monto {
+    padding: 0 20px;
+}
+
 .selector-titulo {
-    color: var(--rojo-baraja); /* Rojo institucional */
-    font-size: 1.2rem;           /* Un poco más grande que el default */
+    color: var(--rojo-baraja);
+    font-size: 1.2rem;
     margin-bottom: 15px;
     font-weight: 500;
 }
 
-/* ==================== SELECTOR DE MONTO ==================== */
+.selector-rapido {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0 15px;
+}
+
+.flecha {
+    font-size: 1.5rem;
+    animation: bounce-subtle 1.5s infinite ease-in-out;
+    opacity: 0.9;
+}
+
+.flecha:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.flecha:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.rapido-texto {
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+@keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
+
+/* ==================== BOTONES DE MONTO ==================== */
 .botones-monto {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -122,7 +171,6 @@
 }
 
 .btn-monto {
-    /* Efecto cristal esmerilado para estado inactivo */
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -143,9 +191,9 @@
 }
 
 .btn-monto.activo {
-    background: #D4AF37;  /* Dorado elegante (menos brillante) */
+    background: var(--dorado-suave);
     border: 1px solid #FFFFFF;
-    color: #000000;  /* Número legible */
+    color: #000000;
     font-weight: 700;
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
     backdrop-filter: none;
@@ -193,11 +241,48 @@
 .monto-input:focus {
     outline: none;
     border-color: var(--oro-puro);
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
 }
 
 .monto-input::placeholder {
     color: rgba(255, 255, 255, 0.7);
     font-style: italic;
+}
+
+/* ==================== FEEDBACK DE MONTO ==================== */
+.monto-feedback {
+    font-size: 0.8rem;
+    margin-top: 8px;
+    min-height: 20px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.monto-feedback.valido-formato {
+    color: #CCCCCC;
+}
+
+.monto-feedback.valido-con-mesa {
+    color: var(--verde-exito);
+    font-weight: 600;
+}
+
+.monto-feedback.invalido {
+    color: var(--rojo-baraja);
+}
+
+.monto-input.valido-formato {
+    border-color: #CCCCCC;
+}
+
+.monto-input.valido-con-mesa {
+    border-color: var(--verde-exito);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.monto-input.invalido {
+    border-color: var(--rojo-baraja);
+    box-shadow: 0 0 0 2px rgba(239, 51, 64, 0.2);
 }
 
 /* ==================== LISTA DE MESAS ==================== */
@@ -241,6 +326,10 @@
     border-color: rgba(255, 215, 0, 0.5);
 }
 
+.mesa-header.active {
+    border-left: 2px solid var(--oro-puro);
+}
+
 .mesa-info {
     display: flex;
     align-items: center;
@@ -263,7 +352,7 @@
 }
 
 .mesa-monto {
-    color: #FFFFFF !important;
+    color: #FFFFFF;
     font-weight: 700;
     font-size: 1rem;
 }
@@ -274,8 +363,8 @@
 }
 
 .btn-entrar {
-    background: var(--azul-casino) !important;  /* CAMBIADO: #005EB8 → var(--azul-casino) */
-    color: white !important;
+    background: var(--azul-casino);
+    color: white;
     border: none;
     border-radius: 30px;
     padding: 8px 18px;
@@ -286,16 +375,29 @@
 
 .btn-entrar:hover,
 .btn-entrar:focus {
-    background: var(--azul-brillante);  /* CAMBIADO: #1a6bc9 → var(--azul-brillante) */
+    background: var(--azul-brillante);
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    transform: scale(1.02);
+}
+
+.btn-entrar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: #666;
 }
 
 /* Gaveta */
 .mesa-gaveta {
+    display: none;
     background: #222222;
     border-top: 1px solid rgba(255, 215, 0, 0.2);
     padding: 20px;
     animation: slideDown 0.3s ease;
+}
+
+.mesa-gaveta.abierta {
+    display: block;
 }
 
 @keyframes slideDown {
@@ -327,7 +429,7 @@
 }
 
 .btn-comprar-gaveta {
-    background: var(--azul-casino);  /* CAMBIADO: #005EB8 → var(--azul-casino) */
+    background: var(--azul-casino);
     color: white;
     border: none;
     border-radius: 30px;
@@ -343,9 +445,16 @@
 
 .btn-comprar-gaveta:hover,
 .btn-comprar-gaveta:focus {
-    background: var(--azul-brillante);  /* CAMBIADO: #1a6bc9 → var(--azul-brillante) */
+    background: var(--azul-brillante);
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
     transform: scale(1.02);
+}
+
+.btn-comprar-gaveta:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: #666;
 }
 
 .mesa-valor-gaveta {
@@ -354,111 +463,10 @@
 }
 
 /* Estados de mesa */
-.estado-verde .mesa-estado { color: var(--verde-bacara); }  /* CAMBIADO: #00C853 → var(--verde-bacara) */
-.estado-amarillo .mesa-estado { color: var(--oro-puro); }    /* CAMBIADO: #FFD600 → var(--oro-puro) */
-.estado-rojo .mesa-estado { color: var(--rojo-baraja); }     /* CAMBIADO: #EF3340 → var(--rojo-baraja) */
-.estado-gris .mesa-estado { color: var(--gris-medio); }      /* CAMBIADO: #757575 → var(--gris-medio) */
-
-/* ==================== FOOTER ==================== */
-.lobby-footer {
-    padding: 15px 20px;
-    text-align: center;
-    border-top: 1px solid rgba(255, 215, 0, 0.1);
-}
-
-/* ==================== FEEDBACK DE MONTO ==================== */
-.monto-feedback {
-    font-size: 0.8rem;
-    margin-top: 8px;
-    min-height: 20px;
-    text-align: center;
-    transition: all 0.2s ease;
-}
-
-.monto-feedback.valido-formato {
-    color: #CCCCCC;  /* Neutral para cuando solo cumple reglas pero no hay mesa exacta */
-}
-
-.monto-feedback.valido-con-mesa {
-    color: var(--verde-exito) !important;
-    font-weight: 600;
-}
-
-.monto-feedback.invalido {
-    color: var(--rojo-baraja) !important; /* Rojo para errores (múltiplo, mínimo) */
-}
-
-.monto-input.valido-formato {
-    border-color: #CCCCCC;  /* Borde neutral cuando cumple reglas */
-}
-
-.monto-input.valido-con-mesa {
-    border-color: var(--verde-exito) !important;  /* Borde verde cuando hay mesa exacta */
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
-}
-
-.monto-input.invalido {
-    border-color: var(--rojo-baraja) !important;
-    box-shadow: 0 0 0 2px rgba(239, 51, 64, 0.2) !important;
-}
-
-/* ==================== ADMIN BADGE ==================== */
-.admin-badge {
-    background: var(--oro-puro);
-    color: var(--negro-fondo);
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 30px;
-    margin-left: 10px;
-    letter-spacing: 1px;
-}
-
-/* ==================== BOTÓN DESHABILITADO ==================== */
-.btn-entrar:disabled,
-.btn-comprar-gaveta:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-    background: #666 !important;
-} 
-
-/* ==================== SELECCIÓN RÁPIDA (NUEVO) ==================== */
-.selector-rapido {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 10px 0 15px;
-}
-
-.flecha {
-    font-size: 1.5rem;
-    animation: bounce-subtle 1.5s infinite ease-in-out;
-    opacity: 0.9;
-}
-
-.flecha:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.flecha:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-.rapido-texto {
-    color: #ffffff;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-@keyframes bounce-subtle {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(3px); }
-}
+.estado-verde .mesa-estado { color: var(--verde-bacara); }
+.estado-amarillo .mesa-estado { color: var(--oro-puro); }
+.estado-rojo .mesa-estado { color: var(--rojo-baraja); }
+.estado-gris .mesa-estado { color: var(--gris-medio); }
 
 /* ==================== MENSAJE DE ERROR DE MESAS ==================== */
 .mesas-error {
@@ -472,6 +480,14 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.mesas-error.oculto {
+    display: none;
+}
+
+.mesas-error.visible {
+    display: block;
 }
 
 .mesas-error p {
@@ -524,49 +540,17 @@
 }
 
 .sugerida-accion:hover {
-    background: var(--azul-brillante);  /* CAMBIADO: #1a6bc9 → var(--azul-brillante) */
+    background: var(--azul-brillante);
 }
 
-/* ==================== CHAT VISUALES - CAPAS DE EFECTO ==================== */
-/* AÑADIR AL FINAL DEL ARCHIVO - VERSIÓN LOBBY */
-/* SIN Z-INDEX - RESPETA JERARQUÍA NATURAL */
-
-/* EFECTO 1: TELA/ALFOMBRA (FIRMA VISUAL) */
-.lobby-container {
-    position: relative;
+/* ==================== FOOTER ==================== */
+.lobby-footer {
+    padding: 15px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 215, 0, 0.1);
 }
 
-.lobby-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        repeating-linear-gradient(45deg, rgba(255,215,0,0.018) 0px, rgba(255,215,0,0.018) 2px, transparent 2px, transparent 6px);
-    pointer-events: none;
-}
-
-/* EFECTO 2: GLOW SUTIL EN BOTONES ACTIVOS */
-.btn-monto.activo {
-    box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
-    transition: box-shadow 0.2s ease;
-}
-
-/* EFECTO 3: MICRO-INTERACCIÓN EN HOVER */
-.btn-entrar:hover,
-.btn-comprar-gaveta:hover {
-    transform: scale(1.02);
-    transition: all 0.2s ease;
-}
-
-/* EFECTO 4: BRILLO EN FOCUS DE INPUTS */
-.monto-input:focus {
-    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
-}
-
-/* EFECTO 5: PARTÍCULAS DE LUZ (OPCIONAL - 3 SUTILES) */
+/* ==================== PARTÍCULAS DE LUZ (3 SUTILES) ==================== */
 @keyframes particula-lobby {
     0% { transform: translateY(0) translateX(0); opacity: 0; }
     15% { opacity: 0.12; }
@@ -574,7 +558,7 @@
     100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
 }
 
-.lobby-container .particula-luz {
+.particula-luz {
     position: absolute;
     width: 2px;
     height: 2px;
@@ -591,8 +575,15 @@
 .particula-luz:nth-child(2) { left: 50%; animation: particula-lobby 22s infinite 5s; }
 .particula-luz:nth-child(3) { left: 80%; animation: particula-lobby 20s infinite 10s; }
 
-/* ==================== FORZAR TÍTULO DORADO ==================== */
-html body div.contenedor.lobby-container header.lobby-header h1.lobby-titulo {
-    color: #FFD700 !important;
-    text-shadow: none !important;
+/* ==================== EFECTOS VISUALES ADICIONALES ==================== */
+.lobby-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(45deg, rgba(255,215,0,0.018) 0px, rgba(255,215,0,0.018) 2px, transparent 2px, transparent 6px);
+    pointer-events: none;
 }
