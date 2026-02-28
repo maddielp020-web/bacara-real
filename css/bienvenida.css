@@ -1,14 +1,21 @@
 /* ==================== BIENVENIDA - ESTILOS ESPECÍFICOS ==================== */
 /* Este archivo SOLO afecta a index.html */
-/* Fondo verde elegante + overlay dorado - APROBADO POR DIRECTOR */
+/* Versión limpia - 1.0 - SIN duplicados, SIN !important innecesarios */
 
+/* ==================== CONTENEDOR PRINCIPAL ==================== */
 .bienvenida-container {
     position: relative;
     background: linear-gradient(145deg, #006633 0%, #009A44 100%);
     overflow: hidden;
+    box-shadow: var(--sombra-profunda), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
+    background-image: repeating-linear-gradient(45deg, 
+        rgba(255,215,0,0.01) 0px, 
+        rgba(255,215,0,0.01) 2px, 
+        transparent 2px, 
+        transparent 6px);
 }
 
-/* ==================== OVERLAY DORADO (ÚNICO) ==================== */
+/* ==================== OVERLAY DORADO ==================== */
 .bienvenida-overlay {
     position: absolute;
     top: 0;
@@ -20,13 +27,42 @@
                 transparent 70%);
     pointer-events: none;
     z-index: 1;
-    animation: respiro-overlay 20s infinite alternate ease-in-out;
+    animation: respiro-casino 25s infinite alternate ease-in-out;
 }
 
-@keyframes respiro-overlay {
-    0% { opacity: 0.6; }
-    100% { opacity: 1; }
+@keyframes respiro-casino {
+    0% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.02); }
+    100% { opacity: 0.6; transform: scale(1); }
 }
+
+/* ==================== PARTÍCULAS (5 SUTILES) ==================== */
+@keyframes particula-luz-refinada {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    10% { opacity: 0.3; }
+    30% { transform: translateY(-60px) translateX(15px) scale(1.5); opacity: 0.4; }
+    70% { opacity: 0.3; }
+    100% { transform: translateY(-150px) translateX(30px) scale(0.8); opacity: 0; }
+}
+
+.bienvenida-container .particula {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #FFD700;
+    border-radius: 50%;
+    filter: blur(1.5px);
+    box-shadow: 0 0 15px #FFD700;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.25;
+}
+
+.particula:nth-child(1) { left: 15%; animation: particula-luz-refinada 20s infinite 0s; }
+.particula:nth-child(2) { left: 35%; animation: particula-luz-refinada 24s infinite 4s; }
+.particula:nth-child(3) { left: 55%; animation: particula-luz-refinada 22s infinite 8s; }
+.particula:nth-child(4) { left: 75%; animation: particula-luz-refinada 28s infinite 2s; }
+.particula:nth-child(5) { left: 90%; animation: particula-luz-refinada 26s infinite 12s; }
 
 /* ==================== CONTENIDO PRINCIPAL ==================== */
 .bienvenida-contenido {
@@ -54,18 +90,20 @@
 .emblema-carta {
     font-size: 3rem;
     filter: drop-shadow(0 0 8px rgba(255,215,0,0.3));
-    animation: flotar-lujo 12s infinite alternate ease-in-out;
+    animation: flotar-elegante 14s infinite alternate ease-in-out;
     opacity: 0.8;
 }
 
 .emblema-carta:nth-child(1) { animation-delay: 0s; }
-.emblema-carta:nth-child(2) { animation-delay: 2s; }
-.emblema-carta:nth-child(3) { animation-delay: 4s; }
-.emblema-carta:nth-child(4) { animation-delay: 6s; }
+.emblema-carta:nth-child(2) { animation-delay: 1.5s; }
+.emblema-carta:nth-child(3) { animation-delay: 3s; }
+.emblema-carta:nth-child(4) { animation-delay: 4.5s; }
 
-@keyframes flotar-lujo {
-    0% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 8px rgba(255,215,0,0.2)); }
-    100% { transform: translateY(-8px) scale(1.02); filter: drop-shadow(0 0 15px rgba(255,215,0,0.4)); }
+@keyframes flotar-elegante {
+    0% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-5px) rotate(-1deg); }
+    66% { transform: translateY(-8px) rotate(1deg); }
+    100% { transform: translateY(-4px) rotate(0deg); }
 }
 
 /* ==================== TÍTULO ==================== */
@@ -85,6 +123,21 @@
         0 2px 4px rgba(0,0,0,0.3),
         0 0 15px rgba(255,215,0,0.3);
     animation: brillo-titulo 15s infinite alternate;
+    position: relative;
+    z-index: 5;
+}
+
+.titulo-linea::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+    z-index: -1;
+    pointer-events: none;
 }
 
 @keyframes brillo-titulo {
@@ -92,7 +145,6 @@
     100% { text-shadow: 0 4px 8px rgba(0,0,0,0.4), 0 0 25px rgba(255,215,0,0.5); }
 }
 
-/* ==================== TÍTULO DORADO (REAL) ==================== */
 .titulo-linea.dorado {
     position: relative;
     color: var(--oro-puro);
@@ -108,7 +160,7 @@
     100% { text-shadow: 0 4px 10px rgba(0,0,0,0.5), 0 0 25px #FFD700, 0 0 40px rgba(255,215,0,0.8); }
 }
 
-/* ==================== DESCRIPCIÓN (LIMPIADA) ==================== */
+/* ==================== DESCRIPCIÓN ==================== */
 .bienvenida-descripcion {
     font-size: 1.2rem;
     color: white;
@@ -122,12 +174,14 @@
 /* ==================== DIVISOR ==================== */
 .bienvenida-divisor {
     width: 80px;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(90deg, transparent, var(--oro-puro), transparent);
     margin: 25px auto;
     opacity: 0.8;
     position: relative;
     overflow: hidden;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .bienvenida-divisor::after {
@@ -147,246 +201,23 @@
     100% { left: 100%; }
 }
 
-/* ==================== LEGAL ==================== */
-.bienvenida-legal {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.7);
-    margin-bottom: 40px;
-    letter-spacing: 1px;
-}
-
-/* ==================== BOTÓN (VERSIÓN ORIGINAL BLANCA) ==================== */
-.bienvenida-btn {
+/* ==================== FORMULARIO ==================== */
+.acceso-container {
     width: 100%;
-    max-width: 100%;
-    padding: 14px 20px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 10px 0;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: none;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-/* Estado deshabilitado (blanco tenue) */
-.bienvenida-btn:disabled {
-    background: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.5);
-    cursor: not-allowed;
-    opacity: 0.7;
-    box-shadow: none;
-}
-
-/* Estado habilitado (blanco puro) - VERSIÓN ORIGINAL RESTAURADA */
-.bienvenida-btn:not(:disabled) {
-    background: #FFFFFF;
-    color: #000000;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
-}
-
-.bienvenida-btn:not(:disabled):hover {
-    background: #F8F8F8;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-}
-
-/* Eliminar estilos anteriores que interferían */
-.acceso-container .btn {
-    margin: 10px 0;
-    width: 100%;
-}
-
-/* ==================== MODAL DE CONFIRMACIÓN ==================== */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    padding: 20px;
-    animation: fadeInModal 0.3s ease;
-}
-
-@keyframes fadeInModal {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.modal-contenido {
-    background: var(--gris-oscuro);
-    border: 2px solid var(--oro-puro);
-    border-radius: 24px;
-    max-width: 380px;
-    width: 100%;
-    overflow: hidden;
-    box-shadow: var(--sombra-profunda), var(--sombra-oro);
-    animation: slideUpModal 0.4s ease;
-}
-
-@keyframes slideUpModal {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-header {
-    background: linear-gradient(90deg, var(--rojo-baraja), var(--rojo-suave));
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    border-bottom: 1px solid var(--oro-puro);
-}
-
-.modal-icono {
-    font-size: 32px;
-    filter: drop-shadow(0 0 10px var(--oro-puro));
-}
-
-.modal-titulo {
-    color: white;
-    font-size: 1.3rem;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.modal-body {
-    padding: 25px 20px;
-    text-align: center;
-}
-
-.modal-body p {
-    color: #8B1A1A;  /* Mismo rojo del fondo de términos */
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin: 0;
-    font-weight: 500;
-}
-
-.modal-footer {
-    display: flex;
-    gap: 15px;
-    padding: 0 20px 20px;
-}
-
-/* Estilo base para ambos botones */
-.btn-modal-si, .btn-modal-no {
-    flex: 1;
-    padding: 16px 0;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    
-    /* Efecto cristal esmerilado sutil */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    background: rgba(255, 255, 255, 0.08);
-    
-    /* Texto blanco para ambos */
-    color: white;
-    
-    /* Sombra de iluminación (misma para ambos) */
-    box-shadow: 0 4px 15px rgba(239, 51, 64, 0.4);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Efecto de brillo adicional (hover) */
-.btn-modal-si:hover, .btn-modal-no:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 8px 25px rgba(239, 51, 64, 0.7);
-}
-
-/* Botón SÍ - acento rojo más fuerte */
-.btn-modal-si {
-    border: 1px solid var(--rojo-baraja);
-}
-
-/* Botón NO - borde dorado para diferenciar */
-.btn-modal-no {
-    border: 1px solid var(--oro-puro);
-}
-
-/* Efecto de profundidad (pseudo-elemento para ambos) */
-.btn-modal-si::after, .btn-modal-no::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 50%, 
-                rgba(255, 255, 255, 0.3) 0%, 
-                transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.btn-modal-si:hover::after, .btn-modal-no:hover::after {
-    opacity: 0.3;
-}
-
-/* Asegurar que el texto esté por encima */
-.btn-modal-si span, .btn-modal-no span {
-    position: relative;
-    z-index: 2;
-}
-
-/* ==================== VERSIÓN ==================== */
-.bienvenida-version {
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 10px;
-}
-
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 380px) {
-    .titulo-linea {
-        font-size: 2.5rem;
-    }
-    
-    .titulo-linea.dorado {
-        font-size: 3rem;
-    }
-    
-    .emblema-carta {
-        font-size: 2.5rem;
-    }
-    
-    .bienvenida-btn {
-        min-width: 220px;
-        padding: 14px 24px;
-        font-size: 1.1rem;
-    }
-}
-
-/* ==================== NUEVA ESTRUCTURA PROFESIONAL ==================== */
-
-/* Contenedor de cada campo */
 .campo-container {
     margin-bottom: 20px;
     text-align: left;
     width: 100%;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Etiquetas de los campos */
 .campo-label {
     display: block;
     color: var(--oro-puro);
@@ -396,7 +227,6 @@
     letter-spacing: 1px;
 }
 
-/* Inputs con estilo profesional */
 .campo-input {
     width: 100%;
     padding: 14px 16px;
@@ -406,6 +236,7 @@
     color: white;
     font-size: 1rem;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .campo-input:focus {
@@ -419,222 +250,83 @@
     font-size: 0.9rem;
 }
 
-/* Texto de ayuda (para teléfono) */
+.campo-input.valido {
+    border-color: var(--oro-puro);
+    box-shadow: var(--brillo-interno), 0 0 0 2px rgba(255, 215, 0, 0.3);
+}
+
+.telefono-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.telefono-prefijo {
+    background: #2A2A2A;
+    padding: 14px 16px;
+    border-radius: 12px;
+    color: var(--oro-puro);
+    font-weight: 600;
+    border: 1px solid var(--oro-transparente);
+}
+
+.telefono-input {
+    flex: 1;
+}
+
 .campo-ayuda {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.5);
     margin-top: 5px;
     padding-left: 5px;
 }
 
-/* Mensajes de error */
 .mensaje-error {
     font-size: 0.75rem;
     color: #ff6b6b;
     margin-top: 5px;
     min-height: 18px;
     padding-left: 5px;
-    display: none;  /* Ocultos por defecto */
+    display: none;
 }
 
 .mensaje-error.visible {
     display: block;
 }
 
-/* Botones en el contenedor de acceso - MISMO ANCHO QUE INPUTS */
-.acceso-container .btn {
-    margin: 15px 0;
+/* ==================== BOTONES (UNIFICADOS) ==================== */
+.bienvenida-btn {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 10px 0;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
     transition: all 0.3s ease;
-    font-size: 1.1rem !important;
-    padding: 14px 20px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: unset !important;
-    font-weight: 600 !important;
+    border: none;
     letter-spacing: 1px;
     box-sizing: border-box;
 }
 
-/* Estado deshabilitado */
-.acceso-container .btn:disabled {
-    background: #2A2A2A;
-    color: #666;
-    opacity: 0.7;
-    cursor: not-allowed;
-    border: 1px solid transparent;
-}
-
-/* Estado habilitado (dorado) - SOLO PARA BOTONES DE ACCESO */
-.acceso-container .btn:not(:disabled) {
-    background: var(--oro-puro);
-    color: var(--negro-fondo);
-    font-weight: 700;
-    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
-}
-
-/* Hover solo cuando está habilitado */
-.acceso-container .btn:not(:disabled):hover {
-    background: var(--dorado-suave);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-}
-
-/* Clase para ocultar teléfono (cuando jugador es recurrente) */
-body.recurrente #telefono-container {
-    display: none;
-}
-
-/* Clase para mostrar teléfono (por defecto) */
-body.nuevo #telefono-container {
-    display: block;
-}
-
-/* Ajustes responsive */
-@media (max-width: 380px) {
-    .campo-input {
-        padding: 12px 14px;
-        font-size: 0.95rem;
-    }
-    
-    .campo-label {
-        font-size: 0.75rem;
-    }
-}
-
-/* ==================== CORRECIONES VISUALES ==================== */
-
-/* Dar margen a los contenedores para que los inputs no lleguen al borde */
-.campo-container {
-    padding-left: 4px;
-    padding-right: 4px;
-    width: calc(100% - 8px);
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Asegurar que los inputs respeten el border-radius completo */
-.campo-input {
-    border-radius: 12px !important;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Estilo para inputs válidos (se activará con JS) */
-.campo-input.valido {
-    border-color: var(--oro-puro) !important;
-    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3) !important;
-}
-
-/* Ajuste responsive para pantallas muy pequeñas */
-@media (max-width: 380px) {
-    .campo-container {
-        padding-left: 2px;
-        padding-right: 2px;
-        width: calc(100% - 4px);
-    }
-}
-
-/* ==================== PARTÍCULAS SUTILES (REDUCIDAS) ==================== */
-@keyframes particula-luz {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    15% { opacity: 0.4; }
-    85% { opacity: 0.4; }
-    100% { transform: translateY(-180px) translateX(40px); opacity: 0; }
-}
-
-.bienvenida-container .particula {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: #FFD700;
-    border-radius: 50%;
-    filter: blur(0.5px);
-    box-shadow: 0 0 8px #FFD700;
-    z-index: 2;
-    pointer-events: none;
-    opacity: 0.3;
-}
-
-/* Solo 5 partículas sutiles */
-.particula:nth-child(1) { left: 15%; animation: particula-luz 18s infinite 0s; }
-.particula:nth-child(2) { left: 35%; animation: particula-luz 22s infinite 3s; }
-.particula:nth-child(3) { left: 55%; animation: particula-luz 20s infinite 6s; }
-.particula:nth-child(4) { left: 75%; animation: particula-luz 25s infinite 9s; }
-.particula:nth-child(5) { left: 90%; animation: particula-luz 19s infinite 12s; }
-/* Las partículas adicionales (6-15) se eliminan */
-
-/* ==================== CAPA AMBIENTAL UNIFICADA ==================== */
-.bienvenida-container {
-    position: relative;
-}
-
-.bienvenida-container::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: -20%;
-    width: 140%;
-    height: 140%;
-    background: radial-gradient(circle at 30% 40%, rgba(255, 215, 0, 0.03) 0%, transparent 40%);
-    pointer-events: none;
-    z-index: 0;
-    mix-blend-mode: soft-light;
-}
-
-/* Eliminados: 
-   - .bienvenida-container::after (textura lija)
-   - .borde-neblina (y todos sus elementos)
-   - redefiniciones de .bienvenida-overlay
-   - ::after de .titulo-linea.dorado
-*/
-
-/* ==================== CHAT VISUALES - CAPAS DE EFECTO ==================== */
-/* AÑADIR AL FINAL DEL ARCHIVO */
-/* VERSIÓN: 1.2 - AJUSTES FINALES */
-
-.bienvenida-overlay {
-    animation: respiro-casino 25s infinite alternate ease-in-out;
-}
-
-@keyframes respiro-casino {
-    0% { opacity: 0.6; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.02); }
-    100% { opacity: 0.6; transform: scale(1); }
-}
-
-.titulo-linea {
-    position: relative;
-    z-index: 5;
-}
-
-.titulo-linea::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 100%;
-    height: 100%;
-    color: transparent;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
-    z-index: -1;
-    pointer-events: none;
-}
-
 .bienvenida-btn:disabled {
-    background: rgba(255, 255, 255, 0.22) !important;
-    backdrop-filter: blur(4px) !important;
-    -webkit-backdrop-filter: blur(4px) !important;
-    color: rgba(255, 255, 255, 0.8) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    background: rgba(255, 255, 255, 0.22);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .bienvenida-btn:not(:disabled) {
-    background: #F0EEE9 !important;
-    color: #1A1A1A !important;
-    box-shadow: var(--sombra-oro), 0 4px 10px rgba(0, 0, 0, 0.2) !important;
-    border: none !important;
-    transition: all 0.3s ease !important;
+    background: #F0EEE9;
+    color: #1A1A1A;
+    box-shadow: var(--sombra-oro), 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .bienvenida-btn:not(:disabled)::before {
@@ -653,80 +345,56 @@ body.nuevo #telefono-container {
 }
 
 .bienvenida-btn:not(:disabled):hover {
-    background: #F5F3EF !important;
+    background: #F5F3EF;
     transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
 }
 
-.acceso-container .btn:not(:disabled) {
-    box-shadow: var(--sombra-oro) !important;
+.bienvenida-btn:not(:disabled):active {
+    transform: translateY(0);
 }
 
-.acceso-container .btn:not(:disabled):hover {
-    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5) !important;
+/* ==================== CLASES DE ESTADO ==================== */
+body.recurrente #telefono-container {
+    display: none;
 }
 
-.campo-input.valido {
-    box-shadow: var(--brillo-interno), 0 0 0 2px rgba(255, 215, 0, 0.3) !important;
+body.nuevo #telefono-container {
+    display: block;
 }
 
-/* Texto de ayuda MÁS GRANDE (feedback usuarios) */
-.campo-ayuda {
-    font-size: 0.85rem !important;
+/* ==================== VERSIÓN ==================== */
+.bienvenida-version {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 20px;
 }
 
-.bienvenida-container {
-    box-shadow: var(--sombra-profunda), 0 0 0 1px rgba(255, 215, 0, 0.1) inset;
-    background-image: 
-        repeating-linear-gradient(45deg, 
-            rgba(255,215,0,0.01) 0px, 
-            rgba(255,215,0,0.01) 2px, 
-            transparent 2px, 
-            transparent 6px);
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 380px) {
+    .titulo-linea {
+        font-size: 2.5rem;
+    }
+    
+    .titulo-linea.dorado {
+        font-size: 3rem;
+    }
+    
+    .emblema-carta {
+        font-size: 2.5rem;
+    }
+    
+    .campo-input {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+    }
+    
+    .campo-label {
+        font-size: 0.75rem;
+    }
+    
+    .campo-container {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
 }
-
-.emblema-carta {
-    animation: flotar-elegante 14s infinite alternate ease-in-out;
-}
-
-@keyframes flotar-elegante {
-    0% { transform: translateY(0) rotate(0deg); }
-    33% { transform: translateY(-5px) rotate(-1deg); }
-    66% { transform: translateY(-8px) rotate(1deg); }
-    100% { transform: translateY(-4px) rotate(0deg); }
-}
-
-.emblema-carta:nth-child(1) { animation-delay: 0s; }
-.emblema-carta:nth-child(2) { animation-delay: 1.5s; }
-.emblema-carta:nth-child(3) { animation-delay: 3s; }
-.emblema-carta:nth-child(4) { animation-delay: 4.5s; }
-
-.bienvenida-container .particula {
-    width: 3px;
-    height: 3px;
-    background: #FFD700;
-    filter: blur(1.5px);
-    box-shadow: 0 0 15px #FFD700;
-    opacity: 0.25;
-}
-
-@keyframes particula-luz-refinada {
-    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-    10% { opacity: 0.3; }
-    30% { transform: translateY(-60px) translateX(15px) scale(1.5); opacity: 0.4; }
-    70% { opacity: 0.3; }
-    100% { transform: translateY(-150px) translateX(30px) scale(0.8); opacity: 0; }
-}
-
-.particula:nth-child(1) { animation: particula-luz-refinada 20s infinite 0s; }
-.particula:nth-child(2) { animation: particula-luz-refinada 24s infinite 4s; }
-.particula:nth-child(3) { animation: particula-luz-refinada 22s infinite 8s; }
-.particula:nth-child(4) { animation: particula-luz-refinada 28s infinite 2s; }
-.particula:nth-child(5) { animation: particula-luz-refinada 26s infinite 12s; }
-
-.bienvenida-divisor {
-    height: 3px;
-    border-radius: 3px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-/* ==================== FIN CAPAS VISUALES ==================== */
