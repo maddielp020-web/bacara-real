@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // ==================== DATOS DE PRUEBA ====================
     const jugador = {
         username: "@antonio",
-        saldo: 1250,
+        saldo: 0,
         esAdmin: false
     };
     
