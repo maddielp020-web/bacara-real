@@ -1,5 +1,6 @@
 // ==================== LOBBY - DATOS SIMULADOS Y COMPORTAMIENTO ====================
-// Versión limpia - 1.0 - Sin estilos inline, URL como constante
+// Versión 1.1 - CON TODOS LOS CAMBIOS FUNCIONALES SOLICITADOS
+// La gaveta SOLO se abre con el botón ENTRAR
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -112,6 +113,38 @@ document.addEventListener('DOMContentLoaded', function() {
         renderizarMesas(montoActual);
     }
     
+    // ==================== GAVETA - COMPORTAMIENTO ====================
+    let mesaAbierta = null;
+    
+    function toggleGaveta(header, mesaCard) {
+        const gaveta = mesaCard.querySelector('.mesa-gaveta');
+        if (!gaveta) return;
+        
+        const mesaHeader = mesaCard.querySelector('.mesa-header');
+        
+        if (mesaAbierta && mesaAbierta !== mesaCard) {
+            const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+            const headerAnterior = mesaAbierta.querySelector('.mesa-header');
+            
+            if (gavetaAnterior) {
+                gavetaAnterior.classList.remove('abierta');
+            }
+            if (headerAnterior) {
+                headerAnterior.classList.remove('active');
+            }
+        }
+        
+        gaveta.classList.toggle('abierta');
+        
+        if (gaveta.classList.contains('abierta')) {
+            mesaAbierta = mesaCard;
+            if (mesaHeader) mesaHeader.classList.add('active');
+        } else {
+            mesaAbierta = null;
+            if (mesaHeader) mesaHeader.classList.remove('active');
+        }
+    }
+    
     // ==================== RENDERIZAR MESAS ====================
     function renderizarMesas(intencionMonto = null) {
         mesasLista.innerHTML = '';
@@ -177,40 +210,41 @@ document.addEventListener('DOMContentLoaded', function() {
                 accionDiv.innerHTML = '<span class="btn-llena">LLENA</span>';
             } else {
                 const entrarBtn = document.createElement('button');
-            entrarBtn.className = 'btn-entrar';
-            entrarBtn.textContent = '▶ ENTRAR';
-            entrarBtn.dataset.mesaId = mesa.id;
-            
-            entrarBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                console.log(`👆 Mesa #${mesa.id} seleccionada (monto mesa: ${mesa.monto}₽)`);
+                entrarBtn.className = 'btn-entrar';
+                entrarBtn.textContent = '▶ ENTRAR';
+                entrarBtn.dataset.mesaId = mesa.id;
                 
-                // ABRIR LA GAVETA
-                const gaveta = mesaCard.querySelector('.mesa-gaveta');
-                const header = mesaCard.querySelector('.mesa-header');
-                
-                if (gaveta) {
-                    // Cerrar cualquier otra gaveta abierta
-                    if (mesaAbierta && mesaAbierta !== mesaCard) {
-                        const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
-                        const headerAnterior = mesaAbierta.querySelector('.mesa-header');
-                        
-                        if (gavetaAnterior) {
-                            gavetaAnterior.classList.remove('abierta');
-                        }
-                        if (headerAnterior) {
-                            headerAnterior.classList.remove('active');
-                        }
-                    }
+                entrarBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    console.log(`👆 Mesa #${mesa.id} seleccionada (monto mesa: ${mesa.monto}₽)`);
                     
-                    // Abrir la gaveta actual
-                    gaveta.classList.add('abierta');
-                    mesaAbierta = mesaCard;
-                    if (header) header.classList.add('active');
-                }
-            });
-            
-            accionDiv.appendChild(entrarBtn);
+                    // ABRIR LA GAVETA (SOLO AQUÍ, NO EN EL HEADER)
+                    const gaveta = mesaCard.querySelector('.mesa-gaveta');
+                    const header = mesaCard.querySelector('.mesa-header');
+                    
+                    if (gaveta) {
+                        // Cerrar cualquier otra gaveta abierta
+                        if (mesaAbierta && mesaAbierta !== mesaCard) {
+                            const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+                            const headerAnterior = mesaAbierta.querySelector('.mesa-header');
+                            
+                            if (gavetaAnterior) {
+                                gavetaAnterior.classList.remove('abierta');
+                            }
+                            if (headerAnterior) {
+                                headerAnterior.classList.remove('active');
+                            }
+                        }
+                        
+                        // Abrir la gaveta actual
+                        gaveta.classList.add('abierta');
+                        mesaAbierta = mesaCard;
+                        if (header) header.classList.add('active');
+                    }
+                });
+                
+                accionDiv.appendChild(entrarBtn);
+            }
             
             header.appendChild(infoDiv);
             header.appendChild(accionDiv);
@@ -243,44 +277,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
             
+            // ===== ELIMINADO: Event listener del header que abría la gaveta =====
+            // Ahora el header NO abre la gaveta
+            
             mesaCard.appendChild(header);
             mesaCard.appendChild(gaveta);
             mesasLista.appendChild(mesaCard);
         });
         
         console.log(`🎲 Mostradas ${mesasAMostrar.length} mesas`);
-    }
-    
-    // ==================== GAVETA - COMPORTAMIENTO ====================
-    let mesaAbierta = null;
-    
-    function toggleGaveta(header, mesaCard) {
-        const gaveta = mesaCard.querySelector('.mesa-gaveta');
-        if (!gaveta) return;
-        
-        const mesaHeader = mesaCard.querySelector('.mesa-header');
-        
-        if (mesaAbierta && mesaAbierta !== mesaCard) {
-            const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
-            const headerAnterior = mesaAbierta.querySelector('.mesa-header');
-            
-            if (gavetaAnterior) {
-                gavetaAnterior.classList.remove('abierta');
-            }
-            if (headerAnterior) {
-                headerAnterior.classList.remove('active');
-            }
-        }
-        
-        gaveta.classList.toggle('abierta');
-        
-        if (gaveta.classList.contains('abierta')) {
-            mesaAbierta = mesaCard;
-            if (mesaHeader) mesaHeader.classList.add('active');
-        } else {
-            mesaAbierta = null;
-            if (mesaHeader) mesaHeader.classList.remove('active');
-        }
     }
     
     // ==================== FILTRO POR MONTO Y SINCRONIZACIÓN ====================
