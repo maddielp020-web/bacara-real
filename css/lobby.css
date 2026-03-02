@@ -1,5 +1,5 @@
 /* ==================== LOBBY - ESTILOS ESPECÍFICOS ==================== */
-/* Versión limpia - 1.0 - SIN duplicados, !important mínimo */
+/* Versión 1.1 - CON TODOS LOS CAMBIOS VISUALES SOLICITADOS */
 /* Depende de global.css - NO DUPLICAR VARIABLES */
 
 .lobby-container {
@@ -39,7 +39,7 @@
     font-size: 1.1rem;
 }
 
-/* ==================== BOTÓN VOLVER (LOBBY) ==================== */
+/* ==================== BOTÓN VOLVER (LOBBY) - ACTUALIZADO ==================== */
 .btn-volver-lobby {
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(8px);
@@ -366,6 +366,7 @@
     font-size: 0.8rem;
 }
 
+/* ==================== BOTÓN ENTRAR - ACTUALIZADO ==================== */
 .btn-entrar {
     background: var(--verde-bacara);
     color: white;
@@ -394,10 +395,12 @@
     background: #666;
 }
 
-/* Gaveta */
+/* ==================== GAVETA - ACTUALIZADA ==================== */
 .mesa-gaveta {
     display: none;
-    background: #222222;
+    background: rgba(0, 154, 68, 0.08);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-top: 1px solid rgba(255, 215, 0, 0.2);
     padding: 20px;
     animation: slideDown 0.3s ease;
@@ -435,8 +438,9 @@
     text-align: center;
 }
 
+/* ==================== BOTÓN COMPRAR FICHAS - ACTUALIZADO ==================== */
 .btn-comprar-gaveta {
-    background: var(--azul-casino);
+    background: #006633;
     color: white;
     border: none;
     border-radius: 30px;
@@ -452,7 +456,8 @@
 
 .btn-comprar-gaveta:hover,
 .btn-comprar-gaveta:focus {
-    background: var(--azul-brillante);
+    background: #008A45;
+    filter: brightness(1.1);
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
     transform: scale(1.02);
 }
