@@ -41,9 +41,11 @@
 
 /* ==================== BOTÓN VOLVER (LOBBY) ==================== */
 .btn-volver-lobby {
-    background: transparent;
-    border: 2px solid var(--oro-puro);
-    color: var(--oro-puro);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #000000;
     font-size: 1.8rem;
     font-weight: 700;
     width: 45px;
@@ -56,14 +58,16 @@
     transition: all 0.2s ease;
     padding: 0;
     line-height: 1;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .btn-volver-lobby:hover,
 .btn-volver-lobby:active {
-    background: var(--oro-puro);
-    color: #0A0A0A;
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    color: #000000;
 }
 
 /* ==================== TÍTULO LOBBY ==================== */
@@ -363,19 +367,22 @@
 }
 
 .btn-entrar {
-    background: var(--azul-casino);
+    background: var(--verde-bacara);
     color: white;
     border: none;
-    border-radius: 30px;
-    padding: 8px 18px;
+    border-radius: 40px;
+    padding: 8px 20px;
     font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .btn-entrar:hover,
 .btn-entrar:focus {
-    background: var(--azul-brillante);
+    background: var(--verde-bacara);
+    filter: brightness(1.1);
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
     transform: scale(1.02);
 }
