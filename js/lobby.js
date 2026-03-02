@@ -177,17 +177,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 accionDiv.innerHTML = '<span class="btn-llena">LLENA</span>';
             } else {
                 const entrarBtn = document.createElement('button');
-                entrarBtn.className = 'btn-entrar';
-                entrarBtn.textContent = '▶ ENTRAR';
-                entrarBtn.dataset.mesaId = mesa.id;
+            entrarBtn.className = 'btn-entrar';
+            entrarBtn.textContent = '▶ ENTRAR';
+            entrarBtn.dataset.mesaId = mesa.id;
+            
+            entrarBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                console.log(`👆 Mesa #${mesa.id} seleccionada (monto mesa: ${mesa.monto}₽)`);
                 
-                entrarBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    console.log(`👆 Mesa #${mesa.id} seleccionada (monto mesa: ${mesa.monto}₽)`);
-                });
+                // ABRIR LA GAVETA
+                const gaveta = mesaCard.querySelector('.mesa-gaveta');
+                const header = mesaCard.querySelector('.mesa-header');
                 
-                accionDiv.appendChild(entrarBtn);
-            }
+                if (gaveta) {
+                    // Cerrar cualquier otra gaveta abierta
+                    if (mesaAbierta && mesaAbierta !== mesaCard) {
+                        const gavetaAnterior = mesaAbierta.querySelector('.mesa-gaveta');
+                        const headerAnterior = mesaAbierta.querySelector('.mesa-header');
+                        
+                        if (gavetaAnterior) {
+                            gavetaAnterior.classList.remove('abierta');
+                        }
+                        if (headerAnterior) {
+                            headerAnterior.classList.remove('active');
+                        }
+                    }
+                    
+                    // Abrir la gaveta actual
+                    gaveta.classList.add('abierta');
+                    mesaAbierta = mesaCard;
+                    if (header) header.classList.add('active');
+                }
+            });
+            
+            accionDiv.appendChild(entrarBtn);
             
             header.appendChild(infoDiv);
             header.appendChild(accionDiv);
@@ -219,11 +242,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = URL_COMPRA;
                 });
             }
-            
-            header.addEventListener('click', function(e) {
-                if (e.target.closest('.btn-entrar')) return;
-                toggleGaveta(this, mesaCard);
-            });
             
             mesaCard.appendChild(header);
             mesaCard.appendChild(gaveta);
