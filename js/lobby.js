@@ -1,6 +1,8 @@
 // ==================== LOBBY - DATOS SIMULADOS Y COMPORTAMIENTO ====================
-// Versión 1.1 - CON TODOS LOS CAMBIOS FUNCIONALES SOLICITADOS
-// La gaveta SOLO se abre con el botón ENTRAR
+// Versión 1.2 - CON TODOS LOS AJUSTES FUNCIONALES FINALES
+// - Mesas ocultas hasta selección de monto
+// - Botón ENTRAR deshabilitado sin selección
+// - COMPRAR FICHAS redirige directo al bot
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -214,6 +216,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 entrarBtn.textContent = '▶ ENTRAR';
                 entrarBtn.dataset.mesaId = mesa.id;
                 
+                // Deshabilitar botón si no hay monto seleccionado
+                const montoActual = montoInput.value ? parseInt(montoInput.value) : null;
+                if (!montoActual || isNaN(montoActual) || montoActual < 200 || montoActual % 50 !== 0) {
+                    entrarBtn.disabled = true;
+                }
+                
                 entrarBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     console.log(`👆 Mesa #${mesa.id} seleccionada (monto mesa: ${mesa.monto}₽)`);
@@ -266,13 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (comprarBtn) {
                 comprarBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    
-                    // Verificar saldo antes de redirigir
-                    if (jugador.saldo < mesa.monto) {
-                        alert('Saldo insuficiente para esta mesa');
-                        return;
-                    }
-                    
+                    // REDIRECCIÓN DIRECTA AL BOT - SIN VALIDACIONES
                     window.location.href = URL_COMPRA;
                 });
             }
@@ -330,8 +332,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // ==================== INICIALIZACIÓN ====================
-    renderizarMesas();
+    // NO renderizar mesas al inicio (solo feedback de monto)
     actualizarFeedbackMonto();
+    // El contenedor de mesas empieza vacío
+    mesasLista.innerHTML = '';
+    console.log('🔄 Mesas ocultas hasta selección de monto');
     
     console.log('✅ Lobby cargado - Modo simulación');
     if (jugador.esAdmin) {
