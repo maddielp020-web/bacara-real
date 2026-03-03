@@ -7,7 +7,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     // ==================== CONSTANTES ====================
-    const URL_COMPRA = 'https://t.me/mesa_baccarat_bot?start=deposito';
+    const URL_COMPRA = 'https://t.me/BacaraRealBot?start=deposito';
     
     const ESTADO_ICONOS = {
         6: '⚪',
